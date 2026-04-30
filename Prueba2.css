@@ -191,7 +191,7 @@ nav a:hover { color: var(--color-boton); }
     se hace que el brillo y el contraste aumenten en las letras dentro del contenedor */
 #portada-principal-inicio { 
     height: 80vh; 
-    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('Img/Fondo.png') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png') center/cover;
     display: flex; filter: brightness(1.1) contrast(1.1); 
     flex-direction: column; justify-content: center; align-items: center; 
     text-align: center; color: var(--color-claro); 
@@ -221,7 +221,7 @@ nav a:hover { color: var(--color-boton); }
 /* Portadas más pequeñas para otras páginas */
 .portada-interna {
     height: 40vh; 
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('Img/Fondo.png') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png') center/cover;
     display: flex; justify-content: center; align-items: center;
     color: var(--color-claro); text-align: center;
 }
@@ -331,12 +331,12 @@ nav a:hover { color: var(--color-boton); }
 .portada-mediana-itinerario { height: 50vh; }
 
 /* Asigna la foto oscura correcta a la portada de cada ciudad */
-.foto-fondo-huacachina { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('Img/Huacachina.png'); }
-.foto-fondo-cachiche { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('Img/Cachiche.png'); }
-.foto-fondo-canon { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('Img/Canon.png'); }
-.foto-fondo-nazca { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('Img/Nazca.png'); }
-.foto-fondo-paracas { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('Img/Paracas.png'); }
-.foto-fondo-pisco { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('Img/Vino.png'); }
+.foto-fondo-huacachina { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/v1777565899/Huacachina_ychv1i.jpg'); }
+.foto-fondo-cachiche { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565897/Cachiche_ldhawm.jpg'); }
+.foto-fondo-canon { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Canon_qvffvb.jpg'); }
+.foto-fondo-nazca { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565900/Nazca_x1bn1j.jpg'); }
+.foto-fondo-paracas { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Paracas_u8jfq9.jpg'); }
+.foto-fondo-pisco { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565908/Vino_dhb9g5.jpg'); }
 
 .contenido-principal-itinerario { padding: 0 20px; }
 
@@ -469,7 +469,7 @@ nav a:hover { color: var(--color-boton); }
 /* Foto oscura a pantalla completa detrás del formulario */
 .pantalla-completa-con-fondo {
     min-height: calc(100vh - 80px);
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('Img/Fondo.png') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png') center/cover;
     display: flex; justify-content: center; align-items: center; padding: 40px 20px;
 }
 
@@ -489,7 +489,7 @@ nav a:hover { color: var(--color-boton); }
 /* 12. DISEÑO DEL COMPROBANTE DE COMPRA */
 .fondo-oscuro-para-ticket {
     display: flex; justify-content: center; padding: 60px 20px;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Img/Fondo.png') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png') center/cover;
 }
 
 /* El rectángulo blanco con forma de hoja de papel */

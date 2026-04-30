@@ -20,17 +20,13 @@ function cambiarSelectorFecha() {
 // Esperar a que el DOM esté completamente cargado
 // Esperamos a que la página cargue totalmente
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // Seleccionamos el botón y el menú por sus IDs
-    const botonMenu = document.getElementById('botonMenu');
-    const menuPrincipal = document.getElementById('menuPrincipal');
+    const boton = document.getElementById('botonMenu');
+    const menu = document.getElementById('menuPrincipal');
 
-    // Si el botón existe, le agregamos la función de clic
-    if (botonMenu && menuPrincipal) {
-        botonMenu.addEventListener('click', () => {
-            // "toggle" pone la clase 'activo' si no está, y la quita si ya está
-            menuPrincipal.classList.toggle('activo');
-            console.log("Menú clickeado"); // Esto es para que revises en consola si funciona
+    if (boton && menu) {
+        boton.addEventListener('click', () => {
+            menu.classList.toggle('activo');
+            boton.classList.toggle('abierto');
         });
     }
 });
