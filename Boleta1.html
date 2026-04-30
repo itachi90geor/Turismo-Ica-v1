@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobante de Reserva | Turismo Ica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Prueba2.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><h1>Turismo Ica</h1></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li><a href="Destino.html">Destinos</a></li>
+                <li><a href="Reserva.html">Reservas</a></li>
+                <li><a href="Tabla_Des_Iti.html">Itinerarios</a></li>
+                <li class="linea-divisora-menu">|</li>
+                <li><a href="Login.html" class="enlace-login">Ingresar</a></li>
+                <li><a href="Registro.html" class="btn-registro">Registrarse</a></li>                
+            </ul>
+        </nav>
+    </header>
+
+    <main class="fondo-oscuro-para-ticket">
+        
+        <div class="papel-del-ticket">
+            
+            <div class="franja-roja-arriba-ticket">
+                <h2>Comprobante Digital</h2>
+                <p>Orden #ICA-2026-0425</p>
+            </div>
+
+            <div class="cuerpo-blanco-ticket">
+                
+                <div class="fila-dato-cliente">
+                    <span>CLIENTE</span>
+                    <span>Juan Pérez</span>
+                </div>
+                <div class="fila-dato-cliente">
+                    <span>DESTINO</span>
+                    <span>Oasis de la Huacachina</span>
+                </div>
+                <div class="fila-dato-cliente">
+                    <span>FECHA DE VIAJE</span>
+                    <span>25 de Abril, 2026</span>
+                </div>
+                <div class="fila-dato-cliente">
+                    <span>TIPO DE TOUR</span>
+                    <span>Grupal (Tubulares)</span>
+                </div>
+                <div class="fila-dato-cliente">
+                    <span>PASAJEROS</span>
+                    <span>2 Adultos</span>
+                </div>
+                <div class="fila-dato-cliente">
+                    <span>MÉTODO DE PAGO</span>
+                    <span>Tarjeta de Crédito</span>
+                </div>
+
+                <div class="cuadro-gris-total">
+                    <span>TOTAL PAGADO</span>
+                    <h3>S/ 90.00</h3>
+                </div>
+
+                <div class="cuadro-falso-qr">
+                    <p>CÓDIGO QR <br> DE VALIDACIÓN</p>
+                </div>
+                
+                <p style="text-align: center; font-size: 0.8rem; color: #888; margin-top: 20px;">
+                    Gracias por confiar en Turismo Ica.<br>Presente este ticket al abordar.
+                </p>
+
+                <div class="ocultar-impresion" style="text-align: center; margin-top: 30px;">
+                    <button onclick="window.print()" class="boton-rojo-ingresar" style="width: auto; padding: 12px 30px;">Imprimir Comprobante</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Grupo 6, 2026 Turismo Ica. Todos los derechos reservados.</p>
+        <p>Vive la experiencia del eterno sol.</p>
+    </footer>
+
+</body>
+</html>

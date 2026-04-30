@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Líneas de Nazca | Turismo Ica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Prueba2.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Turismo Ica</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li><a href="Destino.html">Destinos</a></li>
+                <li><a href="Reserva.html">Reservas</a></li>
+                <li><a href="Tabla_Des_Iti.html">Itinerarios</a></li>
+                
+                <li class="linea-divisora-menu">|</li>
+
+                <li><a href="login.html" class="enlace-login">Ingresar</a></li>
+                <li><a href="registro.html" class="btn-registro">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="portada-interna foto-fondo-nazca">
+        <h2>Sobrevuelo Líneas de Nazca</h2>
+    </section>
+
+    <main class="pantalla-dividida-historia-reserva">
+        
+        <section class="lado-izquierdo-historia">
+            <h2 class="texto-titulo-grande">Detalles del Tour</h2>
+            <p>Descubre uno de los mayores enigmas de la arqueología mundial desde el cielo. En este espectacular sobrevuelo de 35 minutos en avioneta (tipo Cessna), podrás observar claramente las impresionantes figuras geométricas y de animales como el Colibrí, el Mono, la Araña y el famoso Astronauta, trazadas en el desierto hace más de 2000 años.</p>
+            
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">Galería de Imágenes</h3>
+            <div class="grilla-de-fotos-pequenas">
+                <img src="Img/Nazca_0.png" alt="El Colibrí"> 
+                <img src="Img/Nazca_1.png" alt="Avioneta en Nazca"> 
+                <img src="Img/Nazca_2.png" alt="El Astronauta">
+                <img src="Img/Nazca_3.png" alt="El Mono">
+            </div>
+
+            <div class="contenedor-boton-al-medio" style="margin-top: 20px;">
+                <a href="Info_Nazca.html" class="boton-rojo-ingresar" style="width: auto; padding: 10px 25px;">Más Información</a>
+            </div>
+
+            <hr class="raya-horizontal-divisora">
+
+            <h3 style="margin-bottom: 20px;">Comentarios de Viajeros</h3>
+            <div class="cuadro-opinion-cliente">
+                <h4>Fernando Castillo</h4>
+                <p>Impresionante. Recomiendo tomar pastillas para el mareo antes de subir porque la avioneta da muchas vueltas para que todos puedan ver las figuras de ambos lados, pero vale la pena cada segundo.</p>
+            </div>
+            <div class="cuadro-opinion-cliente">
+                <h4>Elena Torres</h4>
+                <p>Los pilotos te explican todo por los audífonos y te ayudan a ubicar las figuras. Es un tour que tienes que hacer al menos una vez en la vida.</p>
+            </div>
+        </section>
+
+        <aside class="lado-derecho-formulario">
+            <div class="formulario-que-te-persigue">
+                <h3>Reserva tu Sobrevuelo</h3>
+                <p style="margin-bottom: 20px; font-size: 0.85rem; color: #666; text-align: center;">Sujeto a condiciones climáticas.</p>
+                
+                <form action="#" method="POST">
+                    <div class="contenedor-pregunta-respuesta">
+                        <label for="tipo-tour">Tipo de Vuelo:</label>
+                        <select id="tipo-tour" name="tipo-tour" onchange="cambiarSelectorFecha()">
+                            <option value="grupal">Vuelo Compartido</option>
+                            <option value="privado">Vuelo Privado - Avioneta completa</option>
+                        </select>
+                    </div>
+
+                    <div class="contenedor-pregunta-respuesta" id="contenedor-fechas-fijas">
+                        <label for="fecha-grupal">Días de salida programados:</label>
+                        <select id="fecha-grupal" name="fecha-grupal">
+                            <option value="sabado-1">Sábado 25 de Abril</option>
+                            <option value="domingo-1">Domingo 26 de Abril</option>
+                            <option value="sabado-2">Sábado 2 de Mayo</option>
+                        </select>
+                    </div>
+
+                    <div class="contenedor-pregunta-respuesta" id="contenedor-fecha-libre" style="display: none;">
+                        <label for="fecha-privado">Elige el día de tu tour:</label>
+                        <input type="date" id="fecha-privado" name="fecha-privado">
+                    </div>
+                    
+                    <div class="contenedor-pregunta-respuesta">
+                        <label for="pasajeros">Número de Pasajeros:</label>
+                        <input type="number" id="pasajeros" name="pasajeros" min="1" value="1" required>
+                    </div>
+
+                    <button type="submit">Añadir a la Reserva</button>
+                </form>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <p>Grupo 6, 2026 Turismo Ica. Todos los derechos reservados.</p>
+        <p>Vive la experiencia del eterno sol.</p>
+    </footer>
+
+    <script src="Prueba2.js"></script>
+
+</body>
+</html>

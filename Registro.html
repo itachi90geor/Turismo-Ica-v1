@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Turismo Ica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Prueba2.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Turismo Ica</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li><a href="Destino.html">Destinos</a></li>
+                <li><a href="Reserva.html">Reservas</a></li>
+                <li><a href="Tabla_Des_Iti.html">Itinerarios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="pantalla-completa-con-fondo">
+        
+        <div class="cuadro-vidrio-borroso">
+            
+            <h2 style="text-align: center; margin-bottom: 25px; color: var(--color-oscuro);">Crea tu Cuenta</h2>
+
+            <form action="#" method="POST">
+                
+                <div class="contenedor-pregunta-respuesta">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+                </div>
+
+                <div class="contenedor-pregunta-respuesta">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="contenedor-pregunta-respuesta">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="Crea una contraseña segura" required>
+                </div>
+
+                <div class="contenedor-pregunta-respuesta">
+                    <label for="confirm-password">Confirmar Contraseña</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Repite tu contraseña" required>
+                </div>
+
+                <button type="submit" class="boton-rojo-ingresar" style="margin-top: 10px;">Registrarme</button>
+
+                <p style="margin-top: 25px; text-align: center; font-size: 0.95rem; color: #444;">
+                    ¿Ya tienes una cuenta? <br>
+                    <a href="Login.html" style="color: var(--color-boton); font-weight: bold; text-decoration: none; display: inline-block; margin-top: 5px;">Ingresa aquí</a>
+                </p>
+            </form>
+            
+        </div>
+    </main>
+
+    <footer>
+        <p>Grupo 6, 2026 Turismo Ica. Todos los derechos reservados.</p>
+        <p>Vive la experiencia del eterno sol.</p>
+    </footer>
+
+</body>
+</html>

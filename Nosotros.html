@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros | Turismo Ica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Prueba2.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Turismo Ica</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li><a href="Destino.html">Destinos</a></li>
+                <li><a href="Reserva.html">Reservas</a></li>
+                <li><a href="Tabla_Des_Iti.html">Itinerarios</a></li>
+                
+                <li class="linea-divisora-menu">|</li>
+                
+                <li><a href="Login.html" class="enlace-login">Ingresar</a></li>
+                <li><a href="Registro.html" class="btn-registro">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="portada-interna">
+            <h2>Sobre el Grupo 6</h2>
+        </section>
+
+        <section id="seccion-catalogo-viajes"> 
+            <h2 class="texto-titulo-grande">Nuestra Misión</h2>
+            <p style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: #535353;">
+                Somos estudiantes apasionados por la cultura y el turismo de la región sur del Perú. 
+                Nuestra agencia busca conectar a los viajeros con las raíces, la adrenalina y la gastronomía de Ica, 
+                ofreciendo experiencias seguras e inolvidables en el desierto y el océano.
+            </p>
+        </section>
+
+        <section id="area-formulario-principal">
+            <h2 class="texto-titulo-grande">Contáctanos</h2>
+            <form action="#" method="POST">
+                <div class="contenedor-pregunta-respuesta">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                </div>
+                <div class="contenedor-pregunta-respuesta">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                </div>
+                <div class="contenedor-pregunta-respuesta">
+                    <label for="mensaje">¿Cuál es tu consulta?</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe aquí tu mensaje..." required></textarea>
+                </div>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Grupo 6, 2026 Turismo Ica. Todos los derechos reservados.</p>
+        <p>Vive la experiencia del eterno sol.</p>
+    </footer>
+
+</body>
+</html>

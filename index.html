@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turismo Ica | Inicio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Prueba2.css">
+</head>
+<body> 
+
+    <header>
+        <div class="logo">
+            <h1>Turismo Ica</h1>
+        </div>
+
+        <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
+            <span class="linea-menu"></span>
+            <span class="linea-menu"></span>
+            <span class="linea-menu"></span>
+        </button>
+
+        <nav id="menuPrincipal">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li><a href="Destino.html">Destinos</a></li>
+                <li><a href="Reserva.html">Reservas</a></li>
+                <li><a href="Tabla_Des_Iti.html">Itinerarios</a></li>
+                <li><a href="Preguntas.html">Preguntas</a></li>
+                <li><a href="Login.html" class="enlace-login">Ingresar</a></li>
+                <li><a href="Registro.html" class="btn-registro">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="portada-principal-inicio">
+            <h2>El encanto del sur</h2>
+            <p>Aventura en las dunas, misterio en el océano y la mejor gastronomía.</p>
+            <a href="Destino.html" class="boton-llamativo-portada">Ver Destinos</a>
+        </section>
+
+        <section id="seccion-catalogo-viajes">
+            <h2 class="texto-titulo-grande">Tours Destacados</h2>
+            <div class="grilla-de-cuadritos">
+                                <a class='cuadrito-viaje' href='/detalle_huacachina'>
+                    <figure>
+                        <img src="Img/Huacachina.png" alt="Oasis de la Huacachina" class="foto-del-viaje">
+                    </figure>
+                    <div class="textos-del-viaje">
+                        <h3>Huacachina</h3>
+                        <p>Siente la adrenalina en los tubulares y atrévete a practicar sandboard en las dunas más altas de América.</p>
+                        
+                        <div class="caja-de-precios">
+                            <div class="opcion-de-precio">
+                                <span>Grupal</span>
+                                <strong>S/ 45.00</strong>
+                            </div>
+                            
+                            <div class="linea-vertical-precios"></div>
+                            
+                            <div class="opcion-de-precio privado">
+                                <span>Privado</span>
+                                <strong>S/ 120.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class='cuadrito-viaje' href='/detalle_paracas'>
+                    <figure>
+                        <img src="Img/Paracas.png" alt="Islas Ballestas" class="foto-del-viaje">
+                    </figure>
+                    <div class="textos-del-viaje">
+                        <h3>Reserva de Paracas</h3>
+                        <p>Navega hacia las Islas Ballestas, encuentra fauna marina increíble y disfruta del paseo en barco.</p>
+                        
+                        <div class="caja-de-precios">
+                            <div class="opcion-de-precio">
+                                <span>Grupal</span>
+                                <strong>S/ 50.00</strong>
+                            </div>
+                            
+                            <div class="linea-vertical-precios"></div>
+                            
+                            <div class="opcion-de-precio privado">
+                                <span>Privado</span>
+                                <strong>S/ 150.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Grupo 6, 2026 Turismo Ica. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="Prueba2.js"></script>
+</body>
+</html>

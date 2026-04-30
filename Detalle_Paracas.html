@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Paracas | Turismo Ica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Prueba2.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><h1>Turismo Ica</h1></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li><a href="Destino.html">Destinos</a></li>
+                <li><a href="Reserva.html">Reservas</a></li>
+                <li><a href="Tabla_Des_Iti.html">Itinerarios</a></li>
+                <li class="linea-divisora-menu">|</li>
+                <li><a href="Login.html" class="enlace-login">Ingresar</a></li>
+                <li><a href="Registro.html" class="btn-registro">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="portada-interna foto-fondo-paracas">
+        <h2>Reserva Nacional de Paracas</h2>
+    </section>
+
+    <main class="pantalla-dividida-historia-reserva">
+        <section class="lado-izquierdo-historia">
+            <h2 class="texto-titulo-grande">Detalles del Tour</h2>
+            <p>Sube a nuestros modernos deslizadores y embárcate en una aventura hacia las Islas Ballestas. Apreciaremos el geoglifo de "El Candelabro" y estaremos rodeados de lobos marinos y pingüinos en su hábitat natural.</p>
+            
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">Galería de Imágenes</h3>
+            <div class="grilla-de-fotos-pequenas">
+                <img src="Img/Paracas_0.png" alt="Foto 1">
+                <img src="Img/Paracas_1.png" alt="Foto 2">
+                <img src="Img/Paracas_2.png" alt="Foto 3">
+                <img src="Img/Paracas_3.png" alt="Foto 4">
+            </div>
+
+            <div class="contenedor-boton-al-medio" style="margin-top: 20px;">
+                <a href="Info_Paracas.html" class="boton-rojo-ingresar" style="width: auto; padding: 10px 25px;">Más Información</a>
+            </div>
+
+            <hr class="raya-horizontal-divisora">
+
+            <h3 style="margin-bottom: 20px;">Comentarios de Viajeros</h3>
+            <div class="cuadro-opinion-cliente">
+                <h4>Diego Vargas</h4>
+                <p>Pudimos ver a los pingüinos súper cerca. El guía explicó toda la historia del Candelabro de forma excelente.</p>
+            </div>
+            <div class="cuadro-opinion-cliente">
+                <h4>Lucía Ramírez</h4>
+                <p>Tour muy puntual y organizado. La brisa marina es increíble, lleven cortavientos.</p>
+            </div>
+        </section>
+
+        <aside class="lado-derecho-formulario">
+            <div class="formulario-que-te-persigue">
+                <h3>Reserva tu Aventura</h3>
+                <form action="#" method="POST">
+                    <div class="contenedor-pregunta-respuesta">
+                        <label for="tipo-tour">Embarcación:</label>
+                        <select id="tipo-tour" onchange="cambiarSelectorFecha()">
+                            <option value="grupal">Lancha Compartida</option>
+                            <option value="privado">Yate Privado</option>
+                        </select>
+                    </div>
+                    <div class="contenedor-pregunta-respuesta" id="contenedor-fechas-fijas">
+                        <label>Salidas programadas:</label>
+                        <select>
+                            <option>Sábado 25 de Abril</option>
+                            <option>Domingo 26 de Abril</option>
+                        </select>
+                    </div>
+                    <div class="contenedor-pregunta-respuesta" id="contenedor-fecha-libre" style="display: none;">
+                        <label>Fecha especial:</label>
+                        <input type="date">
+                    </div>
+                    <div class="contenedor-pregunta-respuesta">
+                        <label>Pasajeros:</label>
+                        <input type="number" min="1" value="1" required>
+                    </div>
+                    <button type="submit">Añadir a la Reserva</button>
+                </form>
+            </div>
+        </aside>
+    </main>
+    <footer><p>Grupo 6, 2026 Turismo Ica.</p></footer>
+    <script src="Prueba2.js"></script>
+</body>
+</html>
