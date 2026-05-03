@@ -6,6 +6,7 @@
     <title>Nosotros | Turismo Ica</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Prueba2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -13,23 +14,24 @@
         <div class="logo">
             <h1>Turismo Ica</h1>
         </div>
-
-        <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
-            <span class="linea-menu"></span>
-            <span class="linea-menu"></span>
-            <span class="linea-menu"></span>
-        </button>
-
+        <div class="contenedor-derecha-header">
+            <a href="Login.html" class="enlace-perfil-usuario"> 
+                <i class="fa-solid fa-user"></i>
+            </a>
+            <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
+                <span class="linea-menu"></span>
+                <span class="linea-menu"></span>
+                <span class="linea-menu"></span>
+            </button>
+        </div>
         <nav id="menuPrincipal">
             <ul>
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="Nosotros.html">Nosotros</a></li>
                 <li><a href="Destino.html">Destinos</a></li>
                 <li><a href="Reserva.html">Reservas</a></li>
-                <li><a href="Tabla_Des_Iti.html">Itinerarios</a></li>
+                <li><a href="Tabla_Descuento.html">Descuentos</a></li>
                 <li><a href="Preguntas.html">Preguntas</a></li>
-                <li><a href="Login.html" class="enlace-login">Ingresar</a></li>
-                <li><a href="Registro.html" class="btn-registro">Registrarse</a></li>
             </ul>
         </nav>
     </header>
@@ -38,7 +40,6 @@
         <section class="portada-interna">
             <h2>Sobre el Grupo 6</h2>
         </section>
-
         <section id="seccion-catalogo-viajes"> 
             <h2 class="texto-titulo-grande">Nuestra Misión</h2>
             <p style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: #535353;">
@@ -47,7 +48,6 @@
                 ofreciendo experiencias seguras e inolvidables en el desierto y el océano.
             </p>
         </section>
-
         <section id="area-formulario-principal">
             <h2 class="texto-titulo-grande">Contáctanos</h2>
             <form action="#" method="POST">

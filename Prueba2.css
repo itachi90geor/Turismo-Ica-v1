@@ -23,11 +23,139 @@ html {
     scroll-behavior: smooth;
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* Evita que el scrollbar aparezca y desaparezca bruscamente */
+    position: relative; 
+}
+
 /* El fondo de toda la página, el color de las letras y el interlineado */
 body { 
     background: var(--color-fondo); 
     color: var(--color-oscuro); 
     line-height: 1.6; 
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* --- ESTILO MODERNO PARA DETAILS (FAQ) --- */
+
+/* Contenedor del logo y el texto */
+.logo {
+    display: flex;         /* Activa la alineación en fila */
+    align-items: center;   /* Centra verticalmente la imagen y el texto */
+    gap: 15px;             /* Añade un espacio de 15px entre el logo y el nombre */
+}
+
+/* Ajustes para el texto dentro del logo */
+.logo-texto h1 {
+    font-size: 1.5rem;     /* Ajusta el tamaño para que no se vea gigante */
+    margin: 0;             /* Quita márgenes que puedan empujar el texto hacia abajo */
+    white-space: nowrap;   /* Evita que el nombre se parta en dos líneas */
+    color: var(--color-oscuro);
+}
+
+/* Ajuste adicional para la imagen (ya la tenías, asegúrate de que esté así) */
+.logo-imagen {
+    width: 60px;           /* Un tamaño de 60px suele verse mejor alineado */
+    height: auto;
+    display: block;
+}
+
+/* Contenedor de la lista */
+.lista {
+    list-style: none;
+    max-width: 1200px; /* Aumentamos el ancho para que quepan 3 cómodamente */
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    
+    /* Activamos el Grid */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Crea 3 columnas iguales */
+    gap: 20px; /* Espacio entre los cuadros */
+    align-items: start; /* Alinea los cuadros al techo si tienen alturas distintas */
+}
+
+
+/* El cuadro de cada pregunta */
+details.elemento-lista {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+    overflow: hidden; /* Importante para la animación */
+}
+
+/* Efecto al pasar el mouse o cuando está abierto */
+details.elemento-lista:hover, 
+details.elemento-lista[open] {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    border-color: var(--color-boton);
+}
+
+/* Estilo de la pregunta (Summary) */
+.resumen-lista {
+    padding: 15px 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-oscuro);
+    list-style: none; /* Quita la flecha por defecto en algunos navegadores */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Crear una flecha personalizada con CSS */
+.resumen-lista::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: var(--color-boton);
+    transition: transform 0.3s ease;
+}
+
+/* Girar la flecha cuando se abre */
+details[open] .resumen-lista::after {
+    transform: rotate(180deg); /* Se convierte en una 'x' o gira */
+    content: '-';
+}
+
+/* Estilo del contenido de la respuesta */
+details.elemento-lista p {
+    padding: 0 25px 25px;
+    color: #666;
+    line-height: 1.7;
+    /* Animación de entrada */
+    animation: slideDown 0.4s ease forwards;
+}
+
+/* Animación para que el texto aparezca suavemente */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Quitar el marcador por defecto en Safari/Chrome */
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .lista {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Ajuste para celulares (1 columna) */
+@media (max-width: 650px) {
+    .lista {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* 2. EFECTOS DE APARICIÓN */
@@ -190,7 +318,7 @@ nav a:hover { color: var(--color-boton); }
 /* Se toma la imagen de fondo y se aplica un sombreado, tambien
     se hace que el brillo y el contraste aumenten en las letras dentro del contenedor */
 #portada-principal-inicio { 
-    height: 80vh; 
+    height: 90vh; 
     background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png') center/cover;
     display: flex; filter: brightness(1.1) contrast(1.1); 
     flex-direction: column; justify-content: center; align-items: center; 
@@ -216,6 +344,63 @@ nav a:hover { color: var(--color-boton); }
 .boton-llamativo-portada:hover {
     background-color: #c2131e; transform: translateY(-3px); 
     box-shadow: 0 10px 20px rgba(229, 29, 42, 0.3);
+}
+
+/* --- ESTILO DEL AVATAR CIRCULAR --- */
+
+/* Contenedor para agrupar avatar y hamburguesa a la derecha */
+.contenedor-derecha-header {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio entre el icono de usuario y las rayitas del menú */
+}
+
+/* El enlace que envuelve la imagen */
+.enlace-perfil-usuario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.enlace-perfil-usuario:hover {
+    transform: scale(1.1); /* Efecto de aumento al pasar el mouse */
+}
+
+/* Estilo específico para el icono de usuario */
+.enlace-perfil-usuario i {
+    font-size: 1.2rem;          /* Tamaño del icono */
+    color: var(--color-boton);  /* Usa el rojo de tu marca */
+    background-color: #fff;     /* Fondo blanco */
+    width: 40px;                /* Ancho del círculo */
+    height: 40px;               /* Alto del círculo */
+    display: flex;              /* Centra el icono dentro del círculo */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;         /* Hace que sea un círculo */
+    border: 2px solid var(--color-boton); /* Borde rojo fino */
+    transition: var(--transicion-suave);
+}
+
+/* Efecto al pasar el mouse */
+.enlace-perfil-usuario:hover i {
+    background-color: var(--color-boton);
+    color: #fff;                /* Invierte los colores */
+    transform: scale(1.1);
+}
+
+/* Ajuste del header para asegurar la alineación */
+header {
+    padding: 10px 30px; /* Reducimos un poco el padding para que no sea tan alto */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Asegurar que el botón hamburguesa no tenga margen extra */
+.menu-hamburguesa {
+    margin: 0;
+    display: flex !important; /* Mantenemos tu requerimiento de que siempre esté activo */
 }
 
 /* Portadas más pequeñas para otras páginas */
@@ -337,6 +522,11 @@ nav a:hover { color: var(--color-boton); }
 .foto-fondo-nazca { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565900/Nazca_x1bn1j.jpg'); }
 .foto-fondo-paracas { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Paracas_u8jfq9.jpg'); }
 .foto-fondo-pisco { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565908/Vino_dhb9g5.jpg'); }
+.foto-fondo-cahuachi { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777604346/Cahuachi.png'); }
+.foto-fondo-cantalloc { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777607270/Cantalloc.png'); }
+.foto-fondo-moron { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659259/Moron.png'); }
+.foto-fondo-museo { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659620/Museo.png'); }
+.foto-fondo-ocucaje { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659846/Ocucaje.png'); }
 
 .contenido-principal-itinerario { padding: 0 20px; }
 
@@ -364,107 +554,105 @@ nav a:hover { color: var(--color-boton); }
 
 /* 10. REGLAS PARA VERSE BIEN EN CELULARES (MENÚ COLAPSABLE) */
 /* Sensor: Si la pantalla es pequeña (menor a 850px), aplica estos cambios de emergencia */
-@media (max-width: 850px) {
+/* --- AJUSTES PARA MENÚ SIEMPRE ACTIVO Y LATERAL --- */
+
+/* 1. Forzar que el botón hamburguesa se vea siempre */
+.menu-hamburguesa {
+    display: flex !important; /* Visible en PC y Móvil */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1200; /* Por encima de todo */
+}
+
+.linea-menu {
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-boton);
+    border-radius: 2px;
+}
+
+/* 2. Ocultar la navegación tradicional de la cabecera */
+nav ul {
+    display: none; /* Ya no queremos la lista horizontal en el header */
+}
+
+nav#menuPrincipal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    background-color: white;
+    z-index: 1100;
+    padding: 80px 40px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
     
-    header {
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center;
-        padding: 15px 20px;
-        position: relative;
-    }
-
-    .logo h1 {
-        font-size: 1.3rem;
-    }
-
-    /* ESTILOS DEL BOTÓN HAMBURGUESA */
-    .menu-hamburguesa {
-        display: flex !important; /* Forzamos la aparición */
-        flex-direction: column;
-        justify-content: space-between;
-        width: 30px;
-        height: 20px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        z-index: 1100;
-    }
-
-    /* Líneas de color rojo para que se vean sobre cualquier fondo */
-    .linea-menu {
-        width: 100%;
-        height: 3px;
-        background-color: var(--color-boton); 
-        border-radius: 2px;
-        transition: 0.3s;
-    }
-
-    /* MENÚ DESPLEGABLE */
-    nav {
-        display: none; /* Escondido por defecto */
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: white;
-        padding: 20px 0;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        z-index: 1000;
-        animation: aparecerDesdeArriba 0.3s ease forwards;
-    }
-
-    /* La clase que activa el JS */
-    nav.activo {
-        display: block !important;
-    }
-
-    /* Ajuste para que el menú salga en filas de 2 */
-    nav ul {
-        display: grid !important; /* Cambiamos flex por grid */
-        grid-template-columns: 1fr 1fr; /* Creamos 2 columnas iguales */
-        gap: 10px; /* Espacio entre los elementos */
-        padding: 20px;
-        list-style: none;
-    }
-
-    /* Los botones de abajo (Ingresar y Registrarse) deben ocupar todo el ancho */
-    nav ul li:nth-last-child(1), 
-    nav ul li:nth-last-child(2) {
-        grid-column: span 1; /* Por ahora que sigan en su columna */
-    }
-
-    .enlace-login, .btn-registro {
-        width: 100% !important;
-        font-size: 0.8rem !important;
-        padding: 10px 5px !important;
-        text-align: center;
-    }
-
-    /* Ajuste de los enlaces para que se centren bien en sus cuadritos */
-    nav ul li {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .enlace-login, .btn-registro {
-        width: 100% !important; /* Que ocupen todo su cuadrito */
-        margin: 0;
-    }
+    /* Usamos transform para el movimiento */
+    transform: translateX(100%);
+    /* La visibilidad ahora tiene un retraso al cerrar */
+    transition: transform 0.4s ease-in-out, visibility 0s linear 0.4s;
+    visibility: hidden;
+    
+    /* Evita que el contenido se salga del panel durante la animación */
+    overflow: hidden; 
 }
 
-/* Ocultar botón en PC */
-.menu-hamburguesa { display: none; }
-
-@keyframes aparecerDesdeArriba {
-    0% { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 1; transform: translateY(0); }
+/* Cuando el menú está abierto */
+nav#menuPrincipal.activo {
+    transform: translateX(0);
+    visibility: visible;
+    /* Al abrir, la visibilidad es instantánea */
+    transition: transform 0.4s ease-in-out, visibility 0s;
 }
 
+/* 5. Ajustar la lista de enlaces dentro del panel lateral */
+nav#menuPrincipal ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+    /* Suaviza la aparición del texto */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+nav#menuPrincipal.activo ul {
+    opacity: 1;
+    transition: opacity 0.3s ease 0.2s; /* Un pequeño retraso al abrir para mejor efecto */
+}
+
+nav#menuPrincipal ul li {
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+/* Esto crea una sombra que cubre el contenido de atrás cuando el menú abre */
+nav#menuPrincipal::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: -100vw; /* Se extiende hacia la izquierda cubriendo la pantalla */
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8); /* Color negro transparente */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none; /* No estorba los clics si está oculto */
+}
+
+nav#menuPrincipal.activo::before {
+    opacity: 1;
+    pointer-events: auto; /* Bloquea clics en el contenido de atrás */
+}
+
+/* 6. Quitar la configuración antigua de @media (max-width: 850px) */
+/* Borra o comenta las reglas que escondían el nav en PC dentro de tus @media */
 /* 11. INICIAR SESIÓN Y REGISTRO (EFECTO VIDRIO) */
 /* Foto oscura a pantalla completa detrás del formulario */
 .pantalla-completa-con-fondo {
@@ -580,4 +768,10 @@ nav a:hover { color: var(--color-boton); }
     overflow-x: auto; /* Activa el deslizamiento lateral */
     -webkit-overflow-scrolling: touch;
     margin-bottom: 30px;
+}
+
+/* Bloquea el scroll cuando el menú lateral está abierto */
+.no-scroll {
+    overflow: hidden !important;
+    height: 100vh; /* Asegura que el body no mida más que la pantalla */
 }

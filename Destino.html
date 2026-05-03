@@ -6,6 +6,7 @@
     <title>Destinos | Turismo Ica</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Prueba2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -13,23 +14,24 @@
         <div class="logo">
             <h1>Turismo Ica</h1>
         </div>
-
-        <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
-            <span class="linea-menu"></span>
-            <span class="linea-menu"></span>
-            <span class="linea-menu"></span>
-        </button>
-
+        <div class="contenedor-derecha-header">
+            <a href="Login.html" class="enlace-perfil-usuario"> 
+                <i class="fa-solid fa-user"></i>
+            </a>
+            <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
+                <span class="linea-menu"></span>
+                <span class="linea-menu"></span>
+                <span class="linea-menu"></span>
+            </button>
+        </div>
         <nav id="menuPrincipal">
             <ul>
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="Nosotros.html">Nosotros</a></li>
                 <li><a href="Destino.html">Destinos</a></li>
                 <li><a href="Reserva.html">Reservas</a></li>
-                <li><a href="Tabla_Des_Iti.html">Itinerarios</a></li>
+                <li><a href="Tabla_Descuento.html">Descuentos</a></li>
                 <li><a href="Preguntas.html">Preguntas</a></li>
-                <li><a href="Login.html" class="enlace-login">Ingresar</a></li>
-                <li><a href="Registro.html" class="btn-registro">Registrarse</a></li>
             </ul>
         </nav>
     </header>
@@ -40,7 +42,6 @@
 
     <section id="seccion-catalogo-viajes">
         <div class="grilla-de-cuadritos">
-            
             <a href="Detalle_Huacachina.html" class="cuadrito-viaje">
                 <article>
                     <figure>
@@ -49,15 +50,12 @@
                     <div class="textos-del-viaje">
                         <h3>Oasis de la Huacachina</h3>
                         <p>Siente la adrenalina en los tubulares y atrévete a practicar sandboard en las dunas más altas de América.</p>
-                        
                         <div class="caja-de-precios">
                             <div class="opcion-de-precio">
                                 <span>Grupal</span>
                                 <strong>S/ 45.00</strong>
                             </div>
-                            
                             <div class="linea-vertical-precios"></div>
-                            
                             <div class="opcion-de-precio privado">
                                 <span>Privado</span>
                                 <strong>S/ 120.00</strong>
@@ -114,7 +112,7 @@
                     </div>
                 </article>
             </a>
-            
+
             <a href="Detalle_Cachiche.html" class="cuadrito-viaje">
                 <article>
                     <figure>
@@ -187,6 +185,120 @@
                 </article>
             </a>
 
+            <a href="Detalle_Cantalloc.html" class="cuadrito-viaje">
+                <article>
+                    <figure>
+                        <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777607270/Cantalloc.png" alt="Acueductos Cantaloc" class="foto-del-viaje">
+                    </figure>
+                    <div class="textos-del-viaje">
+                        <h3>Acueductos Cantaloc</h3>
+                        <p>Explora los impresionantes acueductos de Cantaloc, un testimonio de la ingeniería y arquitectura de la antigua cultura.</p>
+                        <div class="caja-de-precios">
+                            <div class="opcion-de-precio">
+                                <span>Grupal</span>
+                                <strong>S/ 20.00</strong>
+                            </div>
+                            <div class="linea-vertical-precios"></div>
+                            <div class="opcion-de-precio privado">
+                                <span>Privado</span>
+                                <strong>S/ 45.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </a>
+
+            <a href="Detalle_Cahuachi.html" class="cuadrito-viaje">
+                <article>
+                    <figure>
+                        <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777604346/Cahuachi.png" alt="Centro Arqueológico Cahuachi" class="foto-del-viaje">
+                    </figure>
+                    <div class="textos-del-viaje">
+                        <h3>Centro Arqueológico Cahuachi</h3>
+                        <p>Descubre la historia de la cultura Nazca en uno de sus principales centros arqueológicos.</p>
+                        <div class="caja-de-precios">
+                            <div class="opcion-de-precio">
+                                <span>Grupal</span>
+                                <strong>S/ 25.00</strong>
+                            </div>
+                            <div class="linea-vertical-precios"></div>
+                            <div class="opcion-de-precio privado">
+                                <span>Privado</span>
+                                <strong>S/ 40.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </a>
+
+            <a href="Detalle_Ocucaje.html" class="cuadrito-viaje">
+                <article>
+                    <figure>
+                        <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659846/Ocucaje.png" alt="Dunas de Ocucaje" class="foto-del-viaje">
+                    </figure>
+                    <div class="textos-del-viaje">
+                        <h3>Dunas de Ocucaje</h3>
+                        <p>Vive una aventura extrema en dunas gigantes poco exploradas. Disfruta de tubulares y sandboard en un entorno totalmente natural y sin multitudes.</p>
+                        <div class="caja-de-precios">
+                            <div class="opcion-de-precio">
+                                <span>Grupal</span>
+                                <strong>S/ 90.00</strong>
+                            </div>
+                            <div class="linea-vertical-precios"></div>
+                            <div class="opcion-de-precio privado">
+                                <span>Privado</span>
+                                <strong>S/ 220.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </a>
+
+            <a href="Detalle_Museo.html" class="cuadrito-viaje">
+                <article>
+                    <figure>
+                        <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659620/Museo.png" alt="Museo Regional de Ica" class="foto-del-viaje">
+                    </figure>
+                    <div class="textos-del-viaje">
+                        <h3>Museo Regional de Ica</h3>
+                        <p>Explora la historia de las culturas prehispánicas con momias, cerámicas y piezas únicas que revelan el pasado de la región.</p>
+                        <div class="caja-de-precios">
+                            <div class="opcion-de-precio">
+                                <span>Grupal</span>
+                                <strong>S/ 15.00</strong>
+                            </div>
+                            <div class="linea-vertical-precios"></div>
+                            <div class="opcion-de-precio privado">
+                                <span>Privado</span>
+                                <strong>S/ 40.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </a>
+
+            <a href="Detalle_Moron.html" class="cuadrito-viaje">
+                <article>
+                    <figure>
+                        <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659259/Moron.png" alt="Laguna de Morón" class="foto-del-viaje">
+                    </figure>
+                    <div class="textos-del-viaje">
+                        <h3>Laguna de Morón</h3>
+                        <p>Relájate en un oasis escondido rodeado de dunas. Disfruta de tranquilidad, paisajes únicos y una experiencia lejos del turismo masivo.</p>
+                        <div class="caja-de-precios">
+                            <div class="opcion-de-precio">
+                                <span>Grupal</span>
+                                <strong>S/ 40.00</strong>
+                            </div>
+                            <div class="linea-vertical-precios"></div>
+                            <div class="opcion-de-precio privado">
+                                <span>Privado</span>
+                                <strong>S/ 110.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </a>
         </div>
     </section>
 
