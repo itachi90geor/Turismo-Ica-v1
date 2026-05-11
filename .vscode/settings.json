@@ -1,3 +1,4 @@
 {
-    "iconify.annotations": false
+    "iconify.annotations": false,
+    "livePreview.defaultPreviewPath": "/Boleta/Pago.html"
 }

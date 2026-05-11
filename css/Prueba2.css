@@ -1,0 +1,1421 @@
+/* 1. COLORES BÁSICOS Y LIMPIEZA */
+/* Guardamos los colores aquí para no memorizar códigos raros */
+:root {
+  --color-boton: #e51d2a;
+  --color-oscuro: #1a1a1a;
+  --color-gris: #535353;
+  --color-claro: #ffffff;
+  --color-fondo: #f8f9fa;
+  --transicion-suave: all 0.3s ease; /* Velocidad de los efectos */
+}
+
+/* Quitamos los márgenes feos que traen los navegadores por defecto 
+    ya que de por si el navegador tiene márgenes por defecto */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Hace que al bajar por la página se vea muy suave */
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  /* Evita que el scrollbar aparezca y desaparezca bruscamente */
+  position: relative;
+}
+
+/* El fondo de toda la página, el color de las letras y el interlineado */
+body {
+  background: var(--color-fondo);
+  color: var(--color-oscuro);
+  line-height: 1.6;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* --- ESTILO MODERNO PARA DETAILS (FAQ) --- */
+
+/* Contenedor del logo y el texto */
+.logo {
+  display: flex; /* Activa la alineación en fila */
+  align-items: center; /* Centra verticalmente la imagen y el texto */
+  gap: 15px; /* Añade un espacio de 15px entre el logo y el nombre */
+}
+
+/* Ajustes para el texto dentro del logo */
+.logo-texto h1 {
+  font-size: 1.5rem; /* Ajusta el tamaño para que no se vea gigante */
+  margin: 0; /* Quita márgenes que puedan empujar el texto hacia abajo */
+  white-space: nowrap; /* Evita que el nombre se parta en dos líneas */
+  color: var(--color-oscuro);
+}
+
+/* Ajuste adicional para la imagen (ya la tenías, asegúrate de que esté así) */
+.logo-imagen {
+  width: 60px; /* Un tamaño de 60px suele verse mejor alineado */
+  height: auto;
+  display: block;
+}
+
+/* Contenedor de la lista */
+.lista {
+  list-style: none;
+  max-width: 1200px; /* Aumentamos el ancho para que quepan 3 cómodamente */
+  margin: 0 auto 60px;
+  padding: 0 20px;
+
+  /* Activamos el Grid */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Crea 3 columnas iguales */
+  gap: 20px; /* Espacio entre los cuadros */
+  align-items: start; /* Alinea los cuadros al techo si tienen alturas distintas */
+}
+
+/* El cuadro de cada pregunta */
+details.elemento-lista {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+  overflow: hidden; /* Importante para la animación */
+}
+
+/* Efecto al pasar el mouse o cuando está abierto */
+details.elemento-lista:hover,
+details.elemento-lista[open] {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-boton);
+}
+
+/* Estilo de la pregunta (Summary) */
+.resumen-lista {
+  padding: 15px 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-oscuro);
+  list-style: none; /* Quita la flecha por defecto en algunos navegadores */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Crear una flecha personalizada con CSS */
+.resumen-lista::after {
+  content: "+";
+  font-size: 1.5rem;
+  color: var(--color-boton);
+  transition: transform 0.3s ease;
+}
+
+/* Girar la flecha cuando se abre */
+details[open] .resumen-lista::after {
+  transform: rotate(180deg); /* Se convierte en una 'x' o gira */
+  content: "-";
+}
+
+/* Estilo del contenido de la respuesta */
+details.elemento-lista p {
+  padding: 0 25px 25px;
+  color: #666;
+  line-height: 1.7;
+  /* Animación de entrada */
+  animation: slideDown 0.4s ease forwards;
+}
+
+/* Animación para que el texto aparezca suavemente */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Quitar el marcador por defecto en Safari/Chrome */
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .lista {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Ajuste para celulares (1 columna) */
+@media (max-width: 650px) {
+  .lista {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2. EFECTOS DE APARICIÓN */
+/* Truco para que el titulo aparezca desde abajo hacia su lugar */
+@keyframes aparecerDesdeAbajo {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 3. TÍTULOS PRINCIPALES, FORMULARIOS DE CONTACTO Y BOTONES */
+/* Estilo para los títulos grandes de cada sección de la página */
+.texto-titulo-grande {
+  margin-bottom: 50px;
+  color: var(--color-oscuro);
+  font-size: 2.2rem;
+}
+
+/* El área principal donde se coloca el formulario como Contacto o Registro */
+#area-formulario-principal {
+  padding: 60px 20px 80px;
+  max-width: 600px;
+  margin: auto;
+  text-align: left;
+}
+
+/* Centrar específicamente el título cuando está dentro del área del formulario */
+#area-formulario-principal .texto-titulo-grande {
+  text-align: center;
+}
+
+/* Agrupa un título pequeño y su cajita para escribir, midiendo la separacion entre ellos */
+.contenedor-pregunta-respuesta {
+  margin-bottom: 20px;
+}
+
+/* Texto de las preguntas,pone en negrita con el weight y con el size el tamaño de letras
+    con el margin se determina la distancia entre la pregunta y la cajita de respuesta*/
+.contenedor-pregunta-respuesta label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Diseño de TODAS las cajitas blancas donde el usuario escribe o elige opciones */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Efecto visual cuando el usuario da clic dentro de una cajita de respuesta
+    para empezar a escribir */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-boton);
+  box-shadow: 0 0 0 3px rgba(229, 29, 42, 0.15);
+}
+
+/* Diseño de los botones donde se define el color, bordes, color de letra y transición */
+button[type="submit"] {
+  background: var(--color-boton);
+  color: #fff;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  transition: var(--transicion-suave);
+}
+
+/* Efecto cuando pasas el mouse por encima del botón de inicio */
+button[type="submit"]:hover {
+  background-color: #c2131e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(229, 29, 42, 0.2);
+}
+
+/* La banda oscura que va abajo de todas las páginas*/
+footer {
+  background: var(--color-oscuro);
+  color: #ccc;
+  text-align: center;
+  padding: 20px 20px;
+}
+
+/* Selecciona específicamente el primer párrafo dentro del pie de página para 
+    darle un estilo especial */
+footer p:first-child {
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* 4. EL MENÚ DE ARRIBA (CABECERA) */
+/* El efecto de fondo blanco con transparencia, el efecto de desenfoque y mantener 
+    siempre el menu pegado arriba*/
+header {
+  background: rgba(255, 255, 255, 0.85);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+}
+
+/* Lista de elementos en el menú de encabezado */
+nav ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  align-items: center;
+}
+
+/* Los enlaces de texto en el menú */
+nav a {
+  text-decoration: none;
+  color: var(--color-oscuro);
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 5px;
+  transition: var(--transicion-suave);
+}
+
+/* Efecto en el que la letra del encabezado se subraya al pasar el mouse por encima,
+    al igual que el aumento de tamaño yel color de la letra cambian*/
+nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-boton);
+  transition: width 0.3s ease;
+}
+nav a:hover::after {
+  width: 100%;
+}
+nav a:hover {
+  color: var(--color-boton);
+}
+
+/* La barrita de separacion en el encabezado */
+.separador {
+  color: #ccc;
+  cursor: default;
+}
+
+/* Botones de registro y login, el display quita la subraya, tambien el 
+    :hover da el efecto al pasar el cursor por el boton y como dato el 
+    !important es un selector de mayor prioridad, para que no se pinte como los otros enlaces*/
+.btn-registro {
+  background-color: var(--color-boton);
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: var(--transicion-suave);
+}
+.btn-registro::after {
+  display: none;
+}
+.btn-registro:hover {
+  background-color: #c2131e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(229, 29, 42, 0.2);
+}
+.enlace-login {
+  background-color: var(--color-gris);
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: var(--transicion-suave);
+}
+.enlace-login::after {
+  display: none;
+}
+.enlace-login:hover {
+  background-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 5. FOTOS GRANDES DE PORTADA */
+/* Se toma la imagen de fondo y se aplica un sombreado, tambien
+    se hace que el brillo y el contraste aumenten en las letras dentro del contenedor */
+#portada-principal-inicio {
+  height: 90vh;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
+      center/cover;
+  display: flex;
+  filter: brightness(1.1) contrast(1.1);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-claro);
+}
+
+/* El título grande de la portada, con el efecto de aparecer desde abajo */
+#portada-principal-inicio h2 {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  animation: aparecerDesdeAbajo 0.8s ease forwards;
+}
+
+#portada-principal-inicio p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-bottom: 25px;
+  opacity: 0;
+  animation: aparecerDesdeAbajo 0.8s ease 0.3s forwards;
+}
+
+/* Botón grande flotante sobre la portada */
+.boton-llamativo-portada {
+  background: var(--color-boton);
+  color: #fff;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transicion-suave);
+  opacity: 0;
+  animation: aparecerDesdeAbajo 0.8s ease 0.6s forwards;
+  display: inline-block;
+}
+
+.boton-llamativo-portada:hover {
+  background-color: #c2131e;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(229, 29, 42, 0.3);
+}
+
+/* --- ESTILO DEL AVATAR CIRCULAR --- */
+
+/* Contenedor para agrupar avatar y hamburguesa a la derecha */
+.contenedor-derecha-header {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espacio entre el icono de usuario y las rayitas del menú */
+}
+
+/* El enlace que envuelve la imagen */
+.enlace-perfil-usuario {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.enlace-perfil-usuario:hover {
+  transform: scale(1.1); /* Efecto de aumento al pasar el mouse */
+}
+
+/* Estilo específico para el icono de usuario */
+.enlace-perfil-usuario i {
+  font-size: 1.2rem; /* Tamaño del icono */
+  color: var(--color-boton); /* Usa el rojo de tu marca */
+  background-color: #fff; /* Fondo blanco */
+  width: 40px; /* Ancho del círculo */
+  height: 40px; /* Alto del círculo */
+  display: flex; /* Centra el icono dentro del círculo */
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Hace que sea un círculo */
+  border: 2px solid var(--color-boton); /* Borde rojo fino */
+  transition: var(--transicion-suave);
+}
+
+/* Efecto al pasar el mouse */
+.enlace-perfil-usuario:hover i {
+  background-color: var(--color-boton);
+  color: #fff; /* Invierte los colores */
+  transform: scale(1.1);
+}
+
+/* Ajuste del header para asegurar la alineación */
+header {
+  padding: 10px 30px; /* Reducimos un poco el padding para que no sea tan alto */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Asegurar que el botón hamburguesa no tenga margen extra */
+.menu-hamburguesa {
+  margin: 0;
+  display: flex !important; /* Mantenemos tu requerimiento de que siempre esté activo */
+}
+
+/* Portadas más pequeñas para otras páginas */
+.portada-interna {
+  height: 40vh;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
+      center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-claro);
+  text-align: center;
+}
+.portada-interna h2 {
+  font-size: 3rem;
+  animation: aparecerDesdeAbajo 0.8s ease forwards;
+}
+
+/* 6. LOS CUADRITOS DE LOS VIAJES (CATÁLOGO) */
+/*El tamaño de las tarjetas */
+#seccion-catalogo-viajes {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+/* Acomoda los cuadritos solitos dependiendo de si es compu o celular */
+.grilla-de-cuadritos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cuadro blanco de cada viaje */
+.cuadrito-viaje {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  transition: var(--transicion-suave);
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Salto del cuadro al pasar el mouse */
+.cuadrito-viaje:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Recorta la foto arriba del cuadro */
+.cuadrito-viaje figure {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  margin: 0;
+}
+.foto-del-viaje {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Zoom a la foto al pasar el mouse */
+.cuadrito-viaje:hover .foto-del-viaje {
+  transform: scale(1.08);
+}
+
+.textos-del-viaje {
+  padding: 25px;
+}
+.textos-del-viaje h3 {
+  margin-bottom: 10px;
+  color: var(--color-oscuro);
+}
+.textos-del-viaje p {
+  color: #555;
+}
+
+/* La parte de abajo del cuadro con los precios */
+.caja-de-precios {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 15px;
+  align-items: center;
+  text-align: center;
+}
+.linea-vertical-precios {
+  width: 1px;
+  height: 30px;
+  background-color: #ddd;
+}
+.opcion-de-precio span {
+  display: block;
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.opcion-de-precio strong {
+  font-size: 1.1rem;
+  color: var(--color-oscuro);
+  font-weight: 700;
+}
+.opcion-de-precio.privado strong {
+  color: var(--color-boton);
+}
+
+/* 7. PANTALLA DIVIDIDA (HISTORIA Y RESERVA) */
+/* Corta la pantalla: espacio grande a la izquierda, espacio chico a la derecha */
+.pantalla-dividida-historia-reserva {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+.lado-izquierdo-historia {
+  animation: aparecerDesdeAbajo 0.8s ease forwards;
+}
+
+/* Acomoda las fotos pequeñas de la galería de 2 en 2 */
+.grilla-de-fotos-pequenas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.grilla-de-fotos-pequenas img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+.grilla-de-fotos-pequenas img:hover {
+  transform: scale(1.02);
+}
+
+/* Cuadro blanco con borde rojo para opiniones */
+.cuadro-opinion-cliente {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--color-boton);
+  margin-bottom: 15px;
+}
+.cuadro-opinion-cliente h4 {
+  margin-bottom: 5px;
+  color: var(--color-oscuro);
+}
+
+/* El formulario de compra que persigue al usuario al bajar la pantalla */
+.lado-derecho-formulario {
+  position: relative;
+}
+.formulario-que-te-persigue {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 100px;
+  border-top: 5px solid var(--color-boton);
+}
+.formulario-que-te-persigue h3 {
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 1.5rem;
+}
+
+/* 8. LISTA DE MIS COMPRAS PASADAS */
+.lista-compras-pasadas {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Cuadro alargado de lado a lado */
+.cuadro-alargado-reserva {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: var(--transicion-suave);
+  text-decoration: none;
+  color: inherit;
+}
+.cuadro-alargado-reserva:hover {
+  transform: translateY(-5px);
+  border-left: 5px solid var(--color-boton);
+}
+.cuadro-alargado-reserva img {
+  width: 250px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.textos-de-la-reserva {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.textos-de-la-reserva h3 {
+  color: var(--color-oscuro);
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+.textos-de-la-reserva p {
+  color: #666;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+/* Pastilla verde de estatus */
+.pastilla-verde-estado {
+  display: inline-block;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+.pastilla-roja-estado {
+  display: inline-block;
+  background-color: #ffebee;
+  color: #fa782d;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+/* Botón redondo para agregar más viajes */
+.boton-redondo-agregar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  background-color: var(--color-boton);
+  color: #fff;
+  font-size: 2.5rem;
+  border-radius: 50%;
+  margin: 40px auto;
+  transition: var(--transicion-suave);
+  text-decoration: none;
+}
+/* Al pasar el mouse, el botón gira */
+.boton-redondo-agregar:hover {
+  transform: scale(1.1) rotate(90deg);
+  background-color: #c2131e;
+}
+
+/* 9. ITINERARIOS Y HORARIOS */
+.portada-mediana-itinerario {
+  height: 50vh;
+}
+
+/* Asigna la foto oscura correcta a la portada de cada ciudad */
+.foto-fondo-huacachina {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/v1777565899/Huacachina_ychv1i.jpg");
+}
+.foto-fondo-cachiche {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565897/Cachiche_ldhawm.jpg");
+}
+.foto-fondo-canon {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Canon_qvffvb.jpg");
+}
+.foto-fondo-nazca {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565900/Nazca_x1bn1j.jpg");
+}
+.foto-fondo-paracas {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Paracas_u8jfq9.jpg");
+}
+.foto-fondo-pisco {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565908/Vino_dhb9g5.jpg");
+}
+.foto-fondo-cahuachi {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777604346/Cahuachi.png");
+}
+.foto-fondo-cantalloc {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777607270/Cantalloc.png");
+}
+.foto-fondo-moron {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659259/Moron.png");
+}
+.foto-fondo-museo {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659620/Museo.png");
+}
+.foto-fondo-ocucaje {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659846/Ocucaje.png");
+}
+
+.contenido-principal-itinerario {
+  padding: 0 20px;
+}
+
+/* Caja blanca que se sube un poquito para "morder" la foto de la portada */
+.caja-blanca-sobre-foto {
+  max-width: 800px;
+  margin: -50px auto 80px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+.caja-blanca-sobre-foto .texto-titulo-grande {
+  text-align: left;
+  margin-bottom: 10px;
+}
+.parrafo-explicativo {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Lista cronológica de actividades */
+.lista-de-horas-actividades {
+  list-style: none;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.lista-de-horas-actividades li {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 20px;
+}
+.lista-de-horas-actividades li:last-child {
+  border-bottom: none;
+}
+.lista-de-horas-actividades h3 {
+  margin-bottom: 5px;
+}
+
+.texto-hora-resaltada {
+  color: var(--color-boton);
+  font-weight: 800;
+  font-size: 1.1rem;
+  min-width: 100px;
+}
+
+/* Separador horizontal y mapa */
+.raya-horizontal-divisora {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 40px 0;
+}
+.texto-titulo-mapa {
+  margin-bottom: 15px;
+  text-align: center;
+}
+.foto-mapa-final {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+.contenedor-boton-al-medio {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* 10. REGLAS PARA VERSE BIEN EN CELULARES (MENÚ COLAPSABLE) */
+/* Sensor: Si la pantalla es pequeña (menor a 850px), aplica estos cambios de emergencia */
+/* --- AJUSTES PARA MENÚ SIEMPRE ACTIVO Y LATERAL --- */
+
+/* 1. Forzar que el botón hamburguesa se vea siempre */
+.menu-hamburguesa {
+  display: flex !important; /* Visible en PC y Móvil */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1200; /* Por encima de todo */
+}
+
+.linea-menu {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-boton);
+  border-radius: 2px;
+}
+
+/* 2. Ocultar la navegación tradicional de la cabecera */
+nav ul {
+  display: none; /* Ya no queremos la lista horizontal en el header */
+}
+
+nav#menuPrincipal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100vh;
+  background-color: white;
+  z-index: 1100;
+  padding: 80px 40px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+
+  /* Usamos transform para el movimiento */
+  transform: translateX(100%);
+  /* La visibilidad ahora tiene un retraso al cerrar */
+  transition:
+    transform 0.4s ease-in-out,
+    visibility 0s linear 0.4s;
+  visibility: hidden;
+
+  /* Evita que el contenido se salga del panel durante la animación */
+  overflow: hidden;
+}
+
+/* Cuando el menú está abierto */
+nav#menuPrincipal.activo {
+  transform: translateX(0);
+  visibility: visible;
+  /* Al abrir, la visibilidad es instantánea */
+  transition:
+    transform 0.4s ease-in-out,
+    visibility 0s;
+}
+
+/* 5. Ajustar la lista de enlaces dentro del panel lateral */
+nav#menuPrincipal ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  /* Suaviza la aparición del texto */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+nav#menuPrincipal.activo ul {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.2s; /* Un pequeño retraso al abrir para mejor efecto */
+}
+
+nav#menuPrincipal ul li {
+  width: 100%;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+/* Esto crea una sombra que cubre el contenido de atrás cuando el menú abre */
+nav#menuPrincipal::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: -100vw; /* Se extiende hacia la izquierda cubriendo la pantalla */
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8); /* Color negro transparente */
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none; /* No estorba los clics si está oculto */
+}
+
+nav#menuPrincipal.activo::before {
+  opacity: 1;
+  pointer-events: auto; /* Bloquea clics en el contenido de atrás */
+}
+
+/* 6. Quitar la configuración antigua de @media (max-width: 850px) */
+/* Borra o comenta las reglas que escondían el nav en PC dentro de tus @media */
+/* 11. INICIAR SESIÓN Y REGISTRO (EFECTO VIDRIO) */
+/* Foto oscura a pantalla completa detrás del formulario */
+.pantalla-completa-con-fondo {
+  min-height: calc(100vh - 80px);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
+      center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* Cuadro semitransparente que empaña la foto trasera */
+.cuadro-vidrio-borroso {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  animation: aparecerDesdeAbajo 0.6s ease forwards;
+}
+
+.boton-rojo-ingresar {
+  background: var(--color-boton);
+  color: #fff;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.boton-rojo-ingresar:hover {
+  background-color: #c2131e;
+  transform: translateY(-2px);
+}
+
+/* 12. DISEÑO DEL COMPROBANTE DE COMPRA */
+.fondo-oscuro-para-ticket {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
+      center/cover;
+}
+
+/* El rectángulo blanco con forma de hoja de papel */
+.papel-del-ticket {
+  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.franja-roja-arriba-ticket {
+  background: var(--color-boton);
+  color: #fff;
+  padding: 30px;
+  text-align: center;
+}
+.cuerpo-blanco-ticket {
+  padding: 40px;
+}
+
+/* Las líneas punteadas de los datos del cliente */
+.fila-dato-cliente {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  border-bottom: 1px dashed #eee;
+  padding-bottom: 10px;
+}
+.fila-dato-cliente span:first-child {
+  color: #888;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.fila-dato-cliente span:last-child {
+  color: var(--color-oscuro);
+  font-weight: 700;
+}
+
+/* El rectángulo gris al final con el precio total */
+.cuadro-gris-total {
+  margin-top: 30px;
+  padding: 20px;
+  background: var(--color-fondo);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cuadro-gris-total h3 {
+  color: var(--color-boton);
+  font-size: 1.5rem;
+}
+
+/* Caja de espacio reservado para poner un QR */
+.cuadro-falso-qr {
+  width: 120px;
+  height: 120px;
+  background: #eee;
+  margin: 30px auto 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 0.7rem;
+  border: 2px solid #ddd;
+}
+
+/* 13. REGLAS MÁGICAS PARA LA IMPRESORA */
+/* Este bloque SOLAMENTE se activa si el usuario quiere imprimir */
+@media print {
+  /* Esconde el menú de arriba y cualquier botón de imprimir */
+  header,
+  footer,
+  .ocultar-impresion {
+    display: none !important;
+  }
+
+  /* Borra las fechas y rutas de archivo (Links feos) que el navegador pone solos */
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  /* Quita el fondo de fotos grandes para ahorrar tinta */
+  body,
+  .fondo-oscuro-para-ticket {
+    background: none !important;
+    background-color: white !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Le quita la sombra al ticket para que la hoja salga limpia */
+  .papel-del-ticket {
+    box-shadow: none !important;
+    border: 2px solid #ddd;
+    margin: 40px auto !important;
+    page-break-inside: avoid;
+  }
+}
+
+/* 14. CUADROS ESTILO EXCEL (TABLAS HTML5) */
+.cuadro-estilo-excel {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+/* Pinta la barra superior de la tabla de rojo */
+.cuadro-estilo-excel thead {
+  background-color: var(--color-boton);
+  color: #fff;
+}
+
+/* Espacio interior para cada casilla */
+.cuadro-estilo-excel th,
+.cuadro-estilo-excel td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+/* Efecto para resaltar de un color clarito la fila entera al pasar el mouse */
+.cuadro-estilo-excel tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Pinta de rojo y en negrita la primera columna (Para resaltar nombres de viajes) */
+.cuadro-estilo-excel td:first-child {
+  color: var(--color-boton);
+  font-weight: 700;
+}
+
+/* 15. AJUSTES RESPONSIVE PARA DETALLES DE TOUR */
+@media (max-width: 850px) {
+  /* Obligamos a la tabla a mantener un ancho mínimo para que el texto no se amontone */
+  .cuadro-estilo-excel {
+    min-width: 600px;
+  }
+
+  /* Hacemos el menú más compacto para que no ocupe toda la pantalla al inicio */
+  nav ul {
+    gap: 10px; /* Reduce el espacio entre "Inicio", "Nosotros", etc. */
+    padding: 10px 0;
+  }
+
+  nav a {
+    font-size: 0.9rem; /* Achicamos un poquito la letra del menú */
+  }
+
+  /* Ajustamos el tamaño del título de la página en el celular */
+  .texto-titulo-grande {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+}
+
+.tabla-contenedor-movil {
+  width: 100%;
+  overflow-x: auto; /* Activa el deslizamiento lateral */
+  margin-bottom: 30px;
+}
+
+/* Bloquea el scroll cuando el menú lateral está abierto */
+.no-scroll {
+  overflow: hidden !important;
+  height: 100vh; /* Asegura que el body no mida más que la pantalla */
+}
+
+/* Estilo para el enlace de cambio entre Login y Registro */
+.enlace-intercambio {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.enlace-intercambio a {
+  color: var(--color-boton);
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 5px;
+  transition: var(--transicion-suave);
+}
+
+.enlace-intercambio a:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
+}
+
+/* Contenedor principal */
+.caja-con-icono {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Icono en estado normal */
+.caja-con-icono i {
+  position: absolute;
+  left: 15px;
+  color: var(--color-gris); /* Color gris por defecto */
+  font-size: 1rem;
+  transition: var(--transicion-suave);
+  pointer-events: none;
+}
+
+/* El truco: Cuando se hace focus en el input, el icono cambia de color */
+.caja-con-icono:focus-within i {
+  color: var(--color-boton); /* Cambia al rojo de tu marca */
+}
+
+/* Input con espacio para el icono */
+.caja-con-icono input {
+  padding-left: 45px !important;
+}
+
+/* ================================================= */
+/* SECCIÓN DE PAGO (INTEGRACIÓN)               */
+/* ================================================= */
+
+/* Capa oscura que bloquea la pantalla al procesar el pago */
+.overlay-pago {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Cuadro blanco de confirmación de éxito */
+.contenido-exito {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  animation: aparecerDesdeAbajo 0.5s ease forwards;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.contenido-exito h3 {
+  margin: 20px 0 10px;
+  color: var(--color-oscuro);
+  font-size: 1.8rem;
+}
+
+.contenido-exito p {
+  color: var(--color-gris);
+  margin-bottom: 25px;
+}
+
+/* --- ANIMACIÓN DEL CHECKMARK (MARCA VERDE) --- */
+.checkmark-wrapper {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.checkmark {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #2e7d32; /* Verde de éxito */
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #2e7d32;
+  animation:
+    fill 0.4s ease-in-out 0.4s forwards,
+    scale 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #2e7d32;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+/* --- LOADER (SPINNER DE CARGA) --- */
+.loader {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 3px solid #fff;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* --- KEYFRAMES NECESARIOS --- */
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 50px #e8f5e9;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Agrega esto a Prueba2.css para manejar la fila de Fecha/CVV */
+.fila-formulario-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Para el botón de "Ver mis reservas" en el modal de éxito */
+.boton-centrado-chico {
+  text-decoration: none;
+  display: inline-block;
+  width: auto !important;
+  padding: 10px 30px;
+}
+
+/* Asegurar que el título del pago se vea bien */
+.cuadro-vidrio-borroso .texto-titulo-grande {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.oculto {
+  display: none !important;
+}
+
+/* Quita el subrayado de los enlaces que se usan como botones */
+.boton-rojo-ingresar {
+    text-decoration: none; /* Esto elimina la línea de abajo */
+    display: inline-block; /* Permite que el botón respete el padding y ancho */
+    text-align: center;
+}

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brujas de Cachiche | Turismo Ica</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/Prueba2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png"
+          alt="Logo de Turismo Ica"
+          class="logo-imagen"
+        />
+        <span class="logo-texto"><h1>Turismo Ica</h1></span>
+      </div>
+      <div class="contenedor-derecha-header">
+        <a href="../Login.html" title="Login" class="enlace-perfil-usuario">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
+          <span class="linea-menu"></span>
+          <span class="linea-menu"></span>
+          <span class="linea-menu"></span>
+        </button>
+      </div>
+      <nav id="menuPrincipal">
+        <ul>
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="../Nosotros.html">Nosotros</a></li>
+          <li><a href="../Destino.html">Destinos</a></li>
+          <li><a href="../Reserva.html">Reservas</a></li>
+          <li><a href="../Tabla_Descuento.html">Descuentos</a></li>
+          <li><a href="../Preguntas.html">Preguntas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="portada-interna foto-fondo-cachiche">
+      <h2>Pueblo de Cachiche</h2>
+    </section>
+
+    <main class="pantalla-dividida-historia-reserva">
+      <section class="lado-izquierdo-historia">
+        <h2 class="texto-titulo-grande">Detalles del Tour</h2>
+        <p>
+          Adéntrate en el misterioso pueblo de Cachiche, famoso por sus leyendas
+          de hechiceras. Visitaremos el Parque Temático de las Brujas y la
+          impresionante Palmera de las 7 Cabezas mientras descubres sus
+          profecías ancestrales.
+        </p>
+
+        <h3>Galería de Imágenes</h3>
+        <div class="grilla-de-fotos-pequenas">
+          <img
+            src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565909/Bruja_0_xtdgt2.jpg"
+            alt="Foto 1"
+          />
+          <img
+            src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565897/Bruja_1_vmycdo.jpg"
+            alt="Foto 2"
+          />
+          <img
+            src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565897/Bruja_2_djrt17.jpg"
+            alt="Foto 3"
+          />
+          <img
+            src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565897/Bruja_3_su06tp.jpg"
+            alt="Foto 4"
+          />
+        </div>
+
+        <div class="contenedor-boton-al-medio">
+          <a
+            href="../Informacion/Info_Cachiche.html"
+            class="boton-rojo-ingresar"
+            >Más Información</a
+          >
+        </div>
+
+        <hr class="raya-horizontal-divisora" />
+
+        <h3>Comentarios de Viajeros</h3>
+        <div class="cuadro-opinion-cliente">
+          <h4>Valeria Soto</h4>
+          <p>
+            Las leyendas que cuenta el guía te atrapan desde el primer minuto.
+            Un lugar lleno de misticismo.
+          </p>
+        </div>
+        <div class="cuadro-opinion-cliente">
+          <h4>Jorge Linares</h4>
+          <p>
+            Un tour corto pero lleno de cultura. La palmera de 7 cabezas es
+            realmente una rareza natural.
+          </p>
+        </div>
+      </section>
+
+      <aside class="lado-derecho-formulario">
+        <div class="formulario-que-te-persigue">
+          <h3>Reserva tu Aventura</h3>
+          <form action="#" method="POST">
+            <div class="contenedor-pregunta-respuesta">
+              <label for="tipo-tour">Tipo de Tour:</label>
+              <select id="tipo-tour" onchange="cambiarSelectorFecha()">
+                <option value="grupal">Tour Grupal</option>
+                <option value="privado">Tour Privado</option>
+              </select>
+            </div>
+            <div
+              class="contenedor-pregunta-respuesta"
+              id="contenedor-fechas-fijas"
+            >
+              <label>Fechas programadas:</label>
+              <select title="fecha">
+                <option>Sábado 25 de Abril</option>
+                <option>Domingo 26 de Abril</option>
+              </select>
+            </div>
+            <div
+              class="contenedor-pregunta-respuesta"
+              id="contenedor-fecha-libre"
+            >
+              <label>Fecha especial:</label>
+              <input type="date" title="fecha especial" />
+            </div>
+            <div class="contenedor-pregunta-respuesta">
+              <label>Pasajeros:</label>
+              <input
+                type="number"
+                min="1"
+                value="1"
+                required
+                title="Pasajeros"
+              />
+            </div>
+            <div class="contenedor-boton-al-medio">
+              <a
+                href="../Boleta/Pago.html"
+                class="boton-rojo-ingresar no-subrayado"
+              >
+                Reservar Ahora
+              </a>
+            </div>
+          </form>
+        </div>
+      </aside>
+    </main>
+    <footer>
+      <p>Grupo 6, 2026 Turismo Ica.</p>
+      <p>Vive la experiencia del eterno sol.</p>
+    </footer>
+    <script src="../JavaScript/Prueba2.js"></script>
+  </body>
+</html>
