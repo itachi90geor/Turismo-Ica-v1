@@ -1,0 +1,27 @@
+{
+  "name": "turismo-ica",
+  "version": "1.0.0",
+  "description": "Pagina de la region de ica",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itachi90geor/Turismo-Ica-v1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/itachi90geor/Turismo-Ica-v1/issues"
+  },
+  "homepage": "https://github.com/itachi90geor/Turismo-Ica-v1#readme",
+  "dependencies": {
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}

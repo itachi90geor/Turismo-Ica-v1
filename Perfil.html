@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Perfil | Turismo Ica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/Prueba2.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  </head>
+  <body class="cuerpo-perfil">
+    <header>
+      <div class="logo">
+        <img
+          src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png"
+          alt="Logo de Turismo Ica"
+          class="logo-imagen"
+        />
+        <span class="logo-texto"><h1>Turismo Ica</h1></span>
+      </div>
+      <div class="contenedor-derecha-header">
+        <a href="Login.html" title="Login" class="enlace-perfil-usuario">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
+          <span class="linea-menu"></span>
+          <span class="linea-menu"></span>
+          <span class="linea-menu"></span>
+        </button>
+      </div>
+      <nav id="menuPrincipal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="Nosotros.html">Nosotros</a></li>
+          <li><a href="Destino.html">Destinos</a></li>
+          <li><a href="Reserva.html">Reservas</a></li>
+          <li><a href="Tabla_Descuento.html">Descuentos</a></li>
+          <li><a href="Preguntas.html">Preguntas</a></li>
+        </ul>
+      </nav>
+      <script>
+        // Protección de ruta corregida
+        if (!sessionStorage.getItem("usuarioLogueado")) {
+          window.location.href = "Login.html";
+        }
+      </script>
+    </header>
+
+    <div class="layout-perfil">
+      <aside class="sidebar-perfil">
+        <div class="info-usuario-sidebar">
+          <div class="avatar-grande">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <h3 id="nombreSidebar">Cargando...</h3>
+          <p id="emailSidebar">Miembro Activo</p>
+        </div>
+        <nav class="nav-sidebar">
+          <a href="#" class="enlace-nav activo" data-target="sec-viajes">
+            <i class="fa-solid fa-map-location-dot"></i> Mis Viajes
+          </a>
+          <a href="#" class="enlace-nav" data-target="sec-favoritos">
+            <i class="fa-solid fa-heart"></i> Favoritos
+          </a>
+          <a href="#" class="enlace-nav" data-target="sec-configuracion">
+            <i class="fa-solid fa-gear"></i> Configuración
+          </a>
+          <a href="#" id="btnCerrarSesion" class="enlace-cerrar">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+          </a>
+        </nav>
+      </aside>
+
+      <main class="contenido-perfil">
+        <div id="sec-viajes" class="seccion-perfil">
+          <div class="cabecera-seccion">
+            <h2>Mis Viajes</h2>
+            <div class="filtros-viajes">
+              <button class="tab-filtro activo">Próximos</button>
+              <button class="tab-filtro">Pasados</button>
+            </div>
+          </div>
+          <section class="lista-viajes-cards">
+            <div class="card-viaje-horizontal">
+              <div class="imagen-card">
+                <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/v1777565899/Huacachina_ychv1i.jpg" alt="Huacachina" />
+              </div>
+              <div class="info-card">
+                <div class="estado-viaje confirmado">Confirmado</div>
+                <h3>Oasis de la Huacachina</h3>
+                <p class="fecha-viaje"><i class="fa-regular fa-calendar"></i> 25 de Mayo, 2026</p>
+                <p class="desc-breve">Aventura en tubulares y sandboarding en las dunas.</p>
+                <div class="pie-card">
+                  <span class="precio-pagado">S/ 90.00</span>
+                  <a href="Boleta1.html" class="btn-detalles">Ver detalles</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+<!-- PESTAÑA: TUS FAVORITOS DINÁMICOS -->
+        <div id="sec-favoritos" class="seccion-perfil oculto">
+          <div class="cabecera-seccion">
+            <h2>Tus Favoritos</h2>
+          </div>
+          <!-- Añadimos el id dinámico para inyectar las tarjetas desde la API -->
+          <div class="grilla-favoritos" id="contenedor-favoritos-dinamicos">
+            <p style="color: #666;">Cargando tus destinos preferidos...</p>
+          </div>
+        </div>
+
+        <div id="sec-configuracion" class="seccion-perfil oculto">
+          <div class="cabecera-seccion">
+            <h2>Configuración de Perfil</h2>
+          </div>
+          <div class="contenedor-configuracion">
+            <form class="formulario-config">
+              <div class="grupo-inputs-doble">
+                <div class="contenedor-pregunta-respuesta">
+                  <label>Nombre</label>
+                  <input type="text" id="conf-nombre" placeholder="Tu nombre" class="input-moderno">
+                </div>
+                <div class="contenedor-pregunta-respuesta">
+                  <label>Apellidos</label>
+                  <input type="text" id="conf-apellido" placeholder="Tus apellidos" class="input-moderno">
+                </div>
+              </div>
+              <div class="contenedor-pregunta-respuesta">
+                <label>Número de teléfono</label>
+                <input type="tel" id="conf-tel" placeholder="+51 987 654 321" class="input-moderno">
+              </div>
+              <button type="button" class="btn-guardar-cambios">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+
+<script src="JavaScript/Prueba2.js"></script>
+    <script>
+      // Lógica interna para las pestañas del perfil
+      document.addEventListener("DOMContentLoaded", () => {
+        const usuario = sessionStorage.getItem("usuarioLogueado");
+        const idUsuario = sessionStorage.getItem("idUsuario");
+
+        if (usuario) {
+          document.getElementById("nombreSidebar").textContent = usuario.split(' ')[0] + " " + (usuario.split(' ')[1] || "");
+        }
+
+        const enlaces = document.querySelectorAll('.nav-sidebar a[data-target]');
+        const secciones = document.querySelectorAll('.seccion-perfil');
+
+        enlaces.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            enlaces.forEach(l => l.classList.remove('activo'));
+            link.classList.add('activo');
+            secciones.forEach(s => s.classList.add('oculto'));
+            
+            const targetSeccion = link.dataset.target;
+            document.getElementById(targetSeccion).classList.remove('oculto');
+            
+            // SI SE ABRE LA PESTAÑA DE FAVORITOS: Llamamos a la API en la nube
+            if (targetSeccion === 'sec-favoritos' && idUsuario) {
+                cargarFavoritosUsuario(idUsuario);
+            }
+          });
+        });
+
+        document.getElementById("btnCerrarSesion").addEventListener("click", (e) => {
+          e.preventDefault();
+          sessionStorage.clear();
+          window.location.href = "index.html";
+        });
+      });
+    </script>
+  </body>
+</html>

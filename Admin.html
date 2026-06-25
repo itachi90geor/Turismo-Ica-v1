@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Control | Admin Ica</title>
+    <link rel="stylesheet" href="css/Prueba2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <script>
+      // Seguridad inmediata: Si no es admin, lo expulsamos al inicio antes de cargar el DOM
+      if (sessionStorage.getItem("rolUsuario") !== "admin") {
+        alert("Acceso denegado. Solo administradores.");
+        window.location.href = "index.html";
+      }
+    </script>
+  </head>
+  <body class="cuerpo-perfil">
+<header>
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+          <img
+            src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png"
+            alt="Logo de Turismo Ica"
+            class="logo-imagen"
+          />
+          <span class="logo-texto"><h1 style="color: #1a1a1a;">Turismo Ica</h1></span>
+        </a>
+      </div>
+      <div class="contenedor-derecha-header">
+        <a href="Login.html" title="Login" class="enlace-perfil-usuario">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
+          <span class="linea-menu"></span>
+          <span class="linea-menu"></span>
+          <span class="linea-menu"></span>
+        </button>
+      </div>
+      <nav id="menuPrincipal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="Nosotros.html">Nosotros</a></li>
+          <li><a href="Destino.html">Destinos</a></li>
+          <li><a href="Reserva.html">Reservas</a></li>
+          <li><a href="Tabla_Descuento.html">Descuentos</a></li>
+          <li><a href="Preguntas.html">Preguntas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="layout-perfil">
+      <aside class="sidebar-perfil">
+        <nav class="nav-sidebar">
+          <a
+            href="#"
+            id="btn-usuarios"
+            onclick="mostrarSeccion('usuarios')"
+            class="activo"
+          >
+            <i class="fa-solid fa-users"></i> Usuarios
+          </a>
+          <a href="#" id="btn-destinos" onclick="mostrarSeccion('destinos')">
+            <i class="fa-solid fa-map-location-dot"></i> Destinos
+          </a>
+          <a href="#" id="btn-reservas" onclick="mostrarSeccion('reservas')">
+            <i class="fa-solid fa-receipt"></i> Reservas
+          </a>
+        </nav>
+      </aside>
+
+      <main class="contenido-perfil" id="contenedor-principal"></main>
+    </div>
+
+    <div
+      id="modalEditor"
+      class="overlay-pago oculto"
+      style="display: none; z-index: 2000"
+    >
+      <div
+        class="cuadro-vidrio-borroso"
+        style="max-width: 700px; width: 90%; max-height: 90vh; overflow-y: auto"
+      >
+        <h2 class="texto-titulo-grande" id="tituloEditor">Editar Destino</h2>
+        <form id="formEditor" onsubmit="return false;">
+          <input type="hidden" id="edit-id" />
+          <div class="contenedor-pregunta-respuesta">
+            <label>Título del Destino:</label>
+            <input type="text" id="edit-titulo" required />
+          </div>
+          <div class="contenedor-pregunta-respuesta">
+            <label>Días Programados (Separa cada fecha con una coma):</label>
+            <input
+              type="text"
+              id="edit-dias"
+              placeholder="Ej: Sábado 25 de Abril, Domingo 26 de Abril"
+            />
+          </div>
+          <div class="fila-formulario-doble">
+            <div class="contenedor-pregunta-respuesta">
+              <label>Precio Grupal (S/):</label>
+              <input type="number" id="edit-precio-grupal" step="0.01" />
+            </div>
+            <div class="contenedor-pregunta-respuesta">
+              <label>Precio Privado (S/):</label>
+              <input type="number" id="edit-precio-privado" step="0.01" />
+            </div>
+          </div>
+          <div class="contenedor-pregunta-respuesta">
+            <label>Descripción Larga (Itinerario):</label>
+            <textarea
+              id="edit-descripcion"
+              rows="6"
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 6px;
+                border: 1px solid #ddd;
+              "
+            ></textarea>
+          </div>
+          <div class="contenedor-pregunta-respuesta">
+            <label>URL de Imagen Principal:</label>
+            <input type="text" id="edit-imagen" />
+          </div>
+          <div class="contenedor-pregunta-respuesta">
+            <label>Descripción Corta (Para tarjetas del catálogo):</label>
+            <textarea
+              id="edit-descripcion-corta"
+              rows="2"
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 6px;
+                border: 1px solid #ddd;
+              "
+            ></textarea>
+          </div>
+
+          <div class="contenedor-pregunta-respuesta">
+            <label>Imágenes de la Galería (4 fotos de detalle):</label>
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px"
+            >
+              <input
+                type="text"
+                id="img-galeria-1"
+                placeholder="URL Foto 1 (Cloudinary)"
+              />
+              <input type="text" id="img-galeria-2" placeholder="URL Foto 2" />
+              <input type="text" id="img-galeria-3" placeholder="URL Foto 3" />
+              <input type="text" id="img-galeria-4" placeholder="URL Foto 4" />
+            </div>
+          </div>
+          <div class="fila-formulario-doble">
+            <div class="contenedor-pregunta-respuesta">
+              <label>Porcentaje Descuento (%):</label>
+              <input type="number" id="edit-porcentaje" min="0" max="100" />
+            </div>
+            <div class="contenedor-pregunta-respuesta">
+              <label>Ubicación:</label>
+              <input type="text" id="edit-ubicacion" />
+            </div>
+          </div>
+          <div
+            class="contenedor-boton-al-medio"
+            style="display: flex; gap: 15px; margin-top: 20px"
+          >
+            <button
+              type="button"
+              class="enlace-login"
+              onclick="cerrarEditor()"
+              style="width: 50%"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="boton-rojo-ingresar"
+              style="width: 50%"
+            >
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="JavaScript/Prueba2.js"></script>
+  </body>
+</html>

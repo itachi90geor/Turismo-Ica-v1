@@ -53,10 +53,13 @@ body {
 
 /* Ajustes para el texto dentro del logo */
 .logo-texto h1 {
-  font-size: 1.5rem; /* Ajusta el tamaño para que no se vea gigante */
-  margin: 0; /* Quita márgenes que puedan empujar el texto hacia abajo */
-  white-space: nowrap; /* Evita que el nombre se parta en dos líneas */
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px; /* Estilo compacto y moderno */
+  text-transform: uppercase;
   color: var(--color-oscuro);
+  margin: 0;
+  white-space: nowrap;
 }
 
 /* Ajuste adicional para la imagen (ya la tenías, asegúrate de que esté así) */
@@ -261,18 +264,28 @@ button[type="submit"]:hover {
 
 /* La banda oscura que va abajo de todas las páginas*/
 footer {
-  background: var(--color-oscuro);
-  color: #ccc;
+  background: #111111; /* Un tono oscuro más profundo y limpio */
+  color: #a0a0a0;
   text-align: center;
-  padding: 20px 20px;
+  padding: 35px 20px;
+  letter-spacing: 0.2px;
 }
 
-/* Selecciona específicamente el primer párrafo dentro del pie de página para 
-    darle un estilo especial */
+/* Primer párrafo del footer (Nombre del Grupo y Año) */
 footer p:first-child {
-  color: #fff;
-  font-weight: bold;
-  margin-bottom: 5px;
+  color: var(--color-claro);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 1px; /* Espaciado elegante para títulos de pie */
+  margin-bottom: 8px;
+}
+
+/* Segundo párrafo del footer (Eslogan u observaciones) */
+footer p:last-child {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #777777;
 }
 
 /* 4. EL MENÚ DE ARRIBA (CABECERA) */
@@ -289,6 +302,8 @@ header {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 /* Lista de elementos en el menú de encabezado */
@@ -432,16 +447,19 @@ nav a:hover {
   gap: 20px; /* Espacio entre el icono de usuario y las rayitas del menú */
 }
 
-/* El enlace que envuelve la imagen */
+/* El enlace que envuelve la imagen y el texto del nombre */
 .enlace-perfil-usuario {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none !important; /* CORREGIDO: Quita la línea de abajo del nombre por defecto */
+  gap: 10px; /* NUEVO: Separa el nombre del círculo del usuario de forma limpia */
   transition: transform 0.3s ease;
 }
 
 .enlace-perfil-usuario:hover {
   transform: scale(1.1); /* Efecto de aumento al pasar el mouse */
+  text-decoration: none !important; /* Asegura que al pasar el mouse tampoco se subraye */
 }
 
 /* Estilo específico para el icono de usuario */
@@ -463,7 +481,6 @@ nav a:hover {
 .enlace-perfil-usuario:hover i {
   background-color: var(--color-boton);
   color: #fff; /* Invierte los colores */
-  transform: scale(1.1);
 }
 
 /* Ajuste del header para asegurar la alineación */
@@ -971,6 +988,24 @@ nav#menuPrincipal ul li {
   padding-bottom: 10px;
 }
 
+nav#menuPrincipal ul li a {
+  text-decoration: none !important; /* Elimina cualquier línea inferior residual */
+  color: var(--color-oscuro);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  text-transform: capitalize;
+  transition: var(--transicion-suave);
+}
+
+nav#menuPrincipal ul li a:hover {
+  color: var(--color-boton);
+}
+
+nav ul li a {
+  text-decoration: none !important;
+}
+
 /* Esto crea una sombra que cubre el contenido de atrás cuando el menú abre */
 nav#menuPrincipal::before {
   content: "";
@@ -1180,26 +1215,56 @@ nav#menuPrincipal.activo::before {
 }
 
 /* 15. AJUSTES RESPONSIVE PARA DETALLES DE TOUR */
+/* =========================================
+   AJUSTES DE RESPONSIVE (CELULARES)
+========================================= */
+
 @media (max-width: 850px) {
-  /* Obligamos a la tabla a mantener un ancho mínimo para que el texto no se amontone */
-  .cuadro-estilo-excel {
-    min-width: 600px;
+  /* 1. Hacemos que la pantalla dividida pase de 2 columnas a 1 sola */
+  .pantalla-dividida-historia-reserva {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 30px;
+    margin: 30px auto;
   }
 
-  /* Hacemos el menú más compacto para que no ocupe toda la pantalla al inicio */
-  nav ul {
-    gap: 10px; /* Reduce el espacio entre "Inicio", "Nosotros", etc. */
-    padding: 10px 0;
+  /* 2. El formulario ya no debe "perseguir" al usuario, debe fluir normal */
+  .formulario-que-te-persigue {
+    position: static; /* Quita el sticky */
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
 
-  nav a {
-    font-size: 0.9rem; /* Achicamos un poquito la letra del menú */
+  /* 3. Ajustamos el tamaño de la galería de fotos para que no se vea gigante */
+  .grilla-de-fotos-pequenas img {
+    height: 180px; /* Fotos más bajas para ahorrar espacio vertical */
   }
 
-  /* Ajustamos el tamaño del título de la página en el celular */
-  .texto-titulo-grande {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
+  /* 4. Ajustamos el texto de la portada interna */
+  .portada-interna h2 {
+    font-size: 2rem;
+    padding: 0 15px;
+  }
+
+  /* 5. Aseguramos que las imágenes de los tours destacados ocupen bien el ancho */
+  .cuadro-alargado-reserva {
+    flex-direction: column; /* La imagen arriba y el texto abajo */
+  }
+
+  .cuadro-alargado-reserva img {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+/* Ajuste extra para pantallas muy pequeñas (iPhone SE, etc.) */
+@media (max-width: 480px) {
+  .grilla-de-fotos-pequenas {
+    grid-template-columns: 1fr; /* Fotos de una en una */
+  }
+
+  .caja-blanca-sobre-foto {
+    padding: 20px;
+    margin-top: -30px;
   }
 }
 
@@ -1415,7 +1480,514 @@ nav#menuPrincipal.activo::before {
 
 /* Quita el subrayado de los enlaces que se usan como botones */
 .boton-rojo-ingresar {
-    text-decoration: none; /* Esto elimina la línea de abajo */
-    display: inline-block; /* Permite que el botón respete el padding y ancho */
-    text-align: center;
+  text-decoration: none; /* Esto elimina la línea de abajo */
+  display: inline-block; /* Permite que el botón respete el padding y ancho */
+  text-align: center;
+}
+
+/* =========================================
+  16. FILTROS DEL CATÁLOGO DE DESTINOS 
+========================================= */
+.contenedor-filtros {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+
+.btn-filtro {
+  background-color: transparent;
+  color: var(--color-oscuro);
+  border: 2px solid var(--color-boton);
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transicion-suave);
+}
+
+/* Efecto al pasar el mouse o cuando está seleccionado */
+.btn-filtro:hover,
+.btn-filtro.activo {
+  background-color: var(--color-boton);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(229, 29, 42, 0.2);
+}
+
+/* Esta clase es la que hace la magia de ocultar los viajes que no son de la categoría */
+.cuadrito-viaje.oculto {
+  display: none;
+}
+
+/* =========================================
+  DISEÑO ESTILO DASHBOARD (PERFIL)
+========================================= */
+
+.cuerpo-perfil {
+  background-color: #f0f2f5;
+}
+
+.layout-perfil {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: calc(100vh - 70px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Sidebar */
+.sidebar-perfil {
+  background: #fff;
+  border-right: 1px solid #e0e0e0;
+  padding: 30px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-usuario-sidebar {
+  text-align: center;
+  padding: 0 20px 30px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.avatar-grande {
+  width: 80px;
+  height: 80px;
+  background: var(--color-boton);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin: 0 auto 15px;
+}
+
+.nav-sidebar {
+  padding: 20px 0;
+}
+
+.nav-sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 30px;
+  text-decoration: none;
+  color: var(--color-gris);
+  font-weight: 600;
+  transition: var(--transicion-suave);
+}
+
+.nav-sidebar a:hover,
+.nav-sidebar a.activo {
+  background: rgba(229, 29, 42, 0.05);
+  color: var(--color-boton);
+  border-left: 4px solid var(--color-boton);
+}
+
+.enlace-cerrar {
+  margin-top: auto;
+  color: #888 !important;
+}
+
+/* Contenido Principal */
+.contenido-perfil {
+  padding: 40px;
+}
+
+.cabecera-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.filtros-viajes {
+  background: #fff;
+  padding: 5px;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.tab-filtro {
+  border: none;
+  background: transparent;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #777;
+}
+
+.tab-filtro.activo {
+  background: var(--color-boton);
+  color: #fff;
+}
+
+/* Cards de Viaje Horizontales */
+.card-viaje-horizontal {
+  background: #fff;
+  display: flex;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+  transition: transform 0.3s ease;
+}
+
+.card-viaje-horizontal:hover {
+  transform: translateY(-5px);
+}
+
+.imagen-card {
+  width: 250px;
+  min-height: 180px;
+}
+
+.imagen-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-card {
+  flex: 1;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.estado-viaje {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.confirmado {
+  color: #2e7d32;
+}
+
+.fecha-viaje {
+  color: var(--color-gris);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.pie-card {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 15px;
+}
+
+.precio-pagado {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.btn-detalles {
+  color: var(--color-boton);
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--color-boton);
+  padding: 6px 15px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.btn-detalles:hover {
+  background: var(--color-boton);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .layout-perfil {
+    grid-template-columns: 1fr;
+  }
+  .sidebar-perfil {
+    display: none; /* En móvil usamos el menú hamburguesa principal */
+  }
+  .card-viaje-horizontal {
+    flex-direction: column;
+  }
+  .imagen-card {
+    width: 100%;
+    height: 150px;
+  }
+}
+
+/* --- MEJORAS PARA EL PERFIL (ESTILO TRYP) --- */
+.seccion-perfil.oculto { display: none !important; }
+
+.grilla-favoritos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card-favorito {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.imagen-favorito { position: relative; height: 160px; }
+.imagen-favorito img { width: 100%; height: 100%; object-fit: cover; }
+
+.btn-corazon {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: white; border: none;
+  width: 30px; height: 30px;
+  border-radius: 50%; color: #e51d2a;
+  cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.contenedor-configuracion {
+  background: white; padding: 30px;
+  border-radius: 12px; max-width: 600px;
+}
+
+.input-moderno {
+  background: #f1f3f5; border: 1px solid #e9ecef;
+  margin-top: 5px;
+}
+
+.btn-guardar-cambios {
+  background: #1a1a1a; color: white;
+  padding: 12px 20px; border: none;
+  border-radius: 8px; cursor: pointer;
+  font-weight: bold; margin-top: 10px;
+}
+
+.btn-guardar-cambios:hover { background: #e51d2a; }
+
+.linea-rectangular-destino {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-left: 5px solid #e63946; /* El rojo característico de tu web */
+}
+
+.info-basica {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.controles-admin {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Estilo para el switch de descuento */
+.switch-descuento {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* ================================================= */
+/* 17. ESTILOS EXTRAÍDOS DE DETALLE.HTML           */
+/* ================================================= */
+
+.enlace-logo-header {
+  text-decoration: none; 
+  display: flex; 
+  align-items: center; 
+  gap: 15px;
+}
+
+.seccion-posteo-borde {
+  margin-top: 30px; 
+  border-left: 4px solid var(--color-boton);
+}
+
+.label-precio-desde {
+  margin-bottom: 15px;
+}
+
+.contenedor-fecha-libre-oculto {
+  display: none;
+}
+
+.textarea-comentario {
+  margin-top: 10px;
+}
+
+.boton-comentario-publicar {
+  width: auto; 
+  padding: 10px 20px; 
+  margin-top: 10px;
+}
+
+.caja-comentario-visitante {
+  margin: 0;
+}
+
+.enlace-login-comentario {
+  color: var(--color-boton); 
+  font-weight: bold;
+}
+
+/* ================================================= */
+/* 18. GESTIÓN DEL PANEL DE ADMINISTRACIÓN (ADMIN)   */
+/* ================================================= */
+
+.linea-rectangular-destino {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #e63946;
+}
+
+.info-basica {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.controles-admin {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.switch-descuento {
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ============================================================================
+   19. APARTADO DE PREGUNTAS FRECUENTES (FAQ) - CENTRALIZADO Y ALINEADO
+   ============================================================================ */
+
+/* Alineación simétrica y centrada para los títulos de la cabecera de preguntas */
+.seccion-cabecera-faq {
+  text-align: center;
+  max-width: 900px;
+  margin: 60px auto 40px auto;
+  padding: 0 20px;
+}
+
+/* Fuerza el centrado absoluto del título H2 heredado */
+.seccion-cabecera-faq .texto-titulo-grande {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+
+/* Configuración para el párrafo informativo superior */
+.parrafo-faq-sub {
+  color: var(--color-gris);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Contenedor final de contacto totalmente centrado con flexbox */
+.bloque-contacto-final {
+  text-align: center;
+  max-width: 600px;
+  margin: 40px auto 80px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Título de la llamada a la acción inferior */
+.texto-dudas-final {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 18px;
+  color: var(--color-oscuro);
+}
+
+/* Modificación de comportamiento para centrar el botón inline-block sin deformaciones */
+.btn-llamada-contacto {
+  text-decoration: none !important;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  width: auto;
+  padding: 12px 35px;
+}
+
+/* ============================================================================
+   20. BOTÓN DE CORAZÓN FLOTANTE EN EL CATÁLOGO DE DESTINOS
+   ============================================================================ */
+
+/* Contenedor relativo de la imagen para que el posicionamiento absoluto funcione */
+.cuadrito-viaje-imagen-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Forzar que las tarjetas mantengan el diseño de bloque sin subrayados */
+.enlace-tarjeta-bloque {
+  text-decoration: none !important;
+  color: inherit;
+  display: block;
+}
+
+/* Estilo del botón del corazón (Inspirado en .btn-corazon de tu perfil) */
+.btn-corazon-catalogo {
+  position: absolute;
+  top: 15px; 
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+  border: none;
+  width: 38px; 
+  height: 38px;
+  border-radius: 50%; 
+  color: var(--color-gris); /* Gris en estado neutro */
+  font-size: 1.1rem;
+  cursor: pointer; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* Por encima de la foto del viaje */
+  transition: var(--transicion-suave);
+}
+
+/* Efecto de escala al pasar el mouse por encima */
+.btn-corazon-catalogo:hover {
+  transform: scale(1.1);
+  color: var(--color-boton); /* Se torna rojo al apuntarlo */
+  background: #ffffff;
+}
+
+/* Estado activo: Cuando el destino ya está guardado en favoritos */
+.btn-corazon-catalogo.activo {
+  color: var(--color-boton) !important; /* Rojo definitivo */
+  animation: pulsoCorazon 0.3s ease-in-out;
+}
+
+/* Animación de latido al activarse */
+@keyframes pulsoCorazon {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
 }
