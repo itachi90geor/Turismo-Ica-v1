@@ -148,6 +148,16 @@
           document.getElementById("nombreSidebar").textContent = usuario.split(' ')[0] + " " + (usuario.split(' ')[1] || "");
         }
 
+        // ==========================================
+        // 1. CARGAR VIAJES POR DEFECTO AL ENTRAR
+        // ==========================================
+        if (idUsuario) {
+            cargarViajesUsuario(idUsuario);
+        }
+
+        // ==========================================
+        // 2. LÓGICA DE NAVEGACIÓN DE PESTAÑAS
+        // ==========================================
         const enlaces = document.querySelectorAll('.nav-sidebar a[data-target]');
         const secciones = document.querySelectorAll('.seccion-perfil');
 
@@ -161,13 +171,21 @@
             const targetSeccion = link.dataset.target;
             document.getElementById(targetSeccion).classList.remove('oculto');
             
-            // SI SE ABRE LA PESTAÑA DE FAVORITOS: Llamamos a la API en la nube
+            // Si hace clic en Favoritos, actualizamos la base de datos
             if (targetSeccion === 'sec-favoritos' && idUsuario) {
                 cargarFavoritosUsuario(idUsuario);
+            }
+            
+            // Si regresa a Mis Viajes, volvemos a cargar por si compró algo nuevo
+            if (targetSeccion === 'sec-viajes' && idUsuario) {
+                cargarViajesUsuario(idUsuario);
             }
           });
         });
 
+        // ==========================================
+        // 3. CERRAR SESIÓN
+        // ==========================================
         document.getElementById("btnCerrarSesion").addEventListener("click", (e) => {
           e.preventDefault();
           sessionStorage.clear();

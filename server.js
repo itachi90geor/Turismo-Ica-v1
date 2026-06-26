@@ -66,6 +66,53 @@ app.post('/api/login', async (req, res) => {
     });
 });
 
+// ==========================================
+//    --- NUEVA RUTA: GUARDAR RESERVAS ---
+// ==========================================
+app.post('/api/reservas', async (req, res) => {
+    const { usuario_id, destino_id, modalidad, fecha_reserva, pasajeros, total, metodo_pago, estado } = req.body;
+
+    const { data, error } = await supabase
+        .from('reservas')
+        .insert([{
+            usuario_id,
+            destino_id,
+            modalidad,
+            fecha_reserva,
+            pasajeros,
+            total,
+            metodo_pago,
+            estado
+        }]);
+
+    if (error) {
+        console.error("Error al registrar reserva en BD:", error.message);
+        return res.status(500).json({ error: error.message });
+    }
+    
+    res.status(200).json({ mensaje: 'Reserva registrada con éxito en Supabase' });
+});
+
+// ==========================================
+//    --- NUEVA RUTA: OBTENER VIAJES DEL USUARIO ---
+// ==========================================
+app.get('/api/reservas/usuario/:id', async (req, res) => {
+    const { id } = req.params;
+    
+    // El select mágico: Trae la reserva y cruza los datos con la tabla destinos
+    const { data, error } = await supabase
+        .from('reservas')
+        .select(`
+            *,
+            destinos ( titulo, imagen_url )
+        `)
+        .eq('usuario_id', id)
+        .order('id', { ascending: false }); // Usamos el ID para ordenar de más nuevo a más viejo
+
+    if (error) return res.status(500).json({ error: error.message });
+    res.status(200).json(data);
+});
+
 // 4. INICIO DEL SERVIDOR (Este es el mensaje que debe salir)
 app.listen(3000, () => {
     console.log('---------------------------------------------------------');

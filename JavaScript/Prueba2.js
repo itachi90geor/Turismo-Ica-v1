@@ -1,30 +1,112 @@
 /* ==========================================
-   1. SISTEMA DE PAGO (¡NO TOCADO!)
+   1. SISTEMA DE PAGO (CONECTADO A SUPABASE)
 ========================================== */
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('formularioPago');
     const btnPagar = document.getElementById('btnPagar');
     const textoBoton = document.getElementById('textoBoton');
     const spinner = document.getElementById('spinner');
+    
+    const btnEfectivo = document.getElementById('btnEfectivo');
+    const textoBotonEfectivo = document.getElementById('textoBotonEfectivo');
+    const spinnerEfectivo = document.getElementById('spinnerEfectivo');
+    
     const modalExito = document.getElementById('modalExito');
 
+    // Función maestra que se comunica con el Backend
+    async function registrarReservaBD(metodo_pago, estado) {
+        const idUsuario = sessionStorage.getItem("idUsuario");
+        
+        if (!idUsuario) {
+            alert("¡Hola! Por favor, inicia sesión con tu cuenta para completar la reserva.");
+            window.location.href = "../Login.html";
+            return false;
+        }
+
+        const memoria = sessionStorage.getItem('ordenTurismoIca');
+        if (!memoria) {
+            alert("No se encontraron los datos de la orden.");
+            return false;
+        }
+        
+        const orden = JSON.parse(memoria);
+
+        try {
+            const res = await fetch('http://localhost:3000/api/reservas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    usuario_id: idUsuario,
+                    destino_id: orden.id,
+                    modalidad: orden.modalidad,
+                    fecha_reserva: orden.fecha,
+                    pasajeros: orden.pasajeros,
+                    total: orden.total,
+                    metodo_pago: metodo_pago,
+                    estado: estado
+                })
+            });
+            
+            if(res.ok) {
+                return true;
+            } else {
+                const err = await res.json();
+                alert("Ocurrió un error al procesar tu reserva: " + err.error);
+                return false;
+            }
+        } catch (error) {
+            console.error("Error de red al registrar:", error);
+            alert("Error de conexión con el servidor.");
+            return false;
+        }
+    }
+
+    // --- LÓGICA PARA TARJETA ---
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             btnPagar.disabled = true;
-            textoBoton.textContent = 'Procesando...';
+            textoBoton.textContent = 'Procesando Pago...';
             spinner.classList.remove('oculto');
 
-            setTimeout(() => {
+            // Enviamos "tarjeta" y estado "confirmado"
+            const exito = await registrarReservaBD('tarjeta', 'confirmado');
+
+            if (exito) {
+                modalExito.querySelector('h3').textContent = '¡Pago Realizado!';
+                modalExito.querySelector('p').textContent = 'Tu reserva ha sido confirmada con éxito.';
                 modalExito.classList.remove('oculto');
-                btnPagar.disabled = false;
-                textoBoton.textContent = 'Pagar Ahora';
-                spinner.classList.add('oculto');
-            }, 2000);
+            }
+            
+            btnPagar.disabled = false;
+            textoBoton.textContent = 'Pagar Ahora';
+            spinner.classList.add('oculto');
         });
     }
 
-    /* Formateo de número de tarjeta */
+    // --- LÓGICA PARA EFECTIVO / YAPE ---
+    if (btnEfectivo) {
+        btnEfectivo.addEventListener('click', async () => {
+            btnEfectivo.disabled = true;
+            textoBotonEfectivo.textContent = 'Generando código...';
+            spinnerEfectivo.classList.remove('oculto');
+
+            // Enviamos "efectivo" y estado "pendiente"
+            const exito = await registrarReservaBD('efectivo', 'pendiente');
+
+            if (exito) {
+                modalExito.querySelector('h3').textContent = '¡Reserva Registrada!';
+                modalExito.querySelector('p').textContent = 'Tu código de pago ha sido generado. Revisa tu correo o págala desde tu app móvil.';
+                modalExito.classList.remove('oculto');
+            }
+
+            btnEfectivo.disabled = false;
+            textoBotonEfectivo.textContent = 'Obtener Código de Pago';
+            spinnerEfectivo.classList.add('oculto');
+        });
+    }
+
+    /* Formateo de número de tarjeta y fecha (Se mantiene igual) */
     const inputTarjeta = document.getElementById('tarjeta-numero');
     if (inputTarjeta) {
         inputTarjeta.addEventListener('input', (e) => {
@@ -39,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* Formateo de fecha MM/AA */
     const inputFecha = document.getElementById('tarjeta-fecha');
     if (inputFecha) {
         inputFecha.addEventListener('input', (e) => {
@@ -217,17 +298,44 @@ async function cargarCatalogoDestinos() {
         contenedor.innerHTML = '';
         destinos.forEach(destino => {
             const card = document.createElement('div');
-            // 👇 Le devolvemos tu clase original que tiene todo el diseño CSS
             card.className = 'cuadrito-viaje'; 
             card.setAttribute('data-categoria', destino.categoria);
 
-            // Verificamos si este destino específico está en la lista
             const esFav = misFavoritos.includes(destino.id);
             const claseActiva = esFav ? 'activo' : '';
             const iconoClase = esFav ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
 
+            // --- LÓGICA DE DESCUENTOS ---
+            let htmlEtiquetaDescuento = '';
+            let htmlPreciosGrupal = `<strong>S/ ${destino.precio_grupal}</strong>`;
+            let htmlPreciosPrivado = `<strong style="color: var(--color-boton);">S/ ${destino.precio_privado}</strong>`;
+
+            // Si el tour tiene descuento activado y el porcentaje es mayor a 0
+            if (destino.con_descuento && destino.porcentaje_descuento > 0) {
+                // Matemáticas: Precio - (Precio * Porcentaje / 100)
+                let precioGrupalDescuento = (destino.precio_grupal - (destino.precio_grupal * destino.porcentaje_descuento / 100)).toFixed(2);
+                let precioPrivadoDescuento = (destino.precio_privado - (destino.precio_privado * destino.porcentaje_descuento / 100)).toFixed(2);
+
+                htmlEtiquetaDescuento = `<span class="etiqueta-descuento">-${destino.porcentaje_descuento}% OFF</span>`;
+                
+                htmlPreciosGrupal = `
+                    <div class="contenedor-precio-descuento">
+                        <span class="precio-antiguo">S/ ${destino.precio_grupal}</span>
+                        <strong>S/ ${precioGrupalDescuento}</strong>
+                    </div>`;
+                    
+                htmlPreciosPrivado = `
+                    <div class="contenedor-precio-descuento">
+                        <span class="precio-antiguo">S/ ${destino.precio_privado}</span>
+                        <strong style="color: var(--color-boton);">S/ ${precioPrivadoDescuento}</strong>
+                    </div>`;
+            }
+            // ----------------------------
+
             card.innerHTML = `
                 <div class="cuadrito-viaje-imagen-wrapper">
+                    ${htmlEtiquetaDescuento} <!-- Si no hay descuento, esto estará vacío -->
+                    
                     <button class="btn-corazon-catalogo ${claseActiva}" onclick="manejarFavoritoClick(event, this, ${destino.id})">
                         <i class="${iconoClase}"></i>
                     </button>
@@ -242,9 +350,15 @@ async function cargarCatalogoDestinos() {
                         <h3>${destino.titulo}</h3>
                         <p>${destino.descripcion_corta}</p>
                         <div class="caja-de-precios">
-                            <div class="opcion-de-precio"><span>Grupal</span><strong>S/ ${destino.precio_grupal}</strong></div>
+                            <div class="opcion-de-precio">
+                                <span>Grupal</span>
+                                ${htmlPreciosGrupal}
+                            </div>
                             <div class="linea-vertical-precios"></div>
-                            <div class="opcion-de-precio privado"><span>Privado</span><strong>S/ ${destino.precio_privado}</strong></div>
+                            <div class="opcion-de-precio privado">
+                                <span>Privado</span>
+                                ${htmlPreciosPrivado}
+                            </div>
                         </div>
                     </div>
                 </a>
@@ -312,13 +426,41 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* Selector de Fechas */
+/* Selector de Fechas y Actualización de Precios Dinámica */
 function cambiarSelectorFecha() {
     var tipoTour = document.getElementById("tipo-tour").value;
     var cajaFechasFijas = document.getElementById("contenedor-fechas-fijas");
     var cajaFechaLibre = document.getElementById("contenedor-fecha-libre");
+
+    // 1. Cambiar visibilidad de los calendarios
     if (cajaFechasFijas && cajaFechaLibre) {
         cajaFechasFijas.style.display = (tipoTour === "grupal") ? "block" : "none";
         cajaFechaLibre.style.display = (tipoTour === "privado") ? "block" : "none";
+    }
+
+    // 2. Actualizar el precio dinámicamente según la elección
+    const d = window.dataTourGlobal; // Leemos el tour que guardamos en memoria al cargar la página
+    if (!d) return; 
+
+    // Elegimos qué tarifa usar
+    let precioBase = (tipoTour === "privado") ? d.precio_privado : d.precio_grupal;
+    let htmlPrecio = `Desde <strong>S/ ${precioBase}</strong>`;
+
+    // Si tiene descuento, le aplicamos la matemática a la tarifa elegida
+    if (d.con_descuento && d.porcentaje_descuento > 0) {
+        let precioRebajado = (precioBase - (precioBase * d.porcentaje_descuento / 100)).toFixed(2);
+        
+        htmlPrecio = `
+            Desde <span style="text-decoration: line-through; color: #999; font-size: 0.9em;">S/ ${precioBase}</span> 
+            <strong style="color: var(--color-boton); font-size: 1.3em; margin-left: 5px;">S/ ${precioRebajado}</strong>
+            <span style="background: var(--color-boton); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8em; margin-left: 8px; vertical-align: middle;">-${d.porcentaje_descuento}%</span>
+        `;
+    }
+    
+    // Inyectamos el nuevo HTML en la etiqueta del precio
+    const labelDesde = document.getElementById("label-desde");
+    if (labelDesde) {
+        labelDesde.innerHTML = htmlPrecio;
     }
 }
 
@@ -354,7 +496,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.title = `${d.titulo} | Turismo Ica`;
         tituloDestinoEl.innerText = d.titulo;
         document.getElementById("descripcion-larga").innerText = d.descripcion_larga;
-        document.getElementById("label-desde").innerHTML = `Desde <strong>S/ ${d.precio_grupal}</strong>`;
+        // --- LÓGICA PARA MOSTRAR PRECIO Y DESCUENTO EN EL FORMULARIO ---
+        let htmlPrecio = `Desde <strong>S/ ${d.precio_grupal}</strong>`;
+
+        if (d.con_descuento && d.porcentaje_descuento > 0) {
+            let precioRebajado = (d.precio_grupal - (d.precio_grupal * d.porcentaje_descuento / 100)).toFixed(2);
+            
+            htmlPrecio = `
+                Desde <span style="text-decoration: line-through; color: #999; font-size: 0.9em;">S/ ${d.precio_grupal}</span> 
+                <strong style="color: var(--color-boton); font-size: 1.3em; margin-left: 5px;">S/ ${precioRebajado}</strong>
+                <span style="background: var(--color-boton); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8em; margin-left: 8px; vertical-align: middle;">-${d.porcentaje_descuento}%</span>
+            `;
+        }
+        
+        document.getElementById("label-desde").innerHTML = htmlPrecio;
+        window.dataTourGlobal = d;
+        // -------------------------------------------------------------
 
         // Fondo de portada dinámico
         document.getElementById("portada-fondo").style.backgroundImage =
@@ -784,5 +941,178 @@ window.cargarFavoritosUsuario = async function(idUsuario) {
     } catch (error) {
         console.error("Error al cargar favoritos en el perfil:", error);
         contenedor.innerHTML = '<p style="color: #e51d2a;">Ocurrió un error al cargar tus favoritos.</p>';
+    }
+};
+
+/* ================================================= */
+/* PASO 1: MANDAR DATOS DE RESERVA A PÁGINA DE PAGO  */
+/* ================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const formDetalle = document.querySelector('aside form');
+    
+    if (formDetalle) {
+        formDetalle.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const tour = window.dataTourGlobal;
+            if (!tour) return alert("Por favor espera un segundo a que cargue el tour.");
+
+            const selectTipo = document.getElementById('tipo-tour');
+            const tipoElegido = selectTipo ? selectTipo.value : 'grupal';
+
+            // Capturar la fecha elegida
+            let fechaElegida = "";
+            const cajaFijas = document.getElementById('contenedor-fechas-fijas');
+            if (cajaFijas && getComputedStyle(cajaFijas).display !== 'none') {
+                fechaElegida = document.getElementById('selector-fechas-fijas').value;
+            } else {
+                const inputLibre = document.querySelector('#contenedor-fecha-libre input');
+                fechaElegida = inputLibre ? inputLibre.value : "Por coordinar";
+            }
+
+            const inputPasajeros = formDetalle.querySelector('input[type="number"]');
+            const numPasajeros = parseInt(inputPasajeros ? inputPasajeros.value : 1) || 1;
+
+            // Matemática del precio final por persona
+            let precioUnitario = (tipoElegido === 'privado') ? Number(tour.precio_privado) : Number(tour.precio_grupal);
+            if (tour.con_descuento && tour.porcentaje_descuento > 0) {
+                precioUnitario = precioUnitario - (precioUnitario * (tour.porcentaje_descuento / 100));
+            }
+
+            const orden = {
+                id: tour.id,
+                titulo: tour.titulo,
+                imagen: tour.imagen_url,
+                modalidad: (tipoElegido === 'privado') ? 'Tour Privado' : 'Tour Grupal Compartido',
+                fecha: fechaElegida,
+                pasajeros: numPasajeros,
+                precio_persona: precioUnitario.toFixed(2),
+                total: (precioUnitario * numPasajeros).toFixed(2)
+            };
+
+            sessionStorage.setItem('ordenTurismoIca', JSON.stringify(orden));
+
+            // ¡OJO AQUÍ! Pon el nombre exacto de tu archivo HTML de pago:
+            window.location.href = "../Boleta/Pago.html";
+        });
+    }
+});
+
+/* ================================================= */
+/* PASO 2: DIBUJAR EL RESUMEN EN LA VISTA DE PAGO    */
+/* ================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const contenedorResumen = document.getElementById('cuadro-resumen-dinamico');
+    
+    if (contenedorResumen) {
+        const memoria = sessionStorage.getItem('ordenTurismoIca');
+        if (!memoria) {
+            contenedorResumen.innerHTML = `<p style="color:red; text-align:center;">No hay orden activa.<br><a href="Destino.html">Volver a destinos</a></p>`;
+            return;
+        }
+
+        const o = JSON.parse(memoria);
+
+        contenedorResumen.innerHTML = `
+            <h3 style="border-bottom: 2px solid var(--color-boton); padding-bottom:10px;">Tu Orden</h3>
+            
+            <img src="${o.imagen}" class="foto-resumen" alt="${o.titulo}">
+            
+            <div class="lista-datos-resumen">
+                <h4 style="margin-bottom:15px; font-size:1.2rem; color: var(--color-oscuro);">${o.titulo}</h4>
+                <p><i class="fa-solid fa-tag"></i> <span><strong>Servicio:</strong> <br>${o.modalidad}</span></p>
+                <p><i class="fa-solid fa-calendar-check"></i> <span><strong>Fecha:</strong> <br>${o.fecha}</span></p>
+                <p><i class="fa-solid fa-users"></i> <span><strong>Pasajeros:</strong> <br>${o.pasajeros} persona(s)</span></p>
+                <p><i class="fa-solid fa-coins"></i> <span><strong>Tarifa base:</strong> <br>S/ ${o.precio_persona} c/u</span></p>
+                
+                <div class="caja-total-pagar">
+                   <span>Total:</span>
+                   <span style="color: var(--color-boton); font-size: 1.4rem;">S/ ${o.total}</span>
+                </div>
+            </div>
+        `;
+    }
+});
+
+function alternarMetodoPago(metodo) {
+    const vTarjeta = document.getElementById('vista-tarjeta');
+    const vEfectivo = document.getElementById('vista-efectivo');
+    const tabs = document.querySelectorAll('.pestanas-metodo .tab-pago');
+
+    tabs.forEach(t => t.classList.remove('activo'));
+
+    if (metodo === 'tarjeta') {
+        vTarjeta.classList.remove('oculto');
+        vEfectivo.classList.add('oculto');
+        tabs[0].classList.add('activo');
+    } else {
+        vTarjeta.classList.add('oculto');
+        vEfectivo.classList.remove('oculto');
+        tabs[1].classList.add('activo');
+    }
+}
+
+// =========================================================
+// FUNCIÓN PARA PINTAR MIS VIAJES EN LA PESTAÑA DEL PERFIL
+// =========================================================
+window.cargarViajesUsuario = async function(idUsuario) {
+    const contenedor = document.querySelector('.lista-viajes-cards');
+    if (!contenedor) return;
+
+    contenedor.innerHTML = '<p style="color: #666; padding: 20px;">Buscando tus reservas...</p>';
+
+    try {
+        const res = await fetch(`http://localhost:3000/api/reservas/usuario/${idUsuario}`);
+        const reservas = await res.json();
+
+        // NUEVO SALVAVIDAS: Verifica si el servidor devolvió un error (ej. olvidaste prender node server.js)
+        if (!res.ok || !Array.isArray(reservas)) {
+            console.error("Error del servidor:", reservas);
+            contenedor.innerHTML = '<p style="color: #e51d2a; padding: 20px;">Hubo un problema de conexión. Asegúrate de haber reiniciado tu servidor (node server.js).</p>';
+            return;
+        }
+
+        if (reservas.length === 0) {
+            contenedor.innerHTML = '<p style="color: #666; padding: 20px;">Aún no tienes viajes programados. ¡Anímate a reservar tu primera aventura en nuestro catálogo!</p>';
+            return;
+        }
+
+        contenedor.innerHTML = ''; // Limpiamos el texto de carga
+        
+        reservas.forEach(reserva => {
+            const destino = reserva.destinos;
+            if(!destino) return; 
+
+            const colorEstado = reserva.estado === 'confirmado' ? '#2e7d32' : '#e51d2a';
+            const textoEstado = reserva.estado.toUpperCase();
+            
+            const card = document.createElement('div');
+            card.className = 'card-viaje-horizontal';
+            card.innerHTML = `
+                <div class="imagen-card">
+                    <img src="${destino.imagen_url}" alt="${destino.titulo}">
+                </div>
+                <div class="info-card">
+                    <div class="estado-viaje" style="color: ${colorEstado};">${textoEstado}</div>
+                    <h3 style="color: var(--color-oscuro); margin-bottom: 5px;">${destino.titulo}</h3>
+                    <p class="fecha-viaje" style="margin-bottom: 5px;"><i class="fa-regular fa-calendar"></i> ${reserva.fecha_reserva}</p>
+                    <p class="desc-breve" style="color: #555; margin-bottom: 15px;">${reserva.modalidad} | ${reserva.pasajeros} Pasajero(s)</p>
+                    
+                    <div class="pie-card">
+                        <span class="precio-pagado">S/ ${reserva.total}</span>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <span style="color: #888; font-size: 0.8rem; font-weight: bold; background: #f0f0f0; padding: 4px 10px; border-radius: 10px;">
+                                <i class="fa-solid ${reserva.metodo_pago === 'tarjeta' ? 'fa-credit-card' : 'fa-money-bill'}"></i> 
+                                ${reserva.metodo_pago.toUpperCase()}
+                            </span>
+                            <a href="#" class="btn-detalles" onclick="alert('Módulo de boleta en desarrollo')">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            contenedor.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error al cargar viajes en el perfil:", error);
+        contenedor.innerHTML = '<p style="color: #e51d2a; padding: 20px;">Ocurrió un error de red. ¿Tu servidor backend está encendido?</p>';
     }
 };

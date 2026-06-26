@@ -1991,3 +1991,178 @@ nav#menuPrincipal.activo::before {
   50% { transform: scale(1.25); }
   100% { transform: scale(1); }
 }
+
+/* ================================================= */
+/* ETIQUETAS DE DESCUENTO EN TARJETAS DE CATÁLOGO    */
+/* ================================================= */
+
+/* Etiqueta flotante con el porcentaje (Ej: -20% OFF) */
+.etiqueta-descuento {
+  position: absolute;
+  top: 15px;
+  left: 15px; /* Se coloca a la izquierda, el corazón está a la derecha */
+  background-color: var(--color-boton);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  z-index: 10; /* Se asegura de estar por encima de la foto */
+  box-shadow: 0 4px 10px rgba(229, 29, 42, 0.4);
+  animation: latidoDescuento 2s infinite; 
+}
+
+/* Animación sutil para atraer la mirada */
+@keyframes latidoDescuento {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Estilo para el precio antiguo (tachado y gris) */
+.precio-antiguo {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.8rem;
+  display: block; /* Para que se coloque arriba del precio nuevo */
+  margin-bottom: -2px; /* Junta un poco los números */
+  font-weight: 600;
+}
+
+/* Ajuste para que los precios encajen bien si hay descuento */
+.contenedor-precio-descuento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================================================= */
+/* AJUSTES DE ESPACIADO EN DETALLES DEL TOUR         */
+/* ================================================= */
+
+/* Controla la separación exacta entre el título "Detalles del Tour" y su párrafo */
+.lado-izquierdo-historia .texto-titulo-grande {
+    margin-bottom: 15px !important; 
+}
+
+/* Controla el espacio entre el párrafo y el título de la Galería de Imágenes */
+#descripcion-larga {
+    margin-bottom: 30px; 
+    color: #444;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* Le damos un poco más de aire al título de "Galería de Imágenes" */
+.lado-izquierdo-historia h3 {
+    margin-bottom: 15px;
+}
+
+/* ================================================= */
+/* DISEÑO PANTALLA DE PAGO DIVIDIDA (ACTUALIZADO)    */
+/* ================================================= */
+
+/* 1. Forzamos las dos columnas en escritorio */
+.layout-pago-grid {
+  display: grid !important;
+  grid-template-columns: 350px 1fr; /* Izquierda 350px fijos, derecha toma el resto */
+  gap: 40px;
+  align-items: start;
+}
+
+/* En celulares se pone uno debajo de otro */
+@media (max-width: 850px) {
+  .layout-pago-grid {
+    grid-template-columns: 1fr !important; 
+  }
+}
+
+/* 2. Cajas blancas principales */
+.caja-resumen-compra {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  border: 1px solid #f0f0f0;
+}
+
+.caja-opcion-efectivo {
+  background: white;
+  border-radius: 16px;
+  padding: 40px 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  border: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+/* 3. La foto del resumen compacta */
+.foto-resumen {
+  width: 100%;
+  height: 150px; /* Altura controlada para que sea pequeña */
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 15px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 4. Textos de la lista debajo de la foto */
+.lista-datos-resumen p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lista-datos-resumen i { 
+  color: var(--color-boton); 
+  width: 20px; 
+  text-align: center;
+}
+
+/* 5. El recuadro inferior con el total */
+.caja-total-pagar {
+  background: #fdf2f2; /* Fondo rojito muy claro */
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: 1px dashed var(--color-boton);
+}
+
+/* 6. Diseño de las pestañas (Tarjeta / Efectivo) */
+.pestanas-metodo { 
+  display: flex; 
+  gap: 15px; 
+  margin-bottom: 25px; 
+}
+
+.tab-pago {
+  flex: 1; 
+  padding: 15px; 
+  border: 2px solid #eee; 
+  border-radius: 12px;
+  background: #fafafa; 
+  font-weight: 700; 
+  color: #777;
+  cursor: pointer; 
+  transition: 0.3s;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tab-pago.activo { 
+  background: #fff; 
+  color: var(--color-oscuro); 
+  border-color: var(--color-boton);
+  box-shadow: 0 4px 15px rgba(229, 29, 42, 0.1);
+}

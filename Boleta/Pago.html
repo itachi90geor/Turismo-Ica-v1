@@ -45,106 +45,153 @@
         </ul>
       </nav>
     </header>
-
-    <main class="pantalla-completa-con-fondo">
-      <div class="cuadro-vidrio-borroso">
-        <h2 class="texto-titulo-grande">Confirmar Pago</h2>
-
-        <form id="formularioPago" autocomplete="off">
-          <div class="contenedor-pregunta-respuesta">
-            <label for="tarjeta-nombre">Nombre del Titular</label>
-            <div class="caja-con-icono">
-              <i class="fa-solid fa-user"></i>
-              <input
-                type="text"
-                id="tarjeta-nombre"
-                placeholder="Nombre como aparece en la tarjeta"
-                required
-              />
-            </div>
+    
+    <main style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
+      
+      <div class="layout-pago-grid">
+        
+        <div class="columna-resumen">
+          <div class="caja-resumen-compra" id="cuadro-resumen-dinamico">
+            <p style="text-align:center; color:#888;">Generando orden...</p>
           </div>
-
-          <div class="contenedor-pregunta-respuesta">
-            <label for="tarjeta-numero">Número de Tarjeta</label>
-            <div class="caja-con-icono">
-              <i class="fa-solid fa-credit-card"></i>
-              <input
-                type="text"
-                id="tarjeta-numero"
-                placeholder="0000 0000 0000 0000"
-                maxlength="19"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="fila-formulario-doble">
-            <div class="contenedor-pregunta-respuesta">
-              <label for="tarjeta-fecha">Vencimiento</label>
-              <div class="caja-con-icono">
-                <i class="fa-solid fa-calendar-days"></i>
-                <input
-                  type="text"
-                  id="tarjeta-fecha"
-                  placeholder="MM/AA"
-                  maxlength="5"
-                  required
-                />
-              </div>
-            </div>
-            <div class="contenedor-pregunta-respuesta">
-              <label for="tarjeta-cvv">CVV</label>
-              <div class="caja-con-icono">
-                <i class="fa-solid fa-lock"></i>
-                <input
-                  type="password"
-                  id="tarjeta-cvv"
-                  placeholder="123"
-                  maxlength="3"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-
-          <button type="submit" class="boton-rojo-ingresar" id="btnPagar">
-            <span id="textoBoton">Pagar Ahora</span>
-            <div id="spinner" class="loader oculto"></div>
-          </button>
-        </form>
-      </div>
-
-      <div id="modalExito" class="overlay-pago oculto">
-        <div class="contenido-exito">
-          <div class="checkmark-wrapper">
-            <svg
-              class="checkmark"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 52 52"
-            >
-              <circle
-                class="checkmark__circle"
-                cx="26"
-                cy="26"
-                r="25"
-                fill="none"
-              />
-              <path
-                class="checkmark__check"
-                fill="none"
-                d="M14.1 27.2l7.1 7.2 16.7-16.8"
-              />
-            </svg>
-          </div>
-          <h3>¡Pago Realizado!</h3>
-          <p>Tu reserva ha sido confirmada con éxito.</p>
-          <a
-            href="../Reserva.html"
-            class="boton-rojo-ingresar boton-centrado-chico"
-            >Ver mis Reservas</a
-          >
         </div>
+
+        <div class="columna-pagos">
+          
+          <div class="pestanas-metodo">
+            <button type="button" class="tab-pago activo" onclick="alternarMetodoPago('tarjeta')">
+              <i class="fa-solid fa-credit-card"></i> Tarjeta
+            </button>
+            <button type="button" class="tab-pago" onclick="alternarMetodoPago('efectivo')">
+              <i class="fa-solid fa-money-bill-wave"></i> Efectivo / Yape
+            </button>
+          </div>
+
+          <div id="vista-tarjeta">
+            
+            <div class="caja-resumen-compra">
+              <h2 class="texto-titulo-grande" style="font-size: 1.8rem; margin-bottom: 20px;">Confirmar Pago</h2>
+
+              <form id="formularioPago" autocomplete="off">
+                <div class="contenedor-pregunta-respuesta">
+                  <label for="tarjeta-nombre">Nombre del Titular</label>
+                  <div class="caja-con-icono">
+                    <i class="fa-solid fa-user"></i>
+                    <input
+                      type="text"
+                      id="tarjeta-nombre"
+                      placeholder="Nombre como aparece en la tarjeta"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="contenedor-pregunta-respuesta">
+                  <label for="tarjeta-numero">Número de Tarjeta</label>
+                  <div class="caja-con-icono">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <input
+                      type="text"
+                      id="tarjeta-numero"
+                      placeholder="0000 0000 0000 0000"
+                      maxlength="19"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="fila-formulario-doble">
+                  <div class="contenedor-pregunta-respuesta">
+                    <label for="tarjeta-fecha">Vencimiento</label>
+                    <div class="caja-con-icono">
+                      <i class="fa-solid fa-calendar-days"></i>
+                      <input
+                        type="text"
+                        id="tarjeta-fecha"
+                        placeholder="MM/AA"
+                        maxlength="5"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="contenedor-pregunta-respuesta">
+                    <label for="tarjeta-cvv">CVV</label>
+                    <div class="caja-con-icono">
+                      <i class="fa-solid fa-lock"></i>
+                      <input
+                        type="password"
+                        id="tarjeta-cvv"
+                        placeholder="123"
+                        maxlength="3"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="boton-rojo-ingresar" id="btnPagar">
+                  <span id="textoBoton">Pagar Ahora</span>
+                  <div id="spinner" class="loader oculto"></div>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div id="modalExito" class="overlay-pago oculto">
+            <div class="contenido-exito">
+              <div class="checkmark-wrapper">
+                <svg
+                  class="checkmark"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 52 52"
+                >
+                  <circle
+                    class="checkmark__circle"
+                    cx="26"
+                    cy="26"
+                    r="25"
+                    fill="none"
+                  />
+                  <path
+                    class="checkmark__check"
+                    fill="none"
+                    d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                  />
+                </svg>
+              </div>
+              <h3>¡Pago Realizado!</h3>
+              <p>Tu reserva ha sido confirmada con éxito.</p>
+              <a
+                href="../Reserva.html"
+                class="boton-rojo-ingresar boton-centrado-chico"
+                >Ver mis Reservas</a
+              >
+            </div>
+          </div>
+
+          <div id="vista-efectivo" class="oculto">
+            <div class="caja-opcion-efectivo">
+              <i class="fa-solid fa-store" style="font-size: 2.5rem; color: var(--color-boton); margin-bottom: 10px;"></i>
+              <h4>Pago Presencial o Banca Móvil</h4>
+              <p>Al confirmar, te daremos un código <strong>CIP de PagoEfectivo</strong> para pagar en agentes (BCP, BBVA, Tambo) o un <strong>QR de Yape/Plin</strong>.</p>
+              
+              <div class="insignias-efectivo">
+                <span>💜 Yape</span>
+                <span>💙 Plin</span>
+                <span>💛 PagoEfectivo</span>
+              </div>
+
+              <button type="button" class="boton-rojo-ingresar" id="btnEfectivo" style="margin-top: 20px;">
+                <span id="textoBotonEfectivo">Obtener Código de Pago</span>
+                <div id="spinnerEfectivo" class="loader oculto"></div>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
+
     </main>
 
     <footer>
