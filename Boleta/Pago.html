@@ -39,38 +39,46 @@
           <li><a href="../index.html">Inicio</a></li>
           <li><a href="../Nosotros.html">Nosotros</a></li>
           <li><a href="../Destino.html">Destinos</a></li>
-          <li><a href="../Reserva.html">Reservas</a></li>
           <li><a href="../Tabla_Descuento.html">Descuentos</a></li>
           <li><a href="../Preguntas.html">Preguntas</a></li>
         </ul>
       </nav>
     </header>
-    
-    <main style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
-      
+
+    <main style="max-width: 1100px; margin: 40px auto; padding: 0 20px">
       <div class="layout-pago-grid">
-        
         <div class="columna-resumen">
           <div class="caja-resumen-compra" id="cuadro-resumen-dinamico">
-            <p style="text-align:center; color:#888;">Generando orden...</p>
+            <p style="text-align: center; color: #888">Generando orden...</p>
           </div>
         </div>
 
         <div class="columna-pagos">
-          
           <div class="pestanas-metodo">
-            <button type="button" class="tab-pago activo" onclick="alternarMetodoPago('tarjeta')">
+            <button
+              type="button"
+              class="tab-pago activo"
+              onclick="alternarMetodoPago('tarjeta')"
+            >
               <i class="fa-solid fa-credit-card"></i> Tarjeta
             </button>
-            <button type="button" class="tab-pago" onclick="alternarMetodoPago('efectivo')">
+            <button
+              type="button"
+              class="tab-pago"
+              onclick="alternarMetodoPago('efectivo')"
+            >
               <i class="fa-solid fa-money-bill-wave"></i> Efectivo / Yape
             </button>
           </div>
 
           <div id="vista-tarjeta">
-            
             <div class="caja-resumen-compra">
-              <h2 class="texto-titulo-grande" style="font-size: 1.8rem; margin-bottom: 20px;">Confirmar Pago</h2>
+              <h2
+                class="texto-titulo-grande"
+                style="font-size: 1.8rem; margin-bottom: 20px"
+              >
+                Confirmar Pago
+              </h2>
 
               <form id="formularioPago" autocomplete="off">
                 <div class="contenedor-pregunta-respuesta">
@@ -171,27 +179,40 @@
 
           <div id="vista-efectivo" class="oculto">
             <div class="caja-opcion-efectivo">
-              <i class="fa-solid fa-store" style="font-size: 2.5rem; color: var(--color-boton); margin-bottom: 10px;"></i>
+              <i
+                class="fa-solid fa-store"
+                style="
+                  font-size: 2.5rem;
+                  color: var(--color-boton);
+                  margin-bottom: 10px;
+                "
+              ></i>
               <h4>Pago Presencial o Banca Móvil</h4>
-              <p>Al confirmar, te daremos un código <strong>CIP de PagoEfectivo</strong> para pagar en agentes (BCP, BBVA, Tambo) o un <strong>QR de Yape/Plin</strong>.</p>
-              
+              <p>
+                Al confirmar, te daremos un código
+                <strong>CIP de PagoEfectivo</strong> para pagar en agentes (BCP,
+                BBVA, Tambo) o un <strong>QR de Yape/Plin</strong>.
+              </p>
+
               <div class="insignias-efectivo">
-                <span>💜 Yape</span>
-                <span>💙 Plin</span>
-                <span>💛 PagoEfectivo</span>
+                <span>Yape</span>
+                <span>Plin</span>
+                <span>PagoEfectivo</span>
               </div>
 
-              <button type="button" class="boton-rojo-ingresar" id="btnEfectivo" style="margin-top: 20px;">
+              <button
+                type="button"
+                class="boton-rojo-ingresar"
+                id="btnEfectivo"
+                style="margin-top: 20px"
+              >
                 <span id="textoBotonEfectivo">Obtener Código de Pago</span>
                 <div id="spinnerEfectivo" class="loader oculto"></div>
               </button>
             </div>
           </div>
-
         </div>
-
       </div>
-
     </main>
 
     <footer>

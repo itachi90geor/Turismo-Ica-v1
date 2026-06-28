@@ -1,4 +1,3 @@
-/* 1. COLORES BÁSICOS Y LIMPIEZA */
 /* Guardamos los colores aquí para no memorizar códigos raros */
 :root {
   --color-boton: #e51d2a;
@@ -6,9 +5,8 @@
   --color-gris: #535353;
   --color-claro: #ffffff;
   --color-fondo: #f8f9fa;
-  --transicion-suave: all 0.3s ease; /* Velocidad de los efectos */
+  --transicion-suave: all 0.3s ease;
 }
-
 /* Quitamos los márgenes feos que traen los navegadores por defecto 
     ya que de por si el navegador tiene márgenes por defecto */
 * {
@@ -29,7 +27,6 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  /* Evita que el scrollbar aparezca y desaparezca bruscamente */
   position: relative;
 }
 
@@ -42,20 +39,18 @@ body {
   width: 100%;
 }
 
-/* --- ESTILO MODERNO PARA DETAILS (FAQ) --- */
-
 /* Contenedor del logo y el texto */
 .logo {
-  display: flex; /* Activa la alineación en fila */
-  align-items: center; /* Centra verticalmente la imagen y el texto */
-  gap: 15px; /* Añade un espacio de 15px entre el logo y el nombre */
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 /* Ajustes para el texto dentro del logo */
 .logo-texto h1 {
   font-size: 1.4rem;
   font-weight: 800;
-  letter-spacing: -0.5px; /* Estilo compacto y moderno */
+  letter-spacing: -0.5px;
   text-transform: uppercase;
   color: var(--color-oscuro);
   margin: 0;
@@ -64,7 +59,7 @@ body {
 
 /* Ajuste adicional para la imagen (ya la tenías, asegúrate de que esté así) */
 .logo-imagen {
-  width: 60px; /* Un tamaño de 60px suele verse mejor alineado */
+  width: 60px;
   height: auto;
   display: block;
 }
@@ -72,15 +67,13 @@ body {
 /* Contenedor de la lista */
 .lista {
   list-style: none;
-  max-width: 1200px; /* Aumentamos el ancho para que quepan 3 cómodamente */
+  max-width: 1200px;
   margin: 0 auto 60px;
   padding: 0 20px;
-
-  /* Activamos el Grid */
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Crea 3 columnas iguales */
-  gap: 20px; /* Espacio entre los cuadros */
-  align-items: start; /* Alinea los cuadros al techo si tienen alturas distintas */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
 }
 
 /* El cuadro de cada pregunta */
@@ -90,7 +83,7 @@ details.elemento-lista {
   border: 1px solid #eee;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
   transition: all 0.3s ease;
-  overflow: hidden; /* Importante para la animación */
+  overflow: hidden;
 }
 
 /* Efecto al pasar el mouse o cuando está abierto */
@@ -106,7 +99,7 @@ details.elemento-lista[open] {
   font-weight: 700;
   font-size: 1rem;
   color: var(--color-oscuro);
-  list-style: none; /* Quita la flecha por defecto en algunos navegadores */
+  list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -124,7 +117,7 @@ details.elemento-lista[open] {
 
 /* Girar la flecha cuando se abre */
 details[open] .resumen-lista::after {
-  transform: rotate(180deg); /* Se convierte en una 'x' o gira */
+  transform: rotate(180deg);
   content: "-";
 }
 
@@ -133,7 +126,6 @@ details.elemento-lista p {
   padding: 0 25px 25px;
   color: #666;
   line-height: 1.7;
-  /* Animación de entrada */
   animation: slideDown 0.4s ease forwards;
 }
 
@@ -167,7 +159,6 @@ details summary::-webkit-details-marker {
   }
 }
 
-/* 2. EFECTOS DE APARICIÓN */
 /* Truco para que el titulo aparezca desde abajo hacia su lugar */
 @keyframes aparecerDesdeAbajo {
   0% {
@@ -180,7 +171,6 @@ details summary::-webkit-details-marker {
   }
 }
 
-/* 3. TÍTULOS PRINCIPALES, FORMULARIOS DE CONTACTO Y BOTONES */
 /* Estilo para los títulos grandes de cada sección de la página */
 .texto-titulo-grande {
   margin-bottom: 50px;
@@ -264,7 +254,7 @@ button[type="submit"]:hover {
 
 /* La banda oscura que va abajo de todas las páginas*/
 footer {
-  background: #111111; /* Un tono oscuro más profundo y limpio */
+  background: #111111;
   color: #a0a0a0;
   text-align: center;
   padding: 35px 20px;
@@ -277,7 +267,7 @@ footer p:first-child {
   font-weight: 700;
   font-size: 1.05rem;
   text-transform: uppercase;
-  letter-spacing: 1px; /* Espaciado elegante para títulos de pie */
+  letter-spacing: 1px;
   margin-bottom: 8px;
 }
 
@@ -288,7 +278,6 @@ footer p:last-child {
   color: #777777;
 }
 
-/* 4. EL MENÚ DE ARRIBA (CABECERA) */
 /* El efecto de fondo blanco con transparencia, el efecto de desenfoque y mantener 
     siempre el menu pegado arriba*/
 header {
@@ -383,7 +372,6 @@ nav a:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* 5. FOTOS GRANDES DE PORTADA */
 /* Se toma la imagen de fondo y se aplica un sombreado, tambien
     se hace que el brillo y el contraste aumenten en las letras dentro del contenedor */
 #portada-principal-inicio {
@@ -438,13 +426,11 @@ nav a:hover {
   box-shadow: 0 10px 20px rgba(229, 29, 42, 0.3);
 }
 
-/* --- ESTILO DEL AVATAR CIRCULAR --- */
-
 /* Contenedor para agrupar avatar y hamburguesa a la derecha */
 .contenedor-derecha-header {
   display: flex;
   align-items: center;
-  gap: 20px; /* Espacio entre el icono de usuario y las rayitas del menú */
+  gap: 20px;
 }
 
 /* El enlace que envuelve la imagen y el texto del nombre */
@@ -452,40 +438,40 @@ nav a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none !important; /* CORREGIDO: Quita la línea de abajo del nombre por defecto */
-  gap: 10px; /* NUEVO: Separa el nombre del círculo del usuario de forma limpia */
+  text-decoration: none !important;
+  gap: 10px;
   transition: transform 0.3s ease;
 }
 
 .enlace-perfil-usuario:hover {
-  transform: scale(1.1); /* Efecto de aumento al pasar el mouse */
-  text-decoration: none !important; /* Asegura que al pasar el mouse tampoco se subraye */
+  transform: scale(1.1);
+  text-decoration: none !important;
 }
 
 /* Estilo específico para el icono de usuario */
 .enlace-perfil-usuario i {
-  font-size: 1.2rem; /* Tamaño del icono */
-  color: var(--color-boton); /* Usa el rojo de tu marca */
-  background-color: #fff; /* Fondo blanco */
-  width: 40px; /* Ancho del círculo */
-  height: 40px; /* Alto del círculo */
-  display: flex; /* Centra el icono dentro del círculo */
+  font-size: 1.2rem;
+  color: var(--color-boton);
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%; /* Hace que sea un círculo */
-  border: 2px solid var(--color-boton); /* Borde rojo fino */
+  border-radius: 50%;
+  border: 2px solid var(--color-boton);
   transition: var(--transicion-suave);
 }
 
 /* Efecto al pasar el mouse */
 .enlace-perfil-usuario:hover i {
   background-color: var(--color-boton);
-  color: #fff; /* Invierte los colores */
+  color: #fff;
 }
 
 /* Ajuste del header para asegurar la alineación */
 header {
-  padding: 10px 30px; /* Reducimos un poco el padding para que no sea tan alto */
+  padding: 10px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -494,7 +480,7 @@ header {
 /* Asegurar que el botón hamburguesa no tenga margen extra */
 .menu-hamburguesa {
   margin: 0;
-  display: flex !important; /* Mantenemos tu requerimiento de que siempre esté activo */
+  display: flex !important;
 }
 
 /* Portadas más pequeñas para otras páginas */
@@ -515,7 +501,6 @@ header {
   animation: aparecerDesdeAbajo 0.8s ease forwards;
 }
 
-/* 6. LOS CUADRITOS DE LOS VIAJES (CATÁLOGO) */
 /*El tamaño de las tarjetas */
 #seccion-catalogo-viajes {
   padding: 80px 20px;
@@ -612,7 +597,6 @@ header {
   color: var(--color-boton);
 }
 
-/* 7. PANTALLA DIVIDIDA (HISTORIA Y RESERVA) */
 /* Corta la pantalla: espacio grande a la izquierda, espacio chico a la derecha */
 .pantalla-dividida-historia-reserva {
   display: grid;
@@ -675,7 +659,7 @@ header {
   font-size: 1.5rem;
 }
 
-/* 8. LISTA DE MIS COMPRAS PASADAS */
+/* Lista de compras pasadas */
 .lista-compras-pasadas {
   max-width: 800px;
   margin: 40px auto;
@@ -769,7 +753,7 @@ header {
   background-color: #c2131e;
 }
 
-/* 9. ITINERARIOS Y HORARIOS */
+/* Itinerario y horarios */
 .portada-mediana-itinerario {
   height: 50vh;
 }
@@ -904,13 +888,9 @@ header {
   margin-top: 40px;
 }
 
-/* 10. REGLAS PARA VERSE BIEN EN CELULARES (MENÚ COLAPSABLE) */
-/* Sensor: Si la pantalla es pequeña (menor a 850px), aplica estos cambios de emergencia */
-/* --- AJUSTES PARA MENÚ SIEMPRE ACTIVO Y LATERAL --- */
-
-/* 1. Forzar que el botón hamburguesa se vea siempre */
+/* Forzar que el botón hamburguesa se vea siempre */
 .menu-hamburguesa {
-  display: flex !important; /* Visible en PC y Móvil */
+  display: flex !important;
   flex-direction: column;
   justify-content: space-between;
   width: 30px;
@@ -918,7 +898,7 @@ header {
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1200; /* Por encima de todo */
+  z-index: 1200;
 }
 
 .linea-menu {
@@ -928,9 +908,9 @@ header {
   border-radius: 2px;
 }
 
-/* 2. Ocultar la navegación tradicional de la cabecera */
+/* Ocultar la navegación tradicional de la cabecera */
 nav ul {
-  display: none; /* Ya no queremos la lista horizontal en el header */
+  display: none;
 }
 
 nav#menuPrincipal {
@@ -943,16 +923,11 @@ nav#menuPrincipal {
   z-index: 1100;
   padding: 80px 40px;
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-
-  /* Usamos transform para el movimiento */
   transform: translateX(100%);
-  /* La visibilidad ahora tiene un retraso al cerrar */
   transition:
     transform 0.4s ease-in-out,
     visibility 0s linear 0.4s;
   visibility: hidden;
-
-  /* Evita que el contenido se salga del panel durante la animación */
   overflow: hidden;
 }
 
@@ -960,26 +935,24 @@ nav#menuPrincipal {
 nav#menuPrincipal.activo {
   transform: translateX(0);
   visibility: visible;
-  /* Al abrir, la visibilidad es instantánea */
   transition:
     transform 0.4s ease-in-out,
     visibility 0s;
 }
 
-/* 5. Ajustar la lista de enlaces dentro del panel lateral */
+/* Ajustar la lista de enlaces dentro del panel lateral */
 nav#menuPrincipal ul {
   display: flex;
   flex-direction: column;
   gap: 20px;
   list-style: none;
-  /* Suaviza la aparición del texto */
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 nav#menuPrincipal.activo ul {
   opacity: 1;
-  transition: opacity 0.3s ease 0.2s; /* Un pequeño retraso al abrir para mejor efecto */
+  transition: opacity 0.3s ease 0.2s;
 }
 
 nav#menuPrincipal ul li {
@@ -989,7 +962,7 @@ nav#menuPrincipal ul li {
 }
 
 nav#menuPrincipal ul li a {
-  text-decoration: none !important; /* Elimina cualquier línea inferior residual */
+  text-decoration: none !important;
   color: var(--color-oscuro);
   font-weight: 700;
   font-size: 1rem;
@@ -1011,23 +984,20 @@ nav#menuPrincipal::before {
   content: "";
   position: fixed;
   top: 0;
-  left: -100vw; /* Se extiende hacia la izquierda cubriendo la pantalla */
+  left: -100vw;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8); /* Color negro transparente */
+  background: rgba(0, 0, 0, 0.8);
   opacity: 0;
   transition: opacity 0.4s ease;
-  pointer-events: none; /* No estorba los clics si está oculto */
+  pointer-events: none;
 }
 
 nav#menuPrincipal.activo::before {
   opacity: 1;
-  pointer-events: auto; /* Bloquea clics en el contenido de atrás */
+  pointer-events: auto;
 }
 
-/* 6. Quitar la configuración antigua de @media (max-width: 850px) */
-/* Borra o comenta las reglas que escondían el nav en PC dentro de tus @media */
-/* 11. INICIAR SESIÓN Y REGISTRO (EFECTO VIDRIO) */
 /* Foto oscura a pantalla completa detrás del formulario */
 .pantalla-completa-con-fondo {
   min-height: calc(100vh - 80px);
@@ -1068,7 +1038,7 @@ nav#menuPrincipal.activo::before {
   transform: translateY(-2px);
 }
 
-/* 12. DISEÑO DEL COMPROBANTE DE COMPRA */
+/* Diseño del comprobante de compra */
 .fondo-oscuro-para-ticket {
   display: flex;
   justify-content: center;
@@ -1144,41 +1114,110 @@ nav#menuPrincipal.activo::before {
   border: 2px solid #ddd;
 }
 
-/* 13. REGLAS MÁGICAS PARA LA IMPRESORA */
-/* Este bloque SOLAMENTE se activa si el usuario quiere imprimir */
-@media print {
-  /* Esconde el menú de arriba y cualquier botón de imprimir */
-  header,
-  footer,
-  .ocultar-impresion {
-    display: none !important;
-  }
-
-  /* Borra las fechas y rutas de archivo (Links feos) que el navegador pone solos */
-  @page {
-    margin: 0;
-    size: auto;
-  }
-
-  /* Quita el fondo de fotos grandes para ahorrar tinta */
-  body,
-  .fondo-oscuro-para-ticket {
-    background: none !important;
-    background-color: white !important;
-    padding: 0;
-    margin: 0;
-  }
-
-  /* Le quita la sombra al ticket para que la hoja salga limpia */
-  .papel-del-ticket {
-    box-shadow: none !important;
-    border: 2px solid #ddd;
-    margin: 40px auto !important;
-    page-break-inside: avoid;
-  }
+/*Diseño de Boleta*/
+.contenedor-boleta-impresion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 20px;
 }
 
-/* 14. CUADROS ESTILO EXCEL (TABLAS HTML5) */
+/* Redujimos la altura para quitar el espacio en blanco y emparejamos ambos */
+.hoja-carta-horizontal {
+    width: 10in;
+    height: 6.2in;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.mitad-hoja-izq, .mitad-hoja-der {
+    width: 50%;
+    height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.mitad-hoja-izq {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    position: relative;
+}
+
+.capa-oscura-hoja {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.2));
+    z-index: 1;
+}
+
+.contenido-izq-hoja {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Reglas de impresion centrada */
+@media print {
+    @page { 
+        size: letter landscape; 
+        margin: 0; 
+    }
+
+    body, html { 
+        background: white !important; 
+        margin: 0 !important; 
+        padding: 0 !important; 
+    }
+
+    .contenedor-boleta-impresion { 
+        display: block !important; 
+        padding: 0 !important; 
+        margin: 0 !important; 
+        background: white !important; 
+    }
+
+    .hoja-carta-horizontal {
+        width: 10in !important;
+        height: 6.2in !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      
+        margin: 1.1in auto !important; 
+        border: 1px solid #ccc !important;
+        
+        page-break-after: always !important; 
+        page-break-inside: avoid !important;
+    }
+
+    .hoja-carta-horizontal:last-child {
+        page-break-after: auto !important;
+    }
+
+    .mitad-hoja-der, .mitad-hoja-izq {
+        overflow: visible !important;
+    }
+
+    .ocultar-impresion, .btn-modo-oscuro { 
+        display: none !important; 
+    }
+
+    * { 
+        -webkit-print-color-adjust: exact !important; 
+        print-color-adjust: exact !important; 
+        color-adjust: exact !important; 
+    }
+}
+
+/* Cuadro de estilo Excel tabla */
 .cuadro-estilo-excel {
   width: 100%;
   border-collapse: collapse;
@@ -1214,52 +1253,10 @@ nav#menuPrincipal.activo::before {
   font-weight: 700;
 }
 
-/* 15. AJUSTES RESPONSIVE PARA DETALLES DE TOUR */
-/* =========================================
-   AJUSTES DE RESPONSIVE (CELULARES)
-========================================= */
-
-@media (max-width: 850px) {
-  /* 1. Hacemos que la pantalla dividida pase de 2 columnas a 1 sola */
-  .pantalla-dividida-historia-reserva {
-    grid-template-columns: 1fr; /* Una sola columna */
-    gap: 30px;
-    margin: 30px auto;
-  }
-
-  /* 2. El formulario ya no debe "perseguir" al usuario, debe fluir normal */
-  .formulario-que-te-persigue {
-    position: static; /* Quita el sticky */
-    width: 100%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-
-  /* 3. Ajustamos el tamaño de la galería de fotos para que no se vea gigante */
-  .grilla-de-fotos-pequenas img {
-    height: 180px; /* Fotos más bajas para ahorrar espacio vertical */
-  }
-
-  /* 4. Ajustamos el texto de la portada interna */
-  .portada-interna h2 {
-    font-size: 2rem;
-    padding: 0 15px;
-  }
-
-  /* 5. Aseguramos que las imágenes de los tours destacados ocupen bien el ancho */
-  .cuadro-alargado-reserva {
-    flex-direction: column; /* La imagen arriba y el texto abajo */
-  }
-
-  .cuadro-alargado-reserva img {
-    width: 100%;
-    height: 200px;
-  }
-}
-
 /* Ajuste extra para pantallas muy pequeñas (iPhone SE, etc.) */
 @media (max-width: 480px) {
   .grilla-de-fotos-pequenas {
-    grid-template-columns: 1fr; /* Fotos de una en una */
+    grid-template-columns: 1fr;
   }
 
   .caja-blanca-sobre-foto {
@@ -1270,14 +1267,14 @@ nav#menuPrincipal.activo::before {
 
 .tabla-contenedor-movil {
   width: 100%;
-  overflow-x: auto; /* Activa el deslizamiento lateral */
+  overflow-x: auto;
   margin-bottom: 30px;
 }
 
 /* Bloquea el scroll cuando el menú lateral está abierto */
 .no-scroll {
   overflow: hidden !important;
-  height: 100vh; /* Asegura que el body no mida más que la pantalla */
+  height: 100vh;
 }
 
 /* Estilo para el enlace de cambio entre Login y Registro */
@@ -1313,7 +1310,7 @@ nav#menuPrincipal.activo::before {
 .caja-con-icono i {
   position: absolute;
   left: 15px;
-  color: var(--color-gris); /* Color gris por defecto */
+  color: var(--color-gris);
   font-size: 1rem;
   transition: var(--transicion-suave);
   pointer-events: none;
@@ -1321,17 +1318,13 @@ nav#menuPrincipal.activo::before {
 
 /* El truco: Cuando se hace focus en el input, el icono cambia de color */
 .caja-con-icono:focus-within i {
-  color: var(--color-boton); /* Cambia al rojo de tu marca */
+  color: var(--color-boton);
 }
 
 /* Input con espacio para el icono */
 .caja-con-icono input {
   padding-left: 45px !important;
 }
-
-/* ================================================= */
-/* SECCIÓN DE PAGO (INTEGRACIÓN)               */
-/* ================================================= */
 
 /* Capa oscura que bloquea la pantalla al procesar el pago */
 .overlay-pago {
@@ -1370,7 +1363,7 @@ nav#menuPrincipal.activo::before {
   margin-bottom: 25px;
 }
 
-/* --- ANIMACIÓN DEL CHECKMARK (MARCA VERDE) --- */
+/* Animación del checkmark */
 .checkmark-wrapper {
   width: 100px;
   height: 100px;
@@ -1383,7 +1376,7 @@ nav#menuPrincipal.activo::before {
   border-radius: 50%;
   display: block;
   stroke-width: 2;
-  stroke: #2e7d32; /* Verde de éxito */
+  stroke: #2e7d32;
   stroke-miterlimit: 10;
   box-shadow: inset 0px 0px 0px #2e7d32;
   animation:
@@ -1408,7 +1401,7 @@ nav#menuPrincipal.activo::before {
   animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
 }
 
-/* --- LOADER (SPINNER DE CARGA) --- */
+/* Loader de carga */
 .loader {
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
@@ -1421,7 +1414,7 @@ nav#menuPrincipal.activo::before {
   vertical-align: middle;
 }
 
-/* --- KEYFRAMES NECESARIOS --- */
+/* KeyFrames */
 @keyframes stroke {
   100% {
     stroke-dashoffset: 0;
@@ -1480,14 +1473,11 @@ nav#menuPrincipal.activo::before {
 
 /* Quita el subrayado de los enlaces que se usan como botones */
 .boton-rojo-ingresar {
-  text-decoration: none; /* Esto elimina la línea de abajo */
-  display: inline-block; /* Permite que el botón respete el padding y ancho */
+  text-decoration: none;
+  display: inline-block;
   text-align: center;
 }
 
-/* =========================================
-  16. FILTROS DEL CATÁLOGO DE DESTINOS 
-========================================= */
 .contenedor-filtros {
   display: flex;
   justify-content: center;
@@ -1521,10 +1511,6 @@ nav#menuPrincipal.activo::before {
 .cuadrito-viaje.oculto {
   display: none;
 }
-
-/* =========================================
-  DISEÑO ESTILO DASHBOARD (PERFIL)
-========================================= */
 
 .cuerpo-perfil {
   background-color: #f0f2f5;
@@ -1706,25 +1692,10 @@ nav#menuPrincipal.activo::before {
   color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 850px) {
-  .layout-perfil {
-    grid-template-columns: 1fr;
-  }
-  .sidebar-perfil {
-    display: none; /* En móvil usamos el menú hamburguesa principal */
-  }
-  .card-viaje-horizontal {
-    flex-direction: column;
-  }
-  .imagen-card {
-    width: 100%;
-    height: 150px;
-  }
+/* Mejoras para Perfil */
+.seccion-perfil.oculto {
+  display: none !important;
 }
-
-/* --- MEJORAS PARA EL PERFIL (ESTILO TRYP) --- */
-.seccion-perfil.oculto { display: none !important; }
 
 .grilla-favoritos {
   display: grid;
@@ -1736,83 +1707,100 @@ nav#menuPrincipal.activo::before {
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-.imagen-favorito { position: relative; height: 160px; }
-.imagen-favorito img { width: 100%; height: 100%; object-fit: cover; }
+.imagen-favorito {
+  position: relative;
+  height: 160px;
+}
+.imagen-favorito img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .btn-corazon {
   position: absolute;
-  top: 10px; right: 10px;
-  background: white; border: none;
-  width: 30px; height: 30px;
-  border-radius: 50%; color: #e51d2a;
-  cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  top: 10px;
+  right: 10px;
+  background: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #e51d2a;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .contenedor-configuracion {
-  background: white; padding: 30px;
-  border-radius: 12px; max-width: 600px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
 }
 
 .input-moderno {
-  background: #f1f3f5; border: 1px solid #e9ecef;
+  background: #f1f3f5;
+  border: 1px solid #e9ecef;
   margin-top: 5px;
 }
 
 .btn-guardar-cambios {
-  background: #1a1a1a; color: white;
-  padding: 12px 20px; border: none;
-  border-radius: 8px; cursor: pointer;
-  font-weight: bold; margin-top: 10px;
+  background: #1a1a1a;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.btn-guardar-cambios:hover { background: #e51d2a; }
+.btn-guardar-cambios:hover {
+  background: #e51d2a;
+}
 
 .linea-rectangular-destino {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 15px;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-left: 5px solid #e63946; /* El rojo característico de tu web */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #e63946;
 }
 
 .info-basica {
-    display: flex;
-    gap: 15px;
-    align-items: center;
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
 .controles-admin {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 /* Estilo para el switch de descuento */
 .switch-descuento {
-    font-size: 0.9em;
-    font-weight: 600;
+  font-size: 0.9em;
+  font-weight: 600;
 }
 
-/* ================================================= */
-/* 17. ESTILOS EXTRAÍDOS DE DETALLE.HTML           */
-/* ================================================= */
-
 .enlace-logo-header {
-  text-decoration: none; 
-  display: flex; 
-  align-items: center; 
+  text-decoration: none;
+  display: flex;
+  align-items: center;
   gap: 15px;
 }
 
 .seccion-posteo-borde {
-  margin-top: 30px; 
+  margin-top: 30px;
   border-left: 4px solid var(--color-boton);
 }
 
@@ -1829,8 +1817,8 @@ nav#menuPrincipal.activo::before {
 }
 
 .boton-comentario-publicar {
-  width: auto; 
-  padding: 10px 20px; 
+  width: auto;
+  padding: 10px 20px;
   margin-top: 10px;
 }
 
@@ -1839,13 +1827,9 @@ nav#menuPrincipal.activo::before {
 }
 
 .enlace-login-comentario {
-  color: var(--color-boton); 
+  color: var(--color-boton);
   font-weight: bold;
 }
-
-/* ================================================= */
-/* 18. GESTIÓN DEL PANEL DE ADMINISTRACIÓN (ADMIN)   */
-/* ================================================= */
 
 .linea-rectangular-destino {
   display: flex;
@@ -1876,10 +1860,6 @@ nav#menuPrincipal.activo::before {
   font-weight: 600;
   cursor: pointer;
 }
-
-/* ============================================================================
-   19. APARTADO DE PREGUNTAS FRECUENTES (FAQ) - CENTRALIZADO Y ALINEADO
-   ============================================================================ */
 
 /* Alineación simétrica y centrada para los títulos de la cabecera de preguntas */
 .seccion-cabecera-faq {
@@ -1933,10 +1913,6 @@ nav#menuPrincipal.activo::before {
   padding: 12px 35px;
 }
 
-/* ============================================================================
-   20. BOTÓN DE CORAZÓN FLOTANTE EN EL CATÁLOGO DE DESTINOS
-   ============================================================================ */
-
 /* Contenedor relativo de la imagen para que el posicionamiento absoluto funcione */
 .cuadrito-viaje-imagen-wrapper {
   position: relative;
@@ -1954,69 +1930,77 @@ nav#menuPrincipal.activo::before {
 /* Estilo del botón del corazón (Inspirado en .btn-corazon de tu perfil) */
 .btn-corazon-catalogo {
   position: absolute;
-  top: 15px; 
+  top: 15px;
   right: 15px;
-  background: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+  background: rgba(255, 255, 255, 0.9);
   border: none;
-  width: 38px; 
+  width: 38px;
   height: 38px;
-  border-radius: 50%; 
-  color: var(--color-gris); /* Gris en estado neutro */
+  border-radius: 50%;
+  color: var(--color-gris);
   font-size: 1.1rem;
-  cursor: pointer; 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10; /* Por encima de la foto del viaje */
+  z-index: 10;
   transition: var(--transicion-suave);
 }
 
 /* Efecto de escala al pasar el mouse por encima */
 .btn-corazon-catalogo:hover {
   transform: scale(1.1);
-  color: var(--color-boton); /* Se torna rojo al apuntarlo */
+  color: var(--color-boton);
   background: #ffffff;
 }
 
 /* Estado activo: Cuando el destino ya está guardado en favoritos */
 .btn-corazon-catalogo.activo {
-  color: var(--color-boton) !important; /* Rojo definitivo */
+  color: var(--color-boton) !important;
   animation: pulsoCorazon 0.3s ease-in-out;
 }
 
 /* Animación de latido al activarse */
 @keyframes pulsoCorazon {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.25); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-/* ================================================= */
-/* ETIQUETAS DE DESCUENTO EN TARJETAS DE CATÁLOGO    */
-/* ================================================= */
-
-/* Etiqueta flotante con el porcentaje (Ej: -20% OFF) */
+/* Etiqueta flotante con el porcentaje ( -20% OFF) */
 .etiqueta-descuento {
   position: absolute;
   top: 15px;
-  left: 15px; /* Se coloca a la izquierda, el corazón está a la derecha */
+  left: 15px;
   background-color: var(--color-boton);
   color: white;
   padding: 6px 14px;
   border-radius: 20px;
   font-weight: 800;
   font-size: 0.85rem;
-  z-index: 10; /* Se asegura de estar por encima de la foto */
+  z-index: 10;
   box-shadow: 0 4px 10px rgba(229, 29, 42, 0.4);
-  animation: latidoDescuento 2s infinite; 
+  animation: latidoDescuento 2s infinite;
 }
 
 /* Animación sutil para atraer la mirada */
 @keyframes latidoDescuento {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Estilo para el precio antiguo (tachado y gris) */
@@ -2024,8 +2008,8 @@ nav#menuPrincipal.activo::before {
   text-decoration: line-through;
   color: #999;
   font-size: 0.8rem;
-  display: block; /* Para que se coloque arriba del precio nuevo */
-  margin-bottom: -2px; /* Junta un poco los números */
+  display: block;
+  margin-bottom: -2px;
   font-weight: 600;
 }
 
@@ -2037,36 +2021,28 @@ nav#menuPrincipal.activo::before {
   justify-content: center;
 }
 
-/* ================================================= */
-/* AJUSTES DE ESPACIADO EN DETALLES DEL TOUR         */
-/* ================================================= */
-
 /* Controla la separación exacta entre el título "Detalles del Tour" y su párrafo */
 .lado-izquierdo-historia .texto-titulo-grande {
-    margin-bottom: 15px !important; 
+  margin-bottom: 15px !important;
 }
 
 /* Controla el espacio entre el párrafo y el título de la Galería de Imágenes */
 #descripcion-larga {
-    margin-bottom: 30px; 
-    color: #444;
-    font-size: 1.05rem;
-    line-height: 1.7;
+  margin-bottom: 30px;
+  color: #444;
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
-/* Le damos un poco más de aire al título de "Galería de Imágenes" */
+/* Espacio entre el titulo y el párrafo */
 .lado-izquierdo-historia h3 {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
-/* ================================================= */
-/* DISEÑO PANTALLA DE PAGO DIVIDIDA (ACTUALIZADO)    */
-/* ================================================= */
-
-/* 1. Forzamos las dos columnas en escritorio */
+/* Forzamos las dos columnas en escritorio */
 .layout-pago-grid {
   display: grid !important;
-  grid-template-columns: 350px 1fr; /* Izquierda 350px fijos, derecha toma el resto */
+  grid-template-columns: 350px 1fr;
   gap: 40px;
   align-items: start;
 }
@@ -2074,16 +2050,16 @@ nav#menuPrincipal.activo::before {
 /* En celulares se pone uno debajo de otro */
 @media (max-width: 850px) {
   .layout-pago-grid {
-    grid-template-columns: 1fr !important; 
+    grid-template-columns: 1fr !important;
   }
 }
 
-/* 2. Cajas blancas principales */
+/* Cajas blancas principales */
 .caja-resumen-compra {
   background: white;
   border-radius: 16px;
   padding: 25px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
   border: 1px solid #f0f0f0;
 }
 
@@ -2091,22 +2067,22 @@ nav#menuPrincipal.activo::before {
   background: white;
   border-radius: 16px;
   padding: 40px 25px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
   border: 1px solid #f0f0f0;
   text-align: center;
 }
 
-/* 3. La foto del resumen compacta */
+/* La foto del resumen compacta */
 .foto-resumen {
   width: 100%;
-  height: 150px; /* Altura controlada para que sea pequeña */
+  height: 150px;
   object-fit: cover;
   border-radius: 10px;
   margin: 15px 0;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 4. Textos de la lista debajo de la foto */
+/* Textos de la lista debajo de la foto */
 .lista-datos-resumen p {
   font-size: 0.95rem;
   color: #555;
@@ -2116,15 +2092,15 @@ nav#menuPrincipal.activo::before {
   gap: 10px;
 }
 
-.lista-datos-resumen i { 
-  color: var(--color-boton); 
-  width: 20px; 
+.lista-datos-resumen i {
+  color: var(--color-boton);
+  width: 20px;
   text-align: center;
 }
 
-/* 5. El recuadro inferior con el total */
+/* El recuadro inferior con el total */
 .caja-total-pagar {
-  background: #fdf2f2; /* Fondo rojito muy claro */
+  background: #fdf2f2;
   padding: 15px;
   border-radius: 12px;
   display: flex;
@@ -2136,22 +2112,22 @@ nav#menuPrincipal.activo::before {
   border: 1px dashed var(--color-boton);
 }
 
-/* 6. Diseño de las pestañas (Tarjeta / Efectivo) */
-.pestanas-metodo { 
-  display: flex; 
-  gap: 15px; 
-  margin-bottom: 25px; 
+/* Diseño de las pestañas (Tarjeta / Efectivo) */
+.pestanas-metodo {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
 .tab-pago {
-  flex: 1; 
-  padding: 15px; 
-  border: 2px solid #eee; 
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #eee;
   border-radius: 12px;
-  background: #fafafa; 
-  font-weight: 700; 
+  background: #fafafa;
+  font-weight: 700;
   color: #777;
-  cursor: pointer; 
+  cursor: pointer;
   transition: 0.3s;
   font-size: 1rem;
   display: flex;
@@ -2160,9 +2136,206 @@ nav#menuPrincipal.activo::before {
   gap: 8px;
 }
 
-.tab-pago.activo { 
-  background: #fff; 
-  color: var(--color-oscuro); 
+.tab-pago.activo {
+  background: #fff;
+  color: var(--color-oscuro);
   border-color: var(--color-boton);
   box-shadow: 0 4px 15px rgba(229, 29, 42, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .layout-perfil {
+    grid-template-columns: 1fr;
+  }
+  .sidebar-perfil {
+    display: none;
+  }
+  .card-viaje-horizontal {
+    flex-direction: column;
+  }
+  .imagen-card {
+    width: 100%;
+    height: 150px;
+  }
+}
+
+@media (max-width: 850px) {
+  .pantalla-dividida-historia-reserva {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin: 30px auto;
+  }
+  .formulario-que-te-persigue {
+    position: static;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  .grilla-de-fotos-pequenas img {
+    height: 180px;
+  }
+  .portada-interna h2 {
+    font-size: 2rem;
+    padding: 0 15px;
+  }
+  .cuadro-alargado-reserva {
+    flex-direction: column;
+  }
+  .cuadro-alargado-reserva img {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+    .layout-perfil {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .sidebar-perfil {
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        position: static !important;
+        border-right: none !important;
+        border-bottom: 1px solid #ddd !important;
+        padding: 15px 15px 5px 15px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .perfil-resumen {
+        margin-bottom: 15px !important;
+        text-align: center;
+    }
+    .nav-sidebar {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+        width: 100% !important;
+        padding: 0 15px 15px 15px !important;
+        box-sizing: border-box;
+    }
+    .nav-sidebar a {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 15px 10px !important;
+        border-radius: 12px !important;
+        font-size: 0.85rem !important;
+        background: #f0f0f0;
+        color: #333;
+        gap: 8px !important; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    .nav-sidebar ul {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        width: 100% !important;
+        padding: 0 10px 10px 10px !important;
+    }
+    
+    .nav-sidebar ul::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-sidebar li {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+    }
+
+    .nav-sidebar a {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 15px 10px !important;
+        border-radius: 12px !important;
+        font-size: 0.85rem !important;
+        background: #f0f0f0;
+        color: #333;
+        gap: 8px !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+    }
+
+    .nav-sidebar a.activo {
+        background: var(--color-boton) !important;
+        color: white !important;
+        box-shadow: 0 4px 10px rgba(229, 29, 42, 0.3) !important;
+    }
+    body.dark-mode .nav-sidebar a {
+        background: #2c2c2c;
+        color: #fff;
+    }
+    body.dark-mode .nav-sidebar a.activo {
+        background: var(--color-boton) !important;
+    }
+    .contenido-perfil {
+        padding: 15px !important;
+        width: 100% !important;
+    }
+    .card-viaje-horizontal {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+    }
+    .card-viaje-horizontal .imagen-card,
+    .card-viaje-horizontal .imagen-card img {
+        width: 100% !important;
+        height: 200px !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+    .card-viaje-horizontal .info-card {
+        width: 100% !important;
+        padding: 15px !important;
+    }
+    .pie-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px !important;
+    }
+    .pie-card div {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .filtros-viajes {
+        justify-content: center !important;
+        width: 100% !important;
+        margin-bottom: 20px !important;
+    }
+    .modal-contenido-editor {
+        width: 95% !important;
+        margin: 20px auto !important;
+        padding: 20px !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+    }
+    .fila-itinerario-admin {
+        flex-direction: column !important;
+        position: relative;
+        padding-top: 40px !important;
+    }
+    .fila-itinerario-admin > div {
+        width: 100% !important;
+    }
+    .fila-itinerario-admin button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .formulario-config input, 
+    .formulario-config button,
+    #formEditor input,
+    #formEditor textarea,
+    #formEditor select,
+    .contenedor-pregunta-respuesta {
+        width: 100% !important;
+    }
 }

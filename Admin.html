@@ -10,7 +10,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
     <script>
-      // Seguridad inmediata: Si no es admin, lo expulsamos al inicio antes de cargar el DOM
       if (sessionStorage.getItem("rolUsuario") !== "admin") {
         alert("Acceso denegado. Solo administradores.");
         window.location.href = "index.html";
@@ -18,15 +17,25 @@
     </script>
   </head>
   <body class="cuerpo-perfil">
-<header>
+    <header>
       <div class="logo">
-        <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+        <a
+          href="index.html"
+          style="
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+          "
+        >
           <img
             src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png"
             alt="Logo de Turismo Ica"
             class="logo-imagen"
           />
-          <span class="logo-texto"><h1 style="color: #1a1a1a;">Turismo Ica</h1></span>
+          <span class="logo-texto"
+            ><h1 style="color: #1a1a1a">Turismo Ica</h1></span
+          >
         </a>
       </div>
       <div class="contenedor-derecha-header">
@@ -44,7 +53,6 @@
           <li><a href="index.html">Inicio</a></li>
           <li><a href="Nosotros.html">Nosotros</a></li>
           <li><a href="Destino.html">Destinos</a></li>
-          <li><a href="Reserva.html">Reservas</a></li>
           <li><a href="Tabla_Descuento.html">Descuentos</a></li>
           <li><a href="Preguntas.html">Preguntas</a></li>
         </ul>
@@ -53,6 +61,13 @@
 
     <div class="layout-perfil">
       <aside class="sidebar-perfil">
+        <div class="perfil-resumen" style="text-align: center; margin-bottom: 20px; width: 100%;">
+            <div style="background: var(--color-boton); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(229, 29, 42, 0.3);">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <h3 id="nombreAdminDinámico" style="margin: 0; color: var(--color-oscuro); font-size: 1.2rem;">Cargando...</h3>
+            <p style="color: #888; font-size: 0.85rem; margin: 5px 0 0 0; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Administrador</p>
+        </div>
         <nav class="nav-sidebar">
           <a
             href="#"
@@ -165,29 +180,76 @@
             </div>
           </div>
           <div
-            class="contenedor-boton-al-medio"
-            style="display: flex; gap: 15px; margin-top: 20px"
+            style="
+              margin-top: 25px;
+              padding: 15px;
+              background: #f9f9f9;
+              border-radius: 8px;
+              border: 1px solid #ddd;
+            "
           >
+            <h4
+              style="
+                margin-top: 0;
+                margin-bottom: 15px;
+                color: var(--color-oscuro);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              Línea de Tiempo (Itinerario)
+              <button
+                type="button"
+                onclick="agregarFilaItinerario()"
+                style="
+                  background: var(--color-boton);
+                  color: white;
+                  border: none;
+                  padding: 6px 12px;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  font-size: 0.85rem;
+                  font-weight: bold;
+                "
+              >
+                <i class="fa-solid fa-plus"></i> Añadir Hora
+              </button>
+            </h4>
+            <div
+              id="contenedor-itinerario-admin"
+              style="display: flex; flex-direction: column; gap: 15px"
+            ></div>
+          </div>
+          <div style="display: flex; gap: 15px; margin-top: 30px">
             <button
               type="button"
-              class="enlace-login"
               onclick="cerrarEditor()"
-              style="width: 50%"
+              class="boton-rojo-ingresar"
+              style="background-color: #555; width: 100%"
             >
-              Cancelar
+              CANCELAR
             </button>
             <button
               type="submit"
               class="boton-rojo-ingresar"
-              style="width: 50%"
+              style="width: 100%"
             >
-              Guardar Cambios
+              GUARDAR CAMBIOS
             </button>
           </div>
         </form>
       </div>
     </div>
-
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const usuario = sessionStorage.getItem("usuarioLogueado") || "Admin";
+        // Tomamos solo el primer y segundo nombre
+        const nombre = usuario.split(" ")[0] + " " + (usuario.split(" ")[1] || "");
+        const nombreElemento = document.getElementById("nombreAdminDinámico");
+        if (nombreElemento) nombreElemento.textContent = nombre;
+      });
+    </script>
     <script src="JavaScript/Prueba2.js"></script>
   </body>
 </html>
