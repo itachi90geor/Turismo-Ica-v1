@@ -4,73 +4,277 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Voucher de Viaje | Turismo Ica</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../css/Prueba2.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
   </head>
-  <body style="background-color: #ffffff;"> 
-    
-    <div class="ocultar-impresion" style="position: fixed; top: 0; left: 0; right: 0; background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; z-index: 10000; box-shadow: 0 4px 10px rgba(136, 136, 136, 0.842);">
-        <a href="../Perfil.html" style="color: rgb(0, 0, 0); text-decoration: none; font-weight: bold; font-size: 1.1rem;"><i class="fa-solid fa-arrow-left"></i> Volver al Perfil</a>
-        <button onclick="window.print()" class="boton-rojo-ingresar" style="width: auto; padding: 8px 25px; margin: 0; display: flex; gap: 8px; align-items: center;">
-            <i class="fa-solid fa-print"></i> Imprimir / Guardar PDF
-        </button>
+  <body style="background-color: #ffffff">
+    <div
+      class="ocultar-impresion"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10000;
+        box-shadow: 0 4px 10px rgba(136, 136, 136, 0.842);
+      "
+    >
+      <a
+        href="../Perfil.html"
+        style="
+          color: rgb(0, 0, 0);
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 1.1rem;
+        "
+        ><i class="fa-solid fa-arrow-left"></i> Volver al Perfil</a
+      >
+      <button
+        onclick="window.print()"
+        class="boton-rojo-ingresar"
+        style="
+          width: auto;
+          padding: 8px 25px;
+          margin: 0;
+          display: flex;
+          gap: 8px;
+          align-items: center;
+        "
+      >
+        <i class="fa-solid fa-print"></i> Imprimir / Guardar Voucher
+      </button>
     </div>
 
-    <main id="boleta-dinamica-pagina" class="contenedor-boleta-impresion" style="margin-top: 80px;">
-      
-      <div class="hoja-carta-horizontal" style="display: flex;">
-        
+    <main
+      id="boleta-dinamica-pagina"
+      class="contenedor-boleta-impresion"
+      style="margin-top: 80px"
+    >
+      <div class="hoja-carta-horizontal" style="display: flex">
         <div class="mitad-hoja-izq" id="fondo-hoja-1">
-            <div class="capa-oscura-hoja"></div>
-            <div class="contenido-izq-hoja">
-                <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png" alt="Logo" style="width: 80px; margin-bottom: 20px;">
-                <h1 style="font-size: 2.3rem; margin: 0 0 10px 0; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);" id="boleta-titulo-foto">Cargando...</h1>
-                <p style="font-size: 1.05rem; line-height: 1.5; opacity: 0.9;" id="boleta-desc-foto">Preparando tu experiencia...</p>
-            </div>
+          <div class="capa-oscura-hoja"></div>
+          <div class="contenido-izq-hoja">
+            <img
+              src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png"
+              alt="Logo"
+              style="width: 80px; margin-bottom: 20px"
+            />
+            <h1
+              style="
+                font-size: 2.3rem;
+                margin: 0 0 10px 0;
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+              "
+              id="boleta-titulo-foto"
+            >
+              Cargando...
+            </h1>
+            <p
+              style="font-size: 1.05rem; line-height: 1.5; opacity: 0.9"
+              id="boleta-desc-foto"
+            >
+              Preparando tu experiencia...
+            </p>
+          </div>
         </div>
-        
+
         <div class="mitad-hoja-der">
-            <div style="border-bottom: 2px solid #e51d2a; padding-bottom: 8px; margin-bottom: 15px;">
-                <h2 style="margin: 0; color: #1a1a1a; font-size: 1.8rem;">Voucher de Viaje</h2>
-                <p id="boleta-id" style="margin: 5px 0 0; color: #666; font-weight: bold;">Orden #...</p>
-            </div>
+          <div
+            style="
+              border-bottom: 2px solid #e51d2a;
+              padding-bottom: 8px;
+              margin-bottom: 15px;
+            "
+          >
+            <h2 style="margin: 0; color: #1a1a1a; font-size: 1.8rem">
+              Voucher de Viaje
+            </h2>
+            <p
+              id="boleta-id"
+              style="margin: 5px 0 0; color: #666; font-weight: bold"
+            >
+              Orden #...
+            </p>
+          </div>
 
-            <div class="fila-dato-cliente"><span>CLIENTE</span><span id="boleta-cliente">...</span></div>
-            <div class="fila-dato-cliente"><span>DESTINO</span><span id="boleta-destino">...</span></div>
-            <div class="fila-dato-cliente"><span>FECHA DE VIAJE</span><span id="boleta-fecha" style="color: #e51d2a; font-weight: bold;">...</span></div>
-            <div class="fila-dato-cliente"><span>TIPO DE TOUR</span><span id="boleta-modalidad">...</span></div>
-            <div class="fila-dato-cliente"><span>PASAJEROS</span><span id="boleta-pasajeros">...</span></div>
-            <div class="fila-dato-cliente"><span>MÉTODO PAGO</span><span id="boleta-metodo">...</span></div>
+          <div class="fila-dato-cliente">
+            <span>CLIENTE</span><span id="boleta-cliente">...</span>
+          </div>
+          <div class="fila-dato-cliente">
+            <span>DESTINO</span><span id="boleta-destino">...</span>
+          </div>
+          <div class="fila-dato-cliente">
+            <span>FECHA DE VIAJE</span
+            ><span id="boleta-fecha" style="color: #e51d2a; font-weight: bold"
+              >...</span
+            >
+          </div>
+          <div class="fila-dato-cliente">
+            <span>TIPO DE TOUR</span><span id="boleta-modalidad">...</span>
+          </div>
+          <div class="fila-dato-cliente">
+            <span>PASAJEROS</span><span id="boleta-pasajeros">...</span>
+          </div>
+          <div class="fila-dato-cliente">
+            <span>MÉTODO PAGO</span><span id="boleta-metodo">...</span>
+          </div>
 
-            <div class="cuadro-gris-total" style="margin-top: 15px;">
-                <span>TOTAL PAGADO</span>
-                <h3 id="boleta-total" style="font-size: 1.8rem;">S/ 0.00</h3>
-            </div>
-            
-            <p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 15px;">Presente este documento digital o impreso al momento de abordar.</p>
+          <div class="cuadro-gris-total" style="margin-top: 15px">
+            <span>TOTAL PAGADO</span>
+            <h3 id="boleta-total" style="font-size: 1.8rem">S/ 0.00</h3>
+          </div>
+
+          <p
+            style="
+              text-align: center;
+              color: #888;
+              font-size: 0.8rem;
+              margin-top: 15px;
+            "
+          >
+            Presente este documento digital o impreso al momento de abordar.
+          </p>
         </div>
       </div>
 
-      <div class="hoja-carta-horizontal" style="display: block; padding: 35px; box-sizing: border-box; overflow: hidden;">
-        
-        <h2 style="margin: 0 0 15px 0; color: #1a1a1a; font-size: 1.6rem; border-bottom: 2px solid #e51d2a; padding-bottom: 8px;">Tu Itinerario</h2>
+      <div
+        class="hoja-carta-horizontal"
+        style="
+          display: block;
+          padding: 35px;
+          box-sizing: border-box;
+          overflow: hidden;
+        "
+      >
+        <h2
+          style="
+            margin: 0 0 15px 0;
+            color: #1a1a1a;
+            font-size: 1.6rem;
+            border-bottom: 2px solid #e51d2a;
+            padding-bottom: 8px;
+          "
+        >
+          Tu Itinerario
+        </h2>
 
-        <div style="float: right; width: 45%; max-width: 380px; margin: 0 0 15px 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-radius: 8px; overflow: hidden;">
-            <h3 style="background: #e51d2a; color: white; margin: 0; padding: 8px; text-align: center; font-size: 1rem;">Mapa de Ruta</h3>
-            <div style="background-color: #fafafa; padding: 10px; display: flex; justify-content: center; align-items: center; border: 1px solid #eee; border-top: none;">
-                <img id="boleta-mapa-img" src="" alt="Mapa de Ruta" style="max-width: 100%; max-height: 250px; object-fit: contain;">
-            </div>
+        <div
+          style="
+            float: right;
+            width: 45%;
+            max-width: 380px;
+            margin: 0 0 15px 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+          "
+        >
+          <h3
+            style="
+              background: #e51d2a;
+              color: white;
+              margin: 0;
+              padding: 8px;
+              text-align: center;
+              font-size: 1rem;
+            "
+          >
+            Mapa de Ruta
+          </h3>
+          <div
+            style="
+              background-color: #fafafa;
+              padding: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: 1px solid #eee;
+              border-top: none;
+            "
+          >
+            <img
+              id="boleta-mapa-img"
+              src=""
+              alt="Mapa de Ruta"
+              style="max-width: 100%; max-height: 250px; object-fit: contain"
+            />
+          </div>
         </div>
 
-        <ul id="boleta-lista-itinerario" style="list-style: none; padding: 0; margin: 0; display: block;">
-            <p style="color: #666;">Cargando cronograma...</p>
+        <ul
+          id="boleta-lista-itinerario"
+          style="list-style: none; padding: 0; margin: 0; display: block"
+        >
+          <p style="color: #666">Cargando cronograma...</p>
         </ul>
-        
-        <div style="clear: both;"></div>
+
+        <div style="clear: both"></div>
       </div>
     </main>
-
+    <footer class="footer-profesional">
+      <div class="footer-contenedor">
+        <div class="footer-columna">
+          <h3>Turismo Ica</h3>
+          <p class="footer-texto">
+            Descubre la magia del sur peruano. Somos especialistas en crear
+            experiencias inolvidables llenas de aventura, cultura y gastronomía.
+          </p>
+          <div class="footer-redes">
+            <a href="#" title="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="#" title="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" title="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-columna">
+          <h4>Explora</h4>
+          <ul class="footer-enlaces">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Nosotros.html">Sobre Nosotros</a></li>
+            <li><a href="Destino.html">Catálogo de Tours</a></li>
+            <li><a href="Reseñas.html">Opiniones de Viajeros</a></li>
+            <li><a href="Preguntas.html">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+        <div class="footer-columna">
+          <h4>Contáctanos</h4>
+          <ul class="footer-contacto">
+            <li>
+              <i class="fa-solid fa-location-dot"></i> Plaza de Armas, Ica -
+              Perú
+            </li>
+            <li><i class="fa-solid fa-phone"></i> +51 987 654 321</li>
+            <li>
+              <i class="fa-solid fa-envelope"></i> reservas@turismoica.com
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          &copy; 2026 Turismo Ica. Todos los derechos reservados. | Desarrollado
+          por <strong>Grupo 6</strong>.
+        </p>
+      </div>
+    </footer>
     <script src="../JavaScript/Prueba2.js"></script>
   </body>
 </html>

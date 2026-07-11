@@ -53,7 +53,8 @@ app.post('/api/login', async (req, res) => {
         mensaje: 'Login exitoso',
         usuario: data.nombre,
         idUsuario: data.id,
-        rol: data.rol
+        rol: data.rol,
+        avatar_url: data.avatar_url
     });
 });
 
@@ -179,30 +180,51 @@ app.post('/api/admin/destinos', async (req, res) => {
     const {
         titulo, precio_grupal, precio_privado, descripcion_corta,
         descripcion_larga, ubicacion, con_descuento, porcentaje_descuento,
-        imagen_url, dias_programados, categoria, itinerario
+        imagen_url, dias_programados, categoria, itinerario,
+        imagenes_galeria
     } = req.body;
+    const urlSegura = imagen_url && imagen_url.trim() !== "" 
+        ? imagen_url 
+        : "https://res.cloudinary.com/dsk6vsr0c/image/upload/v1782863989/noimagen.png";
     const { data, error } = await supabase
         .from('destinos')
         .insert([{
-            titulo, precio_grupal: parseFloat(precio_grupal) || 0,
-            precio_privado: parseFloat(precio_privado) || 0, descripcion_corta,
-            descripcion_larga, ubicacion, con_descuento: con_descuento || false,
+            titulo, 
+            precio_grupal: parseFloat(precio_grupal) || 0,
+            precio_privado: parseFloat(precio_privado) || 0, 
+            descripcion_corta,
+            descripcion_larga, 
+            ubicacion, 
+            con_descuento: con_descuento || false,
             porcentaje_descuento: parseInt(porcentaje_descuento) || 0,
-            imagen_url, dias_programados, categoria: categoria || 'todos'
-        }]).select();
-    if (error) return res.status(500).json({ error: error.message });
+            imagen_url: urlSegura, 
+            dias_programados, 
+            categoria: categoria || 'todos',
+            activo: true
+        }]).select(); 
+    if (error) {
+        console.error("Error BD Destinos:", error.message);
+        return res.status(500).json({ error: error.message });
+    }
     const nuevoId = data[0].id;
     if (itinerario && Array.isArray(itinerario) && itinerario.length > 0) {
-        const inserts = itinerario.map((item, index) => ({
+        const insertsItinerario = itinerario.map((item, index) => ({
             destino_id: nuevoId,
             hora: item.hora,
             titulo: item.titulo,
             descripcion: item.descripcion,
             orden: index + 1
         }));
-        await supabase.from('itinerarios').insert(inserts);
+        await supabase.from('itinerarios').insert(insertsItinerario);
     }
-    res.status(200).json({ mensaje: 'Destino e itinerario creados con éxito' });
+    if (imagenes_galeria && Array.isArray(imagenes_galeria) && imagenes_galeria.length > 0) {
+        const insertsGaleria = imagenes_galeria.map((url) => ({
+            destino_id: nuevoId,
+            url: url
+        }));
+        await supabase.from('imagenes_destino').insert(insertsGaleria);
+    }
+    res.status(200).json({ mensaje: 'Destino, itinerario y galería creados con éxito' });
 });
 
 // Gestion de Reservas: Obtener lista completa de reservas para el panel Admin
@@ -312,32 +334,37 @@ app.get('/api/destinos/destacados', async (req, res) => {
 });
 
 // Detalle de un destino específico, incluyendo comentarios, imágenes y itinerario
+// Detalle de un destino específico, incluyendo comentarios, imágenes y itinerario
 app.get('/api/destinos/:id', async (req, res) => {
     const { id } = req.params;
     const { data, error } = await supabase
         .from('destinos')
         .select(`
             *,
-            comentarios ( id, texto, estrellas, fecha, usuarios ( nombre ) ),
+            comentarios ( id, texto, estrellas, fecha, usuario_id, usuarios ( nombre ) ),
             imagenes_destino ( url ),
             itinerarios ( id, hora, titulo, descripcion, orden )
         `)
         .eq('id', id)
         .single();
+        
     if (error) return res.status(500).json({ error: error.message });
+    
     if (data && data.itinerarios) {
         data.itinerarios.sort((a, b) => a.orden - b.orden);
     }
     res.status(200).json(data);
 });
-// Publicar un comentario para un destino específico
-app.post('/api/comentarios', async (req, res) => {
-    const { destino_id, usuario_id, texto, estrellas } = req.body;
+// Actualizar (Editar) un comentario existente
+app.put('/api/comentarios/:id', async (req, res) => {
+    const { id } = req.params;
+    const { texto, estrellas } = req.body;
     const { data, error } = await supabase
         .from('comentarios')
-        .insert([{ destino_id, usuario_id, texto, estrellas }]);
+        .update({ texto, estrellas })
+        .eq('id', id);
     if (error) return res.status(500).json({ error: error.message });
-    res.status(200).json({ mensaje: '¡Tu comentario ha sido publicado con éxito!' });
+    res.status(200).json({ mensaje: 'Comentario actualizado con éxito' });
 });
 
 //Perfil de Usuario
@@ -346,7 +373,7 @@ app.get('/api/usuarios/:id', async (req, res) => {
     const { id } = req.params;
     const { data, error } = await supabase
         .from('usuarios')
-        .select('nombre, telefono')
+        .select('nombre, telefono, avatar_url')
         .eq('id', id)
         .single();
     if (error) return res.status(500).json({ error: error.message });
@@ -356,14 +383,94 @@ app.get('/api/usuarios/:id', async (req, res) => {
 //Guardar cambios en el perfil de un usuario específico por su ID
 app.put('/api/usuarios/:id', async (req, res) => {
     const { id } = req.params;
-    const { nombre, telefono } = req.body;
+    const { nombre, telefono, password, avatar_url } = req.body; 
+    
+    const datosAActualizar = { nombre, telefono };
+    
+    if (password && password.trim() !== "") {
+        datosAActualizar.password = password.trim();
+    }
+    // Si envían una URL de foto, la preparamos para guardar
+    if (avatar_url !== undefined) {
+        datosAActualizar.avatar_url = avatar_url;
+    }
+
     const { data, error } = await supabase
         .from('usuarios')
-        .update({ nombre, telefono })
+        .update(datosAActualizar)
         .eq('id', id);
+        
     if (error) {
-        console.error("Error al actualizar perfil:", error.message);
         return res.status(500).json({ error: error.message });
     }
     res.status(200).json({ mensaje: 'Perfil actualizado con éxito' });
+});
+
+// Obtener todas las reseñas globales con nombre de usuario y destino
+app.get('/api/comentarios', async (req, res) => {
+    const { data, error } = await supabase
+        .from('comentarios')
+        .select(`
+            id, texto, estrellas, fecha,
+            usuarios ( nombre ),
+            destinos ( titulo )
+        `)
+        .order('id', { ascending: false }); // Las más recientes primero
+
+    if (error) {
+        console.error("Error al obtener comentarios:", error.message);
+        return res.status(500).json({ error: error.message });
+    }
+    res.status(200).json(data);
+});
+
+//Sistema de consultas: Crear, Obtener y Responder consultas de usuarios
+
+// 1. Crear una nueva consulta (Desde Nosotros.html)
+app.post('/api/consultas', async (req, res) => {
+    const { usuario_id, nombre, email, mensaje } = req.body;
+    const { data, error } = await supabase
+        .from('consultas')
+        .insert([{ usuario_id, nombre, email, mensaje, estado: 'pendiente' }]);
+    
+    if (error) return res.status(500).json({ error: error.message });
+    res.status(200).json({ mensaje: 'Consulta enviada con éxito' });
+});
+
+// 2. Obtener todas las consultas para el Admin
+app.get('/api/admin/consultas', async (req, res) => {
+    const { data, error } = await supabase
+        .from('consultas')
+        .select('*')
+        .order('estado', { ascending: true }) // Ordena: primero "pendiente", luego "respondido"
+        .order('id', { ascending: false });
+        
+    if (error) return res.status(500).json({ error: error.message });
+    res.status(200).json(data);
+});
+
+// 3. Responder a una consulta (Desde el Panel Admin)
+app.put('/api/admin/consultas/:id', async (req, res) => {
+    const { id } = req.params;
+    const { respuesta } = req.body;
+    const { error } = await supabase
+        .from('consultas')
+        .update({ respuesta, estado: 'respondido' })
+        .eq('id', id);
+        
+    if (error) return res.status(500).json({ error: error.message });
+    res.status(200).json({ mensaje: 'Respuesta enviada' });
+});
+
+// 4. Obtener las consultas de un usuario específico (Para Perfil.html)
+app.get('/api/consultas/usuario/:id', async (req, res) => {
+    const { id } = req.params;
+    const { data, error } = await supabase
+        .from('consultas')
+        .select('*')
+        .eq('usuario_id', id)
+        .order('id', { ascending: false });
+        
+    if (error) return res.status(500).json({ error: error.message });
+    res.status(200).json(data);
 });

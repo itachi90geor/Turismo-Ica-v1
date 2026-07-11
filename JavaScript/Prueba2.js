@@ -132,32 +132,68 @@ function inicializarLógicaFiltros() {
     }
 }
 
-//Verificar si hay un usuario logueado y mostrar su nombre en el menú
-document.addEventListener('DOMContentLoaded', () => {
+//Verificar si hay un usuario logueado y mostrar su nombre y foto en el menú
+document.addEventListener('DOMContentLoaded', async () => {
     const usuarioActivo = sessionStorage.getItem('usuarioLogueado');
     const rolActivo = sessionStorage.getItem('rolUsuario');
+    const idActivo = sessionStorage.getItem("idUsuario");
+    let avatarActivo = sessionStorage.getItem('avatarUsuario'); 
+    
     const iconoPerfil = document.querySelector('.enlace-perfil-usuario');
     const menuPrincipalUl = document.querySelector('#menuPrincipal ul');
-    if (usuarioActivo && iconoPerfil) {
-        let primerNombre = usuarioActivo.split(' ')[0];
-        const esSubcarpeta = window.location.pathname.includes('/Detalles/');
+    const avatarSidebar = document.getElementById("sidebar-avatar-container");
+    
+    // Si hay un usuario logueado pero por algún motivo la foto no está en memoria, la pedimos al servidor
+    if (idActivo && (!avatarActivo || avatarActivo === "")) {
+        try {
+            const res = await fetch(`http://localhost:3000/api/usuarios/${idActivo}`);
+            if (res.ok) {
+                const data = await res.json();
+                if (data.avatar_url && data.avatar_url !== "") {
+                    avatarActivo = data.avatar_url;
+                    sessionStorage.setItem('avatarUsuario', avatarActivo); // Guardamos para la próxima vez
+                }
+            }
+        } catch (e) {
+            console.error("No se pudo cargar la foto desde el servidor silenciosamente.");
+        }
+    }
+
+    if (iconoPerfil) {
+        const rutaOriginal = iconoPerfil.getAttribute('href') || '';
+        const esSubcarpeta = rutaOriginal.includes('../');
         const rutaPerfil = esSubcarpeta ? '../Perfil.html' : 'Perfil.html';
         const rutaAdmin = esSubcarpeta ? '../Admin.html' : 'Admin.html';
-        iconoPerfil.setAttribute('href', rutaPerfil);
-        iconoPerfil.style.color = '#e63946';
-        iconoPerfil.style.fontWeight = 'bold';
-        iconoPerfil.innerHTML = `<i class="fa-solid fa-user"></i> ${primerNombre}`;
-        if (rolActivo && rolActivo.trim().toLowerCase() === 'admin' && menuPrincipalUl) {
-            if (!document.getElementById('link-panel-admin')) {
-                const liAdmin = document.createElement('li');
-                liAdmin.id = 'link-panel-admin';
-                liAdmin.innerHTML = `<a href="${rutaAdmin}" style="color: #e63946; font-weight: 800;"><i class="fa-solid fa-shield-halved"></i> PANEL ADMIN</a>`;
-                menuPrincipalUl.appendChild(liAdmin);
+        const rutaLogin = esSubcarpeta ? '../Login.html' : 'Login.html';
+        
+        if (usuarioActivo) {
+            let primerNombre = usuarioActivo.split(' ')[0];
+            iconoPerfil.setAttribute('href', rutaPerfil);
+            iconoPerfil.style.color = '#e63946';
+            iconoPerfil.style.fontWeight = 'bold';
+            
+            if (avatarActivo && avatarActivo !== "") {
+                iconoPerfil.innerHTML = `<img src="${avatarActivo}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid var(--color-boton);"> ${primerNombre}`;
+            } else {
+                iconoPerfil.innerHTML = `<i class="fa-solid fa-user"></i> ${primerNombre}`;
             }
+            
+            if (rolActivo && rolActivo.trim().toLowerCase() === 'admin' && menuPrincipalUl) {
+                if (!document.getElementById('link-panel-admin')) {
+                    const liAdmin = document.createElement('li');
+                    liAdmin.id = 'link-panel-admin';
+                    liAdmin.innerHTML = `<a href="${rutaAdmin}" style="color: #e63946; font-weight: 800;"><i class="fa-solid fa-shield-halved"></i> PANEL ADMIN</a>`;
+                    menuPrincipalUl.appendChild(liAdmin);
+                }
+            }
+        } else {
+            iconoPerfil.setAttribute('href', rutaLogin);
         }
-    } else if (iconoPerfil) {
-        const esSubcarpeta = window.location.pathname.includes('/Detalles/');
-        iconoPerfil.setAttribute('href', esSubcarpeta ? '../Login.html' : 'Login.html');
+    }
+
+    // Inyectar la foto en la barra lateral grande de Perfil o Admin
+    if (avatarSidebar && avatarActivo && avatarActivo !== "") {
+        avatarSidebar.innerHTML = `<img src="${avatarActivo}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
     }
 });
 
@@ -182,6 +218,7 @@ document.addEventListener('submit', (e) => {
                     sessionStorage.setItem('usuarioLogueado', data.usuario);
                     sessionStorage.setItem('idUsuario', data.idUsuario);
                     sessionStorage.setItem('rolUsuario', rolDelUsuario);
+                    sessionStorage.setItem('avatarUsuario', data.avatar_url || '');
                     alert("¡Bienvenido, " + data.usuario + "!");
                     window.location.href = 'Perfil.html';
                 } else {
@@ -498,31 +535,57 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
         const contenedorComentarios = document.getElementById("contenedor-comentarios");
+        const idActivo = sessionStorage.getItem("idUsuario"); // Obtenemos el ID del usuario logueado
+
         if (d.comentarios && d.comentarios.length > 0) {
             contenedorComentarios.innerHTML = "";
             d.comentarios.forEach((c) => {
+                // Dibujamos las estrellas rojas
+                let htmlStars = '';
+                for(let i=0; i < (c.estrellas || 5); i++) {
+                    htmlStars += '<i class="fa-solid fa-star" style="color: var(--color-boton); font-size: 0.8rem;"></i>';
+                }
+
+                // Validación estricta: Convertimos a Texto (String) para asegurar que coincidan perfectamente
+                let btnEditar = "";
+                if (idActivo && c.usuario_id && String(idActivo) === String(c.usuario_id)) {
+                    const textoLimpio = c.texto.replace(/(\r\n|\n|\r)/gm, " "); 
+                    btnEditar = `<button onclick="habilitarEdicionComentario(${c.id}, '${textoLimpio}', ${c.estrellas})" style="background:none; border:none; color:#1976d2; cursor:pointer; font-size:0.85rem; margin-top:10px; font-weight: bold;"><i class="fa-solid fa-pen"></i> Editar mi opinión</button>`;
+                }
+
                 contenedorComentarios.innerHTML += `
-                    <div class="cuadro-opinion-cliente">
-                        <h4>${c.usuarios.nombre}</h4>
-                        <p>${c.texto}</p>
+                    <div class="cuadro-opinion-cliente" id="comentario-box-${c.id}">
+                        <div style="display:flex; justify-content:space-between; align-items:start;">
+                            <h4 style="margin:0;">${c.usuarios.nombre}</h4>
+                            <div>${htmlStars}</div>
+                        </div>
+                        <p style="margin-top: 8px;">${c.texto}</p>
+                        ${btnEditar}
                     </div>`;
             });
         } else {
             contenedorComentarios.innerHTML = '<p class="cuadro-opinion-cliente">No hay comentarios aún. ¡Sé el primero!</p>';
         }
-        const idActivo = sessionStorage.getItem("idUsuario");
+
         const cajaComentario = document.getElementById("seccion-postear-comentario");
         if (idActivo) {
             cajaComentario.innerHTML = `
-                <h3>Deja tu opinión</h3>
-                <textarea id="texto-nuevo-comentario" class="textarea-comentario" placeholder="¿Qué te pareció este tour?" rows="3"></textarea>
+                <h3 style="margin-bottom: 15px;">Deja tu opinión</h3>
+                <select id="estrellas-nuevo-comentario" class="input-moderno" style="width: 100%; margin-bottom: 15px; font-weight: bold;">
+                    <option value="5">5 Estrellas (Excelente)</option>
+                    <option value="4">4 Estrellas (Muy bueno)</option>
+                    <option value="3">3 Estrellas (Bueno)</option>
+                    <option value="2">2 Estrellas (Regular)</option>
+                    <option value="1">1 Estrella (Malo)</option>
+                </select>
+                <textarea id="texto-nuevo-comentario" class="textarea-comentario input-moderno" placeholder="¿Qué te pareció este tour?" rows="3" style="width: 100%; margin-bottom: 15px;"></textarea>
                 <button onclick="enviarComentario(${id})" class="boton-rojo-ingresar boton-comentario-publicar">
                     Publicar Comentario
                 </button>
             `;
         } else {
             cajaComentario.innerHTML = `
-                <p class="caja-comentario-visitante"><strong>¿Quieres comentar?</strong> <a href="../Login.html" class="enlace-login-comentario">Inicia sesión aquí</a> para compartir tu experiencia.</p>
+                <p class="caja-comentario-visitante" style="margin:0;"><strong>¿Quieres comentar?</strong> <a href="../Login.html" class="enlace-login-comentario">Inicia sesión aquí</a> para compartir tu experiencia.</p>
             `;
         }
     } catch (error) {
@@ -533,6 +596,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Función global expuesta para procesar el envío de comentarios
 window.enviarComentario = async (destinoId) => {
     const texto = document.getElementById("texto-nuevo-comentario").value;
+    const estrellas = document.getElementById("estrellas-nuevo-comentario").value;
+    
     if (!texto.trim()) return alert("Escribe un comentario primero.");
     try {
         const res = await fetch("http://localhost:3000/api/comentarios", {
@@ -542,7 +607,7 @@ window.enviarComentario = async (destinoId) => {
                 destino_id: destinoId,
                 usuario_id: sessionStorage.getItem("idUsuario"),
                 texto: texto,
-                estrellas: 5,
+                estrellas: parseInt(estrellas),
             }),
         });
         if (res.ok) {
@@ -551,6 +616,51 @@ window.enviarComentario = async (destinoId) => {
         }
     } catch (error) {
         console.error("Error al enviar comentario:", error);
+    }
+};
+
+// Convierte la tarjeta de texto estático en un formulario editable
+window.habilitarEdicionComentario = function(idComentario, textoActual, estrellasActuales) {
+    const box = document.getElementById(`comentario-box-${idComentario}`);
+    box.innerHTML = `
+        <h4 style="margin-bottom: 10px; color: var(--color-boton);">Editando tu opinión...</h4>
+        <select id="edit-star-${idComentario}" class="input-moderno" style="margin-bottom:10px; width: 100%; font-weight: bold;">
+            <option value="5" ${estrellasActuales == 5 ? 'selected' : ''}>5 Estrellas (Excelente)</option>
+            <option value="4" ${estrellasActuales == 4 ? 'selected' : ''}>4 Estrellas (Muy bueno)</option>
+            <option value="3" ${estrellasActuales == 3 ? 'selected' : ''}>3 Estrellas (Bueno)</option>
+            <option value="2" ${estrellasActuales == 2 ? 'selected' : ''}>2 Estrellas (Regular)</option>
+            <option value="1" ${estrellasActuales == 1 ? 'selected' : ''}>1 Estrella (Malo)</option>
+        </select>
+        <textarea id="edit-texto-${idComentario}" class="input-moderno" rows="3" style="width:100%; margin-bottom:10px;">${textoActual}</textarea>
+        <div style="display:flex; gap:10px;">
+            <button onclick="guardarEdicionComentario(${idComentario})" class="btn-detalles" style="background: var(--color-boton); color: white;">Guardar Cambios</button>
+            <button onclick="location.reload()" class="btn-detalles" style="color: #555; border-color: #ccc;">Cancelar</button>
+        </div>
+    `;
+};
+
+// Envía la actualización a la base de datos
+window.guardarEdicionComentario = async function(idComentario) {
+    const nuevoTexto = document.getElementById(`edit-texto-${idComentario}`).value;
+    const nuevasEstrellas = document.getElementById(`edit-star-${idComentario}`).value;
+
+    if (!nuevoTexto.trim()) return alert("El comentario no puede estar vacío.");
+
+    try {
+        const res = await fetch(`http://localhost:3000/api/comentarios/${idComentario}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ texto: nuevoTexto, estrellas: nuevasEstrellas })
+        });
+        if (res.ok) {
+            alert("¡Tu comentario ha sido actualizado!");
+            location.reload();
+        } else {
+            alert("Ocurrió un error al actualizar el comentario.");
+        }
+    } catch(e) {
+        console.error(e);
+        alert("Error de conexión con el servidor.");
     }
 };
 
@@ -564,21 +674,422 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //Cambiar entre secciones del panel de administración
 function mostrarSeccion(seccion) {
-    document
-        .querySelectorAll(".nav-sidebar a")
-        .forEach((a) => a.classList.remove("activo"));
+    document.querySelectorAll(".nav-sidebar a").forEach((a) => a.classList.remove("activo"));
     const botonPestaña = document.getElementById(`btn-${seccion}`);
     if (botonPestaña) botonPestaña.classList.add("activo");
+    
     const contenedor = document.getElementById("contenedor-principal");
     if (!contenedor) return;
     contenedor.innerHTML = "<h2>Cargando información...</h2>";
+    
     if (seccion === "usuarios") {
         cargarUsuarios();
     } else if (seccion === "destinos") {
         cargarDestinos();
     } else if (seccion === "reservas") {
         cargarTodasLasReservas();
+    } else if (seccion === "dashboard") {
+        cargarDashboard(); // <-- Agregamos esta línea
+    }else if (seccion === "consultas") { 
+        cargarConsultasAdmin(); 
     }
+}
+
+// Función para cargar el dashboard con estadísticas
+
+// Función para ENVIAR desde Nosotros.html
+window.enviarConsultaNosotros = async function(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.innerText = "Enviando...";
+    btn.disabled = true;
+
+    const nombre = document.getElementById("nombre").value;
+    const email = document.getElementById("email").value;
+    const mensaje = document.getElementById("mensaje").value;
+    const usuario_id = sessionStorage.getItem("idUsuario") || null; // Saca el ID si está logueado
+
+    try {
+        const res = await fetch("http://localhost:3000/api/consultas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ usuario_id, nombre, email, mensaje })
+        });
+        if (res.ok) {
+            alert("¡Mensaje enviado con éxito! Te responderemos pronto.");
+            e.target.reset();
+        } else {
+            alert("Error al enviar el mensaje.");
+        }
+    } catch(err) {
+        console.error(err);
+        alert("Error de conexión.");
+    } finally {
+        btn.innerText = "Enviar Mensaje";
+        btn.disabled = false;
+    }
+};
+
+// Función para LEER las consultas en Admin.html
+window.cargarConsultasAdmin = async function() {
+    const contenedor = document.getElementById("contenedor-principal");
+    if (!contenedor) return;
+    contenedor.innerHTML = '<h2>Cargando bandeja de entrada...</h2>';
+
+    try {
+        const res = await fetch("http://localhost:3000/api/admin/consultas");
+        const consultas = await res.json();
+
+        let html = `
+            <div style="margin-bottom: 20px;">
+                <h2 style="margin: 0;">Bandeja de Consultas</h2>
+                <p style="color: #666;">Responde a los viajeros. Los mensajes rojos requieren tu atención urgente.</p>
+            </div>
+        `;
+
+        if(consultas.length === 0) {
+            html += `<p style="color: #666;">No hay mensajes nuevos.</p>`;
+        } else {
+            consultas.forEach(c => {
+                const esRespondido = c.estado === 'respondido';
+                const claseCard = esRespondido ? 'card-consulta respondido' : 'card-consulta';
+                const etiquetaEstado = esRespondido 
+                    ? `<span style="background:#2e7d32; color:white; padding:4px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold;">RESPONDIDO</span>`
+                    : `<span style="background:#e51d2a; color:white; padding:4px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold;">PENDIENTE</span>`;
+
+                let zonaRespuesta = "";
+                
+                // Lógica del Chat: Si falta responder, sale la caja de texto. Si ya se respondió, sale el texto verde.
+                if (!esRespondido) {
+                    zonaRespuesta = `
+                        <div class="caja-responder">
+                            <textarea id="reply-text-${c.id}" class="input-moderno" rows="3" style="width:100%; margin-bottom:10px;" placeholder="Escribe tu respuesta aquí..."></textarea>
+                            <button onclick="responderConsultaAdmin(${c.id})" class="btn-detalles" style="background:var(--color-boton); color:white; border:none; padding:8px 15px;">Enviar Respuesta</button>
+                        </div>
+                    `;
+                } else {
+                    zonaRespuesta = `
+                        <div class="respuesta-admin-caja">
+                            <strong><i class="fa-solid fa-headset"></i> Tu Respuesta:</strong>
+                            <p style="margin-top:5px; color:#1a1a1a;">${c.respuesta}</p>
+                        </div>
+                    `;
+                }
+
+                html += `
+                    <div class="${claseCard}">
+                        <div class="card-consulta-header">
+                            <div>
+                                <strong style="font-size:1.1rem;">${c.nombre}</strong> <span style="color:#888; font-size:0.9rem;">(${c.email})</span>
+                            </div>
+                            <div>${etiquetaEstado}</div>
+                        </div>
+                        <div class="mensaje-cliente-caja">
+                            <i class="fa-solid fa-quote-left" style="color:#ccc; margin-right:5px;"></i> ${c.mensaje}
+                        </div>
+                        ${zonaRespuesta}
+                    </div>
+                `;
+            });
+        }
+        contenedor.innerHTML = html;
+    } catch(err) {
+        contenedor.innerHTML = '<p style="color:red;">Error al cargar las consultas.</p>';
+    }
+};
+
+// Función para RESPONDER desde el Admin
+window.responderConsultaAdmin = async function(id) {
+    const textoRespuesta = document.getElementById(`reply-text-${id}`).value;
+    if(!textoRespuesta.trim()) return alert("Debes escribir una respuesta.");
+
+    try {
+        const res = await fetch(`http://localhost:3000/api/admin/consultas/${id}`, {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ respuesta: textoRespuesta })
+        });
+        if(res.ok) {
+            alert("Respuesta enviada correctamente.");
+            cargarConsultasAdmin(); // Recarga la pestaña para que se ponga verde
+        }
+    } catch(err) {
+        alert("Error al enviar la respuesta.");
+    }
+};
+
+// Variables globales para guardar los gráficos y poder destruirlos al filtrar
+let graficoDestinosGlobal = null;
+let graficoPagosGlobal = null;
+
+// Función Principal: Carga los datos y dibuja la barra de filtros
+async function cargarDashboard() {
+    const contenedor = document.getElementById("contenedor-principal");
+    if (!contenedor) return;
+
+    contenedor.innerHTML = '<h2>Cargando métricas...</h2>';
+
+    try {
+        const res = await fetch("http://localhost:3000/api/admin/reservas");
+        const reservas = await res.json();
+        
+        // Guardamos las reservas en la memoria global para poder filtrarlas luego sin volver a descargar
+        window.reservasDashboardGlobal = reservas; 
+
+        // Extraemos automáticamente los destinos que existen para llenar el "Select"
+        const destinosUnicos = [...new Set(reservas.map(r => r.destinos ? r.destinos.titulo : 'Destino Borrado'))];
+        let opcionesDestino = '<option value="">Todos los Destinos</option>';
+        destinosUnicos.forEach(d => opcionesDestino += `<option value="${d}">${d}</option>`);
+
+        // Dibujamos la estructura: Títulos + Barra de Filtros + Contenedor Vacío para las métricas
+        contenedor.innerHTML = `
+            <div style="margin-bottom: 20px;">
+                <h2 style="margin: 0;">Panel de Rendimiento (Dashboard)</h2>
+                <p style="color: #666; margin-top: 5px;">Resumen global de la plataforma Turismo Ica.</p>
+            </div>
+            
+            <!-- BARRA DE FILTROS -->
+            <div class="filtros-dashboard">
+                <select id="dash-filtro-destino">${opcionesDestino}</select>
+                <select id="dash-filtro-estado">
+                    <option value="">Todos los Estados</option>
+                    <option value="confirmado">Solo Confirmados</option>
+                    <option value="pendiente">Solo Pendientes</option>
+                </select>
+                <input type="date" id="dash-fecha-inicio" title="Fecha Desde">
+                <input type="date" id="dash-fecha-fin" title="Fecha Hasta">
+                
+                <button onclick="aplicarFiltrosDashboard()" class="btn-filtrar">Aplicar Filtros</button>
+                <button onclick="limpiarFiltrosDashboard()" class="btn-reset">Limpiar</button>
+            </div>
+
+            <!-- Aquí se inyectarán las tarjetas y gráficos matemáticos -->
+            <div id="dashboard-contenido-dinamico"></div>
+        `;
+
+        // Arrancamos renderizando todo por primera vez (sin filtros)
+        renderizarDatosDashboard(reservas);
+
+    } catch (error) {
+        console.error("Error al cargar dashboard:", error);
+        contenedor.innerHTML = '<p style="color: #e51d2a; padding: 20px;">Ocurrió un error al cargar los datos.</p>';
+    }
+}
+
+// Variables globales para destruir gráficos viejos al usar filtros
+let chartVentasDiarias = null;
+let chartTopDestinos = null;
+let chartVentasMensuales = null;
+let chartPasajeros = null;
+
+// Función Secundaria: Recibe las reservas (filtradas o no) y hace la matemática
+function renderizarDatosDashboard(reservasAProcesar) {
+    const contenedorDinamico = document.getElementById("dashboard-contenido-dinamico");
+    if (!contenedorDinamico) return;
+
+    // --- 1. Variables para las 4 tarjetas (KPIs) superiores ---
+    let ingresosConfirmados = 0; let ingresosPendientes = 0;
+    let totalReservas = reservasAProcesar.length;
+    let conteoPopulares = {};
+
+    // --- 2. Variables para los 4 gráficos ---
+    let ventasDiarias = {};
+    let ventasDestinos = {};
+    let ventasMensuales = {};
+    let pasajerosDiarios = {};
+
+    // Procesamos toda la data
+    reservasAProcesar.forEach(r => {
+        const monto = parseFloat(r.total) || 0;
+        const pax = parseInt(r.pasajeros) || 1;
+        const destinoNombre = r.destinos ? r.destinos.titulo : 'Borrado';
+
+        // Acumular para KPIs
+        if (r.estado === 'confirmado') ingresosConfirmados += monto;
+        else ingresosPendientes += monto;
+        conteoPopulares[destinoNombre] = (conteoPopulares[destinoNombre] || 0) + 1;
+
+        // Estandarizar la fecha para agrupar (YYYY-MM-DD y YYYY-MM)
+        const fechaObj = window.parsearFechaReserva(r.fecha_reserva);
+        const dia = fechaObj.toISOString().split('T')[0]; 
+        const mes = dia.substring(0, 7); 
+
+        // Acumular para Gráficos
+        ventasDiarias[dia] = (ventasDiarias[dia] || 0) + monto;
+        ventasDestinos[destinoNombre] = (ventasDestinos[destinoNombre] || 0) + monto;
+        ventasMensuales[mes] = (ventasMensuales[mes] || 0) + monto;
+        pasajerosDiarios[dia] = (pasajerosDiarios[dia] || 0) + pax;
+    });
+
+    // Tour más popular (para la tarjeta superior)
+    let topDestino = totalReservas > 0 ? "Ninguno" : "Sin Datos";
+    let maxVentas = 0;
+    for (const [destino, cantidad] of Object.entries(conteoPopulares)) {
+        if (cantidad > maxVentas) { maxVentas = cantidad; topDestino = destino; }
+    }
+
+    // Dibujamos HTML de las Tarjetas y los 4 Contenedores de Gráficos
+    contenedorDinamico.innerHTML = `
+        <div class="kpi-grid">
+            <div class="kpi-card" style="border-color: #2e7d32;">
+                <i class="fa-solid fa-sack-dollar" style="color: #2e7d32;"></i>
+                <div class="kpi-info"><p>Ingresos Confirmados</p><h3>S/ ${ingresosConfirmados.toFixed(2)}</h3></div>
+            </div>
+            <div class="kpi-card" style="border-color: #ff9800;">
+                <i class="fa-solid fa-money-bill-transfer" style="color: #ff9800;"></i>
+                <div class="kpi-info"><p>Pagos Pendientes</p><h3>S/ ${ingresosPendientes.toFixed(2)}</h3></div>
+            </div>
+            <div class="kpi-card" style="border-color: #1976d2;">
+                <i class="fa-solid fa-ticket" style="color: #1976d2;"></i>
+                <div class="kpi-info"><p>Total de Reservas</p><h3>${totalReservas}</h3></div>
+            </div>
+            <div class="kpi-card" style="border-color: var(--color-boton);">
+                <i class="fa-solid fa-fire" style="color: var(--color-boton);"></i>
+                <div class="kpi-info"><p>Tour más popular</p><h3 style="font-size: 1rem; margin-top: 5px;">${topDestino}</h3></div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Tendencia de Ventas</h3>
+                <div class="chart-wrapper"><canvas id="graficoVentasDiarias"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <h3>Top Productos (Soles)</h3>
+                <div class="chart-wrapper"><canvas id="graficoTopDestinos"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <h3>Ventas por Mes</h3>
+                <div class="chart-wrapper"><canvas id="graficoVentasMensuales"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <h3>Tendencia de Pasajeros</h3>
+                <div class="chart-wrapper"><canvas id="graficoPasajeros"></canvas></div>
+            </div>
+        </div>
+    `;
+
+    // Limpiamos memoria si se están re-dibujando por un filtro
+    if (chartVentasDiarias) chartVentasDiarias.destroy();
+    if (chartTopDestinos) chartTopDestinos.destroy();
+    if (chartVentasMensuales) chartVentasMensuales.destroy();
+    if (chartPasajeros) chartPasajeros.destroy();
+
+    if (totalReservas > 0) {
+        // Ordenamos las fechas de menor a mayor
+        const diasOrdenados = Object.keys(ventasDiarias).sort();
+        const mesesOrdenados = Object.keys(ventasMensuales).sort();
+
+        // 1. Gráfico de Líneas - Tendencia de Ventas (Azul)
+        chartVentasDiarias = new Chart(document.getElementById('graficoVentasDiarias'), {
+            type: 'line',
+            data: {
+                labels: diasOrdenados,
+                datasets: [{
+                    label: 'Ventas Diarias (S/)',
+                    data: diasOrdenados.map(d => ventasDiarias[d]),
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+        });
+
+        // 2. Gráfico de Barras Horizontales - Top Destinos (Verde)
+        const destinosTop = Object.entries(ventasDestinos).sort((a, b) => b[1] - a[1]).slice(0, 6);
+        chartTopDestinos = new Chart(document.getElementById('graficoTopDestinos'), {
+            type: 'bar',
+            data: {
+                labels: destinosTop.map(d => d[0]),
+                datasets: [{
+                    label: 'Monto Vendido (S/)',
+                    data: destinosTop.map(d => d[1]),
+                    backgroundColor: '#2ecc71',
+                    borderRadius: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { position: 'top' } } }
+        });
+
+        // 3. Gráfico de Barras Verticales - Ventas por Mes (Naranja)
+        chartVentasMensuales = new Chart(document.getElementById('graficoVentasMensuales'), {
+            type: 'bar',
+            data: {
+                labels: mesesOrdenados,
+                datasets: [{
+                    label: 'Ventas Mensuales (S/)',
+                    data: mesesOrdenados.map(m => ventasMensuales[m]),
+                    backgroundColor: '#e67e22',
+                    borderRadius: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+        });
+
+        // 4. Gráfico de Líneas - Tendencia de Pasajeros (Amarillo)
+        chartPasajeros = new Chart(document.getElementById('graficoPasajeros'), {
+            type: 'line',
+            data: {
+                labels: diasOrdenados,
+                datasets: [{
+                    label: 'Unidades / Pasajeros',
+                    data: diasOrdenados.map(d => pasajerosDiarios[d]),
+                    borderColor: '#f39c12',
+                    backgroundColor: 'transparent',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#f39c12'
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+        });
+    }
+}
+
+// Evento: Al hacer clic en "Aplicar Filtros"
+window.aplicarFiltrosDashboard = function() {
+    const reservas = window.reservasDashboardGlobal || [];
+    const fDestino = document.getElementById("dash-filtro-destino").value;
+    const fEstado = document.getElementById("dash-filtro-estado").value;
+    const fInicio = document.getElementById("dash-fecha-inicio").value;
+    const fFin = document.getElementById("dash-fecha-fin").value;
+
+    const reservasFiltradas = reservas.filter(r => {
+        const nombreD = r.destinos ? r.destinos.titulo : 'Destino Borrado';
+        let cumpleDestino = (fDestino === "" || nombreD === fDestino);
+        let cumpleEstado = (fEstado === "" || r.estado === fEstado);
+        
+        // Filtro inteligente de fechas usando tu función parsearFechaReserva
+        let cumpleFecha = true;
+        if (fInicio || fFin) {
+            const fechaReserva = window.parsearFechaReserva(r.fecha_reserva);
+            fechaReserva.setHours(0,0,0,0);
+            
+            if (fInicio) {
+                const dIni = new Date(fInicio + 'T00:00:00');
+                if (fechaReserva < dIni) cumpleFecha = false;
+            }
+            if (fFin) {
+                const dFin = new Date(fFin + 'T00:00:00');
+                if (fechaReserva > dFin) cumpleFecha = false;
+            }
+        }
+        return cumpleDestino && cumpleEstado && cumpleFecha;
+    });
+
+    renderizarDatosDashboard(reservasFiltradas);
+}
+
+// Evento: Al hacer clic en "Limpiar"
+window.limpiarFiltrosDashboard = function() {
+    document.getElementById("dash-filtro-destino").value = "";
+    document.getElementById("dash-filtro-estado").value = "";
+    document.getElementById("dash-fecha-inicio").value = "";
+    document.getElementById("dash-fecha-fin").value = "";
+    renderizarDatosDashboard(window.reservasDashboardGlobal); // Volver al estado original
 }
 
 // Función para cargar la lista de usuarios en el panel de administración
@@ -588,33 +1099,78 @@ async function cargarUsuarios() {
         const usuarios = await res.json();
         const contenedor = document.getElementById("contenedor-principal");
         if (!contenedor) return;
+        
         contenedor.innerHTML = `
-      <h2>Gestión de Usuarios</h2>
-      <table class="cuadro-estilo-excel">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="listaUsuarios"></tbody>
-      </table>`;
+        <h2>Gestión de Usuarios</h2>
+        <!-- AQUÍ AGREGAMOS EL ENVOLTORIO MÓVIL -->
+        <div class="tabla-contenedor-movil">
+            <table class="cuadro-estilo-excel">
+            <thead>
+                <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="listaUsuarios"></tbody>
+            </table>
+        </div>`;
+      
         const tbody = document.getElementById("listaUsuarios");
+        
         usuarios.forEach((u) => {
             const fila = document.createElement("tr");
+            
+            // Lógica inteligente para saber qué texto poner en los botones
+            const textoBotonEstado = u.activo ? "Desactivar" : "Activar";
+            const textoBotonRol = u.rol === 'admin' ? 'Quitar Admin' : 'Hacer Admin';
+            const nuevoRol = u.rol === 'admin' ? 'usuario' : 'admin';
+            
             fila.innerHTML = `
         <td>${u.nombre}</td>
         <td>${u.email}</td>
         <td><strong>${u.rol.toUpperCase()}</strong></td>
-        <td><span class="${u.activo ? "confirmado" : "pastilla-roja-estado"}">${u.activo ? "ACTIVO" : "BANEADO"}</span></td>
-        <td><button onclick="cambiarEstadoUsuario(${u.id}, ${!u.activo})" class="btn-detalles">${u.activo ? "Desactivar" : "Activar"}</button></td>`;
+        <td><span class="${u.activo ? "texto-activo-bold" : "texto-inactivo-bold"}">${u.activo ? "ACTIVO" : "INACTIVO"}</span></td>
+        <td style="display: flex; gap: 8px;">
+            <!-- Botón 1: Banear / Desbanear -->
+            <button onclick="modificarUsuario(${u.id}, ${!u.activo}, '${u.rol}')" class="btn-detalles">${textoBotonEstado}</button>
+            
+            <!-- Botón 2: Dar / Quitar Admin (Pintado de color oscuro para diferenciarlo) -->
+            <button onclick="modificarUsuario(${u.id}, ${u.activo}, '${nuevoRol}')" class="btn-detalles" style="border-color: #1a1a1a; color: #1a1a1a;">${textoBotonRol}</button>
+        </td>`;
             tbody.appendChild(fila);
         });
     } catch (e) {
         console.error("Error al cargar usuarios de la administración:", e);
+    }
+}
+
+// Función maestra para cambiar tanto el estado (ban) como el rol (admin/usuario)
+async function modificarUsuario(id, estadoNuevo, rolNuevo) {
+    const confirmacion = confirm(`¿Estás seguro de guardar estos cambios en el usuario?`);
+    
+    if (!confirmacion) return;
+
+    try {
+        const res = await fetch("http://localhost:3000/api/admin/usuario/update", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            // Enviamos SIEMPRE ambos datos para no borrar información por accidente
+            body: JSON.stringify({ id: id, activo: estadoNuevo, rol: rolNuevo }),
+        });
+
+        if (res.ok) {
+            // Recarga la tabla al instante para mostrar el cambio en verde/rojo
+            cargarUsuarios(); 
+        } else {
+            const errorData = await res.json();
+            alert("Error: " + (errorData.error || "No se pudo actualizar el usuario."));
+        }
+    } catch (error) {
+        console.error("Error al modificar usuario:", error);
+        alert("Error de conexión. Verifica que el servidor de Node.js esté encendido.");
     }
 }
 
@@ -858,10 +1414,12 @@ document.addEventListener("submit", async (e) => {
                 cerrarEditor();
                 cargarDestinos();
             } else {
-                alert("Ocurrió un inconveniente al procesar la solicitud.");
+                const errorData = await res.json();
+                alert("Error de la Base de Datos:\n" + (errorData.error || "Datos inválidos."));
             }
         } catch (err) {
             console.error("Error en la petición de administración:", err);
+            alert("Error de conexión. Verifica que el servidor de Node.js esté encendido.");
         }
     }
 });
@@ -899,23 +1457,43 @@ async function toggleDescuento(id, estado) {
 window.cargarFavoritosUsuario = async function (idUsuario) {
     const contenedor = document.getElementById('contenedor-favoritos-dinamicos');
     if (!contenedor) return;
+    
     contenedor.innerHTML = '<p style="color: #666;">Cargando tus destinos preferidos...</p>';
+    
     try {
         const res = await fetch(`http://localhost:3000/api/favoritos/usuario/${idUsuario}`);
         const favoritos = await res.json();
+        
         if (favoritos.length === 0) {
             contenedor.innerHTML = '<p style="color: #666; grid-column: 1 / -1;">Aún no tienes destinos guardados. ¡Ve al catálogo y elige tus próximos viajes dándole al corazón!</p>';
             return;
         }
+        
         contenedor.innerHTML = '';
+        
         favoritos.forEach(fav => {
             const destino = fav.destinos;
             if (!destino) return;
+
+            // --- LÓGICA DE DESCUENTOS AÑADIDA AQUÍ ---
+            let htmlEtiquetaDescuento = '';
+            let htmlPrecio = `Desde S/ ${destino.precio_grupal}`;
+            
+            if (destino.con_descuento && destino.porcentaje_descuento > 0) {
+                let precioDescuento = (destino.precio_grupal - (destino.precio_grupal * destino.porcentaje_descuento / 100)).toFixed(2);
+                
+                // Reutilizamos tu clase de CSS de descuentos ajustándola al tamaño de esta tarjeta pequeña
+                htmlEtiquetaDescuento = `<span class="etiqueta-descuento" style="top: 10px; left: 10px; font-size: 0.75rem; padding: 4px 10px;">-${destino.porcentaje_descuento}% OFF</span>`;
+                htmlPrecio = `Desde <span style="text-decoration: line-through; color: #999; font-size: 0.85rem; margin: 0 5px;">S/ ${destino.precio_grupal}</span> S/ ${precioDescuento}`;
+            }
+            // -----------------------------------------
+
             const card = document.createElement('div');
             card.className = 'card-favorito';
             card.innerHTML = `
                 <div class="imagen-favorito">
-                    <!-- Al quitar el corazón desde el perfil, la página se recarga suavemente para desaparecer la tarjeta -->
+                    ${htmlEtiquetaDescuento} <!-- Insertamos la etiqueta flotante -->
+                    
                     <button class="btn-corazon" onclick="manejarFavoritoClick(event, this, ${destino.id}); setTimeout(() => cargarFavoritosUsuario(${idUsuario}), 200);">
                         <i class="fa-solid fa-heart"></i>
                     </button>
@@ -925,7 +1503,7 @@ window.cargarFavoritosUsuario = async function (idUsuario) {
                 </div>
                 <div style="padding: 15px;">
                     <h4 style="margin-bottom: 5px; color: #1a1a1a;">${destino.titulo}</h4>
-                    <p style="color: #e51d2a; font-weight: bold;">Desde S/ ${destino.precio_grupal}</p>
+                    <p style="color: #e51d2a; font-weight: bold;">${htmlPrecio}</p> <!-- Insertamos el precio calculado -->
                 </div>
             `;
             contenedor.appendChild(card);
@@ -1158,7 +1736,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('boleta-total').innerText = `S/ ${reserva.total}`;
     }
 });
-//Función para cargar los datos del perfil del usuario en la página de configuración
+// Cargar Perfil
 window.cargarDatosPerfil = async function() {
     const idUsuario = sessionStorage.getItem("idUsuario");
     if (!idUsuario) return;
@@ -1168,53 +1746,59 @@ window.cargarDatosPerfil = async function() {
             const data = await res.json();
             document.getElementById('conf-nombre').value = data.nombre || '';
             document.getElementById('conf-tel').value = data.telefono || '';
+            
+            // Cargamos la foto
+            const inputAvatar = document.getElementById('conf-avatar');
+            const preview = document.getElementById('preview-avatar');
+            if (inputAvatar) inputAvatar.value = data.avatar_url || '';
+            if (preview) preview.src = data.avatar_url || 'https://res.cloudinary.com/dsk6vsr0c/image/upload/v1782863989/noimagen.png';
         }
-    } catch (error) {
-        console.error("Error al cargar datos del perfil:", error);
-    }
+    } catch (error) { console.error("Error al cargar perfil:", error); }
 };
 
-//Envía los cambios y actualiza la página sin recargar
+// Guardar Perfil
 window.guardarCambiosPerfil = async function() {
     const idUsuario = sessionStorage.getItem("idUsuario");
     if (!idUsuario) return;
+    
     const boton = document.getElementById('btn-guardar-perfil');
     boton.innerText = 'Guardando...';
     boton.disabled = true;
+    
     const nuevoNombre = document.getElementById('conf-nombre').value.trim();
     const nuevoTel = document.getElementById('conf-tel').value.trim();
+    const nuevaPasswordInput = document.getElementById('conf-password');
+    const nuevaPassword = nuevaPasswordInput ? nuevaPasswordInput.value.trim() : '';
+    // Capturamos el link de la foto
+    const nuevoAvatarInput = document.getElementById('conf-avatar');
+    const nuevoAvatar = nuevoAvatarInput ? nuevoAvatarInput.value.trim() : '';
+
     if (!nuevoNombre) {
         alert("El nombre no puede estar vacío.");
         boton.innerText = 'Guardar Cambios';
-        boton.disabled = false;
-        return;
+        boton.disabled = false; return;
     }
+
+    const payload = { nombre: nuevoNombre, telefono: nuevoTel, avatar_url: nuevoAvatar };
+    if (nuevaPassword !== "") payload.password = nuevaPassword;
+
     try {
         const res = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombre: nuevoNombre, telefono: nuevoTel })
+            body: JSON.stringify(payload)
         });
+        
         if (res.ok) {
-            alert("¡Tus datos han sido actualizados con éxito!");
+            alert("¡Tus datos han sido actualizados!");
             sessionStorage.setItem("usuarioLogueado", nuevoNombre);
-            const primerNombre = nuevoNombre.split(' ')[0];
-            const segundoNombre = nuevoNombre.split(' ')[1] || "";
-            document.getElementById("nombreSidebar").textContent = `${primerNombre} ${segundoNombre}`;
-            const iconoPerfil = document.querySelector('.enlace-perfil-usuario');
-            if(iconoPerfil) {
-                iconoPerfil.innerHTML = `<i class="fa-solid fa-user"></i> ${primerNombre}`;
-            }
-        } else {
-            alert("Ocurrió un error al guardar los cambios.");
-        }
-    } catch (error) {
-        console.error("Error al actualizar perfil:", error);
-        alert("Error de conexión al servidor.");
-    } finally {
-        boton.innerText = 'Guardar Cambios';
-        boton.disabled = false;
-    }
+            sessionStorage.setItem("avatarUsuario", nuevoAvatar); // Guardamos en memoria
+            
+            if (nuevaPasswordInput) nuevaPasswordInput.value = '';
+            location.reload(); // Recargamos para que las fotos se actualicen en toda la web
+        } else { alert("Error al guardar."); }
+    } catch (error) { alert("Error de conexión."); } 
+    finally { boton.innerText = 'Guardar Cambios'; boton.disabled = false; }
 };
 //Función para agregar una fila de itinerario en el editor de destinos
 window.agregarFilaItinerario = function(hora = '', titulo = '', descripcion = '') {
@@ -1304,3 +1888,310 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 });
+//Plantilla Itinerario de Informacion
+document.addEventListener('DOMContentLoaded', async () => {
+    const contenedorDinamico = document.getElementById('pagina-informacion-dinamica');
+    if (!contenedorDinamico) return;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if (!id) {
+        window.location.href = '../Destino.html';
+        return;
+    }
+    try {
+        const res = await fetch(`http://localhost:3000/api/destinos/${id}`);
+        const d = await res.json();
+        document.title = `Itinerario ${d.titulo} | Turismo Ica`;
+        document.getElementById('info-titulo-header').innerText = `Itinerario: ${d.titulo}`;
+        document.getElementById('info-titulo-destino').innerText = d.titulo;
+        document.getElementById('info-desc-destino').innerText = d.descripcion_corta || 'Descubre la magia de este destino paso a paso.';
+        document.getElementById('info-portada').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${d.imagen_url})`;
+        document.getElementById('info-btn-reservar').href = `../Detalles/Detalle.html?id=${d.id}`;
+        const listaItinerario = document.getElementById('lista-itinerario-dinamico');
+        listaItinerario.innerHTML = '';
+        if (d.itinerarios && d.itinerarios.length > 0) {
+            d.itinerarios.forEach(paso => {
+                listaItinerario.innerHTML += `
+                    <li>
+                        <div class="texto-hora-resaltada">${paso.hora}</div>
+                        <div>
+                            <h3>${paso.titulo}</h3>
+                            <p>${paso.descripcion}</p>
+                        </div>
+                    </li>
+                `;
+            });
+        } else {
+            listaItinerario.innerHTML = '<p style="color: #666;">El itinerario se está actualizando y estará disponible pronto.</p>';
+        }
+        const mapasGuia = {
+            'huacachina': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565909/Ruta_Huaca_eu2m6n.png',
+            'pisco': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565909/Ruta_Pisco_rikobu.png',
+            'cañón': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565903/Ruta_Ca%C3%B1on_wha7ty.png',
+            'paracas': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777602138/Ruta_Paracas_b6zl3i.png',
+            'nazca': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565908/Ruta_Nazca_vlhgtn.png',
+            'cachiche': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565913/Ruta_Cachiche_dakdx2.png',
+            'cahuachi': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777606679/Ruta_Cahuachi.png',
+            'cantalloc': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777608629/Ruta_Cantalloc.png',
+            'morón': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777664959/Ruta_Moron.png',
+            'museo': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777664669/Ruta_Museo.png',
+            'ocucaje': 'https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777665063/Ruta_Ocucaje.png'
+        };
+
+        let urlMapaFinal = d.imagen_url;
+        for (const [clave, url] of Object.entries(mapasGuia)) {
+            if (d.titulo.toLowerCase().includes(clave)) {
+                urlMapaFinal = url;
+                break;
+            }
+        }
+        document.getElementById('info-mapa-img').src = urlMapaFinal;
+
+    } catch (error) {
+        console.error("Error al cargar itinerario dinámico:", error);
+        document.getElementById('lista-itinerario-dinamico').innerHTML = '<p style="color: #e51d2a;">Error de red al conectar con la base de datos.</p>';
+    }
+});
+
+//Buscardor en destino
+document.addEventListener('DOMContentLoaded', () => {
+    const buscador = document.getElementById('buscador-destinos');
+    if (buscador) {
+        buscador.addEventListener('input', (e) => {
+            const textoBusqueda = e.target.value.toLowerCase().trim();
+            const tarjetas = document.querySelectorAll('.cuadrito-viaje');
+            if(textoBusqueda.length > 0) {
+                document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('activo'));
+                const btnTodos = document.querySelector('.btn-filtro[data-filtro="todos"]');
+                if(btnTodos) btnTodos.classList.add('activo');
+            }
+            tarjetas.forEach(tarjeta => {
+                const tituloElemento = tarjeta.querySelector('.textos-del-viaje h3');
+                if (!tituloElemento) return;
+                const titulo = tituloElemento.textContent.toLowerCase();
+                if (titulo.includes(textoBusqueda)) {
+                    tarjeta.classList.remove('oculto');
+                } else {
+                    tarjeta.classList.add('oculto');
+                }
+            });
+        });
+        const botonesFiltro = document.querySelectorAll('.btn-filtro');
+        botonesFiltro.forEach(boton => {
+            boton.addEventListener('click', () => {
+                buscador.value = '';
+            });
+        });
+    }
+});
+
+//Pagina de reseñas
+let reseñasGlobalesMemoria = []; // Memoria para filtros rápidos
+
+// Inicializador al entrar a la página
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("contenedor-reseñas-dinamicas")) {
+        cargarReseñasGlobales();
+    }
+});
+
+async function cargarReseñasGlobales() {
+    try {
+        const res = await fetch("http://localhost:3000/api/comentarios");
+        const reseñas = await res.json();
+        
+        // Guardamos en memoria global
+        reseñasGlobalesMemoria = reseñas;
+        
+        dibujarPanelEstadistico(reseñas);
+        dibujarGrillaReseñas(reseñas);
+        
+    } catch (error) {
+        console.error("Error al cargar reseñas:", error);
+    }
+}
+
+function dibujarPanelEstadistico(reseñas) {
+    const contenedor = document.getElementById("bloque-estadisticas");
+    if (!contenedor || reseñas.length === 0) {
+        if(contenedor) contenedor.innerHTML = "<p>Aún no hay reseñas registradas.</p>";
+        return;
+    }
+
+    let sumaEstrellas = 0;
+    let conteo = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+    const total = reseñas.length;
+
+    reseñas.forEach(r => {
+        const stars = parseInt(r.estrellas) || 5;
+        sumaEstrellas += stars;
+        conteo[stars] = (conteo[stars] || 0) + 1;
+    });
+
+    const promedio = (sumaEstrellas / total).toFixed(2);
+    
+    // Generar estrellas visuales del promedio
+    const promInt = Math.round(promedio);
+    let htmlEstrellas = '';
+    for(let i=0; i<5; i++) {
+        htmlEstrellas += `<i class="fa-solid fa-star" style="color: ${i < promInt ? 'var(--color-boton)' : '#ccc'}"></i> `;
+    }
+
+    // Calcular porcentajes para las barras
+    let htmlBarras = '';
+    for(let i=5; i>=1; i--) {
+        const porcentaje = ((conteo[i] / total) * 100).toFixed(1);
+        htmlBarras += `
+            <div class="fila-barra-progreso">
+                <span class="etiqueta-star">${i}★</span>
+                <div class="pista-barra">
+                    <div class="relleno-barra" style="width: ${porcentaje}%;"></div>
+                </div>
+                <span class="porcentaje-texto">${porcentaje}%</span>
+            </div>
+        `;
+    }
+
+    contenedor.innerHTML = `
+        <div class="bloque-promedio">
+            <h2>${promedio} <span>/ 5</span></h2>
+            <div class="estrellas-promedio">${htmlEstrellas}</div>
+            <p style="color: #666; font-size: 0.9rem;">${promedio} de 5 estrellas (basado en ${total} reseñas)</p>
+        </div>
+        <div class="bloque-barras">
+            <p style="font-weight: 700; margin-bottom: 10px; color: #1a1a1a;">${promedio} / 5 (${total} opiniones)</p>
+            ${htmlBarras}
+        </div>
+    `;
+}
+
+function dibujarGrillaReseñas(reseñasLista) {
+    const contenedor = document.getElementById("contenedor-reseñas-dinamicas");
+    if (!contenedor) return;
+
+    contenedor.innerHTML = '';
+
+    if (reseñasLista.length === 0) {
+        contenedor.innerHTML = '<p style="text-align:center; color:#666;">No se encontraron resultados.</p>';
+        return;
+    }
+
+    reseñasLista.forEach(r => {
+        // Datos seguros
+        const destino = r.destinos ? r.destinos.titulo : "Tour en Ica";
+        const usuario = r.usuarios ? r.usuarios.nombre : "Viajero Anónimo";
+        const estrellasNum = parseInt(r.estrellas) || 5;
+        
+        // Transformar la fecha cruda de la base de datos a formato DD/MM/YYYY
+        let fechaFormateada = "Hace unos días";
+        if (r.fecha) {
+            const fechaObj = new Date(r.fecha);
+            // El padStart(2, '0') asegura que si es día "7" se escriba "07"
+            const dia = String(fechaObj.getDate()).padStart(2, '0');
+            const mes = String(fechaObj.getMonth() + 1).padStart(2, '0'); 
+            const anio = fechaObj.getFullYear();
+            fechaFormateada = `${dia}/${mes}/${anio}`;
+        }
+
+        // Pintar estrellas rojas
+        let htmlStars = '';
+        for(let i=0; i<estrellasNum; i++) htmlStars += '<i class="fa-solid fa-star"></i>';
+
+        const card = document.createElement("article");
+        card.className = "card-reseña-item";
+        card.innerHTML = `
+            <div class="header-card-reseña">
+                <div class="titulo-destino-card">${destino}</div>
+                <div class="estrellas-rojas-card">${htmlStars}</div>
+            </div>
+            <div class="texto-comentario-card">${r.texto}</div>
+            <div class="footer-card-reseña">
+                ${fechaFormateada} por <strong>${usuario}</strong>
+            </div>
+        `;
+        contenedor.appendChild(card);
+    });
+}
+
+// Lógica del filtro en vivo
+window.filtrarReseñasGlobales = function() {
+    const txtFiltro = document.getElementById("buscador-reseñas").value.toLowerCase();
+    const starFiltro = document.getElementById("filtro-estrellas").value;
+
+    const filtradas = reseñasGlobalesMemoria.filter(r => {
+        const destino = r.destinos ? r.destinos.titulo.toLowerCase() : "";
+        const texto = r.texto ? r.texto.toLowerCase() : "";
+        const matchTexto = destino.includes(txtFiltro) || texto.includes(txtFiltro);
+        
+        const matchStars = starFiltro === "" || r.estrellas == starFiltro;
+
+        return matchTexto && matchStars;
+    });
+
+    dibujarGrillaReseñas(filtradas);
+};
+
+// Función para LEER las consultas en Perfil.html (Vista del Usuario)
+window.cargarConsultasUsuario = async function(idUsuario) {
+    const contenedor = document.getElementById("contenedor-consultas-usuario");
+    if (!contenedor) return;
+
+    contenedor.innerHTML = '<p style="color: #666;">Cargando tus mensajes...</p>';
+
+    try {
+        const res = await fetch(`http://localhost:3000/api/consultas/usuario/${idUsuario}`);
+        const consultas = await res.json();
+
+        if (consultas.length === 0) {
+            contenedor.innerHTML = '<p style="color: #666;">No has enviado ninguna consulta aún.</p>';
+            return;
+        }
+
+        let html = '';
+        consultas.forEach(c => {
+            const esRespondido = c.estado === 'respondido';
+            // Usamos las mismas clases CSS que programamos para el Admin (Rojo y Verde)
+            const claseCard = esRespondido ? 'card-consulta respondido' : 'card-consulta';
+            const etiquetaEstado = esRespondido
+                ? `<span style="background:#2e7d32; color:white; padding:4px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold;">RESPONDIDO</span>`
+                : `<span style="background:#e51d2a; color:white; padding:4px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold;">EN ESPERA</span>`;
+
+            let zonaRespuesta = "";
+
+            if (esRespondido) {
+                zonaRespuesta = `
+                    <div class="respuesta-admin-caja">
+                        <strong><i class="fa-solid fa-headset"></i> Respuesta de Turismo Ica:</strong>
+                        <p style="margin-top:5px; color:#1a1a1a;">${c.respuesta}</p>
+                    </div>
+                `;
+            } else {
+                zonaRespuesta = `
+                    <div style="margin-top: 15px; color: #888; font-size: 0.9rem; font-style: italic;">
+                        <i class="fa-regular fa-clock"></i> Nuestro equipo responderá pronto a tu mensaje.
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="${claseCard}">
+                    <div class="card-consulta-header">
+                        <div>
+                            <strong style="font-size:1.1rem;">Consulta #${c.id}</strong>
+                        </div>
+                        <div>${etiquetaEstado}</div>
+                    </div>
+                    <div class="mensaje-cliente-caja">
+                        <strong style="color:var(--color-boton); font-size:0.85rem;">TÚ ESCRIBISTE:</strong><br>
+                        <span style="color:#555;">${c.mensaje}</span>
+                    </div>
+                    ${zonaRespuesta}
+                </div>
+            `;
+        });
+        contenedor.innerHTML = html;
+    } catch (err) {
+        console.error(err);
+        contenedor.innerHTML = '<p style="color: red;">Error al cargar tus consultas. Verifica tu conexión.</p>';
+    }
+};

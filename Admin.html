@@ -15,27 +15,14 @@
         window.location.href = "index.html";
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body class="cuerpo-perfil">
     <header>
       <div class="logo">
-        <a
-          href="index.html"
-          style="
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-          "
-        >
-          <img
-            src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png"
-            alt="Logo de Turismo Ica"
-            class="logo-imagen"
-          />
-          <span class="logo-texto"
-            ><h1 style="color: #1a1a1a">Turismo Ica</h1></span
-          >
+        <a href="index.html" class="enlace-logo-header">
+            <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png" alt="Logo" class="logo-imagen" />
+            <span class="logo-texto"><h1>Turismo Ica</h1></span>
         </a>
       </div>
       <div class="contenedor-derecha-header">
@@ -43,9 +30,7 @@
           <i class="fa-solid fa-user"></i>
         </a>
         <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
-          <span class="linea-menu"></span>
-          <span class="linea-menu"></span>
-          <span class="linea-menu"></span>
+          <span class="linea-menu"></span><span class="linea-menu"></span><span class="linea-menu"></span>
         </button>
       </div>
       <nav id="menuPrincipal">
@@ -53,7 +38,7 @@
           <li><a href="index.html">Inicio</a></li>
           <li><a href="Nosotros.html">Nosotros</a></li>
           <li><a href="Destino.html">Destinos</a></li>
-          <li><a href="Tabla_Descuento.html">Descuentos</a></li>
+          <li><a href="Reseñas.html">Reseñas</a></li>
           <li><a href="Preguntas.html">Preguntas</a></li>
         </ul>
       </nav>
@@ -62,7 +47,8 @@
     <div class="layout-perfil">
       <aside class="sidebar-perfil">
         <div class="perfil-resumen" style="text-align: center; margin-bottom: 20px; width: 100%;">
-            <div style="background: var(--color-boton); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(229, 29, 42, 0.3);">
+            <!-- Le añadimos el id "sidebar-avatar-container" al div del círculo -->
+            <div id="sidebar-avatar-container" style="background: var(--color-boton); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(229, 29, 42, 0.3); overflow: hidden;">
               <i class="fa-solid fa-user"></i>
             </div>
             <h3 id="nombreAdminDinámico" style="margin: 0; color: var(--color-oscuro); font-size: 1.2rem;">Cargando...</h3>
@@ -80,8 +66,14 @@
           <a href="#" id="btn-destinos" onclick="mostrarSeccion('destinos')">
             <i class="fa-solid fa-map-location-dot"></i> Destinos
           </a>
+          <a href="#" id="btn-consultas" onclick="mostrarSeccion('consultas')">
+            <i class="fa-solid fa-envelope-open-text"></i> Consultas
+          </a>
           <a href="#" id="btn-reservas" onclick="mostrarSeccion('reservas')">
             <i class="fa-solid fa-receipt"></i> Reservas
+          </a>
+          <a href="#" id="btn-dashboard" onclick="mostrarSeccion('dashboard')" class="activo">
+            <i class="fa-solid fa-chart-pie"></i> Dashboard
           </a>
         </nav>
       </aside>
@@ -241,10 +233,53 @@
         </form>
       </div>
     </div>
+    <footer class="footer-profesional">
+      <div class="footer-contenedor">
+        
+        <!-- Columna 1: Marca y Redes -->
+        <div class="footer-columna">
+          <h3>Turismo Ica</h3>
+          <p class="footer-texto">Descubre la magia del sur peruano. Somos especialistas en crear experiencias inolvidables llenas de aventura, cultura y gastronomía.</p>
+          <div class="footer-redes">
+            <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <!-- Columna 2: Enlaces Rápidos -->
+        <div class="footer-columna">
+          <h4>Explora</h4>
+          <ul class="footer-enlaces">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Nosotros.html">Sobre Nosotros</a></li>
+            <li><a href="Destino.html">Catálogo de Tours</a></li>
+            <li><a href="Reseñas.html">Opiniones de Viajeros</a></li>
+            <li><a href="Preguntas.html">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: Contacto -->
+        <div class="footer-columna">
+          <h4>Contáctanos</h4>
+          <ul class="footer-contacto">
+            <li><i class="fa-solid fa-location-dot"></i> Plaza de Armas, Ica - Perú</li>
+            <li><i class="fa-solid fa-phone"></i> +51 987 654 321</li>
+            <li><i class="fa-solid fa-envelope"></i> reservas@turismoica.com</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Barra inferior (Copyright) -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 Turismo Ica. Todos los derechos reservados. | Desarrollado por <strong>Grupo 6</strong>.</p>
+      </div>
+    </footer>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const usuario = sessionStorage.getItem("usuarioLogueado") || "Admin";
-        // Tomamos solo el primer y segundo nombre
         const nombre = usuario.split(" ")[0] + " " + (usuario.split(" ")[1] || "");
         const nombreElemento = document.getElementById("nombreAdminDinámico");
         if (nombreElemento) nombreElemento.textContent = nombre;

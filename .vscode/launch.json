@@ -9,7 +9,7 @@
             "type": "msedge",
             "request": "launch",
             "name": "Open Login.html",
-            "file": "c:\\Users\\George\\OneDrive\\Documentos\\GitHub\\Turismo Ica\\Login.html"
+            "file": "${workspaceFolder}/Login.html"
         }
     ]
 }

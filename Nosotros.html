@@ -18,12 +18,17 @@
     />
   </head>
   <body>
-    <header>
+    <header> 
       <div class="logo">
-        <h1>Turismo Ica</h1>
+        <img
+          src="https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777767088/Logo_qum5kw.png"
+          alt="Logo de Turismo Ica"
+          class="logo-imagen"
+        />
+        <span class="logo-texto"><h1>Turismo Ica</h1></span>
       </div>
       <div class="contenedor-derecha-header">
-        <a href="Login.html" class="enlace-perfil-usuario" title="Login">
+        <a href="Login.html" title="Login" class="enlace-perfil-usuario">
           <i class="fa-solid fa-user"></i>
         </a>
         <button class="menu-hamburguesa" id="botonMenu" aria-label="Abrir menú">
@@ -37,65 +42,120 @@
           <li><a href="index.html">Inicio</a></li>
           <li><a href="Nosotros.html">Nosotros</a></li>
           <li><a href="Destino.html">Destinos</a></li>
-          <li><a href="Tabla_Descuento.html">Descuentos</a></li>
+          <li><a href="Reseñas.html">Reseñas</a></li>
           <li><a href="Preguntas.html">Preguntas</a></li>
         </ul>
       </nav>
     </header>
 
     <main>
-      <section class="portada-interna">
-        <h2>Sobre el Grupo 6</h2>
+      <!-- 1. Portada Mejorada -->
+      <section class="portada-interna" style="height: 45vh; flex-direction: column;">
+        <h2 style="margin-bottom: 10px;">Sobre Turismo Ica</h2>
+        <p style="color: #fff; font-size: 1.2rem; font-weight: 400; letter-spacing: 1px;">Conoce al Grupo 6 y nuestra pasión por los viajes</p>
       </section>
-      <section id="seccion-catalogo-viajes">
-        <h2 class="texto-titulo-grande">Nuestra Misión</h2>
-        <p>
-          Somos estudiantes apasionados por la cultura y el turismo de la región
-          sur del Perú. Nuestra agencia busca conectar a los viajeros con las
-          raíces, la adrenalina y la gastronomía de Ica, ofreciendo experiencias
-          seguras e inolvidables en el desierto y el océano.
-        </p>
+
+      <!-- 2. Sección: ¿Qué hacemos? (2 Columnas) -->
+      <section class="seccion-nosotros-intro">
+        <div class="nosotros-texto">
+            <h2 class="texto-titulo-grande" style="text-align: left; margin-bottom: 20px;">¿Qué hacemos en Turismo Ica?</h2>
+            <p>Somos una agencia digital creada por estudiantes apasionados del <strong>Grupo 6</strong>. Nos dedicamos a facilitar el turismo en la región sur del Perú, conectando a los viajeros con las raíces, la adrenalina y la gastronomía local.</p>
+            <p>Nuestra plataforma te permite descubrir, planificar y reservar experiencias increíbles en un solo lugar. Ya sea que busques la adrenalina de los tubulares en Huacachina, el misterio de las Líneas de Nazca o la riqueza marina de Paracas, nosotros nos encargamos de todo el proceso para que tú solo te dediques a disfrutar.</p>
+        </div>
+        <div class="nosotros-imagen">
+            <!-- Usamos tu foto de Paracas como ilustración del equipo/agencia -->
+            <img src="https://res.cloudinary.com/dsk6vsr0c/image/upload/v1777565899/Paracas_u8jfq9.jpg" alt="Equipo Turismo Ica" />
+        </div>
       </section>
-      <section id="area-formulario-principal">
-        <h2 class="texto-titulo-grande">Contáctanos</h2>
-        <form action="#" method="POST">
-          <div class="contenedor-pregunta-respuesta">
-            <label for="nombre">Nombre completo</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              placeholder="Tu nombre"
-              required
-            />
-          </div>
-          <div class="contenedor-pregunta-respuesta">
-            <label for="email">Correo electrónico</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="correo@ejemplo.com"
-              required
-            />
-          </div>
-          <div class="contenedor-pregunta-respuesta">
-            <label for="mensaje">¿Cuál es tu consulta?</label>
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              rows="4"
-              placeholder="Escribe aquí tu mensaje..."
-              required
-            ></textarea>
-          </div>
-          <button type="submit">Enviar Mensaje</button>
-        </form>
+
+      <!-- 3. Sección: Valores / ¿Por qué elegirnos? -->
+      <section class="seccion-valores-agencia">
+        <h2 class="texto-titulo-grande" style="text-align: center;">¿Por qué viajar con nosotros?</h2>
+        <div class="grilla-valores">
+            <div class="card-valor">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <h3>Expertos Locales</h3>
+                <p>Trabajamos de la mano con guías originarios de la región que conocen cada secreto, ruta y leyenda de Ica.</p>
+            </div>
+            <div class="card-valor">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Reservas Seguras</h3>
+                <p>Tu dinero y tus datos están protegidos. Te ofrecemos una plataforma 100% digital con confirmación instantánea.</p>
+            </div>
+            <div class="card-valor">
+                <i class="fa-solid fa-headset"></i>
+                <h3>Atención 24/7</h3>
+                <p>Nuestro equipo de soporte está disponible en todo momento para resolver tus dudas antes, durante y después de tu viaje.</p>
+            </div>
+        </div>
+      </section>
+
+      <!-- 4. Sección: Contacto (Reutilizamos tu formulario) -->
+      <section class="seccion-contacto-fondo">
+        <div id="area-formulario-principal" style="padding-top: 60px;">
+          <h2 class="texto-titulo-grande">Escríbenos</h2>
+          <form id="form-contacto-nosotros" onsubmit="enviarConsultaNosotros(event)" style="background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div class="contenedor-pregunta-respuesta">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="contenedor-pregunta-respuesta">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required />
+            </div>
+            <div class="contenedor-pregunta-respuesta">
+              <label for="mensaje">¿Cuál es tu consulta?</label>
+              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe aquí tu mensaje..." required></textarea>
+            </div>
+            <button type="submit">Enviar Mensaje</button>
+          </form>
+        </div>
       </section>
     </main>
 
-    <footer>
-      <p>Grupo 6, 2026 Turismo Ica.</p>
+    <footer class="footer-profesional">
+      <div class="footer-contenedor">
+        
+        <!-- Columna 1: Marca y Redes -->
+        <div class="footer-columna">
+          <h3>Turismo Ica</h3>
+          <p class="footer-texto">Descubre la magia del sur peruano. Somos especialistas en crear experiencias inolvidables llenas de aventura, cultura y gastronomía.</p>
+          <div class="footer-redes">
+            <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <!-- Columna 2: Enlaces Rápidos -->
+        <div class="footer-columna">
+          <h4>Explora</h4>
+          <ul class="footer-enlaces">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Nosotros.html">Sobre Nosotros</a></li>
+            <li><a href="Destino.html">Catálogo de Tours</a></li>
+            <li><a href="Reseñas.html">Opiniones de Viajeros</a></li>
+            <li><a href="Preguntas.html">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: Contacto -->
+        <div class="footer-columna">
+          <h4>Contáctanos</h4>
+          <ul class="footer-contacto">
+            <li><i class="fa-solid fa-location-dot"></i> Plaza de Armas, Ica - Perú</li>
+            <li><i class="fa-solid fa-phone"></i> +51 987 654 321</li>
+            <li><i class="fa-solid fa-envelope"></i> reservas@turismoica.com</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Barra inferior (Copyright) -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 Turismo Ica. Todos los derechos reservados. | Desarrollado por <strong>Grupo 6</strong>.</p>
+      </div>
     </footer>
     <script src="JavaScript/Prueba2.js"></script>
   </body>

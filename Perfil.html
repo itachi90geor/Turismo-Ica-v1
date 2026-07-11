@@ -39,7 +39,7 @@
           <li><a href="index.html">Inicio</a></li>
           <li><a href="Nosotros.html">Nosotros</a></li>
           <li><a href="Destino.html">Destinos</a></li>
-          <li><a href="Tabla_Descuento.html">Descuentos</a></li>
+          <li><a href="Reseñas.html">Reseñas</a></li>
           <li><a href="Preguntas.html">Preguntas</a></li>
         </ul>
       </nav>
@@ -53,7 +53,8 @@
     <div class="layout-perfil">
       <aside class="sidebar-perfil">
         <div class="info-usuario-sidebar">
-          <div class="avatar-grande">
+          <!-- Le añadimos el id "sidebar-avatar-container" -->
+          <div class="avatar-grande" id="sidebar-avatar-container" style="overflow: hidden;">
             <i class="fa-solid fa-user"></i>
           </div>
           <h3 id="nombreSidebar">Cargando...</h3>
@@ -68,6 +69,9 @@
           </a>
           <a href="#" class="enlace-nav" data-target="sec-configuracion">
             <i class="fa-solid fa-gear"></i> Configuración
+          </a>
+          <a href="#" class="enlace-nav" data-target="sec-consultas">
+            <i class="fa-solid fa-headset"></i> Soporte
           </a>
           <a href="#" id="btnCerrarSesion" class="enlace-cerrar">
             <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
@@ -139,51 +143,98 @@
           </div>
         </div>
 
+        <!-- PESTAÑA: SOPORTE / CONSULTAS -->
+        <div id="sec-consultas" class="seccion-perfil oculto">
+          <div class="cabecera-seccion">
+            <h2>Mis Consultas de Soporte</h2>
+          </div>
+          <div id="contenedor-consultas-usuario">
+            <p style="color: #666">Cargando tus mensajes...</p>
+          </div>
+        </div>
+
         <div id="sec-configuracion" class="seccion-perfil oculto">
           <div class="cabecera-seccion">
             <h2>Configuración de Perfil</h2>
           </div>
 
-          <div class="contenedor-configuracion">
+          <div class="contenedor-configuracion layout-config-dos-columnas">
+            <!-- Columna Izquierda: Formulario -->
             <form class="formulario-config" id="form-configuracion">
               <div class="contenedor-pregunta-respuesta">
                 <label>Nombre Completo</label>
-                <input
-                  type="text"
-                  id="conf-nombre"
-                  placeholder="Ej: George Castro"
-                  class="input-moderno"
-                  required
-                />
+                <input type="text" id="conf-nombre" placeholder="Ej: George Castro" class="input-moderno" required />
               </div>
-
-              <div
-                class="contenedor-pregunta-respuesta"
-                style="margin-top: 15px"
-              >
+              <div class="contenedor-pregunta-respuesta" style="margin-top: 15px">
                 <label>Número de teléfono</label>
-                <input
-                  type="tel"
-                  id="conf-tel"
-                  placeholder="Ej: 987 654 321"
-                  class="input-moderno"
-                />
+                <input type="tel" id="conf-tel" placeholder="Ej: 987 654 321" class="input-moderno" />
               </div>
-
-              <button
-                type="button"
-                class="btn-guardar-cambios"
-                id="btn-guardar-perfil"
-                onclick="guardarCambiosPerfil()"
-              >
+              <div class="contenedor-pregunta-respuesta" style="margin-top: 15px">
+                <label>Nueva Contraseña (Opcional)</label>
+                <input type="password" id="conf-password" placeholder="Escribe solo si deseas cambiarla" class="input-moderno" />
+              </div>
+              <button type="button" class="btn-guardar-cambios" id="btn-guardar-perfil" onclick="guardarCambiosPerfil()">
                 Guardar Cambios
               </button>
             </form>
+
+            <!-- Columna Derecha: Foto de Perfil -->
+            <div class="seccion-avatar-config">
+                <label style="font-weight: 600; font-size: 0.9rem;">Foto de Perfil</label>
+                <div class="preview-avatar-caja">
+                    <img id="preview-avatar" src="https://res.cloudinary.com/dsk6vsr0c/image/upload/v1782863989/noimagen.png" alt="Tu foto">
+                </div>
+                <!-- El oninput cambia la foto en tiempo real al pegar el link -->
+                <input type="text" id="conf-avatar" placeholder="Pega el link de tu foto" class="input-moderno" style="font-size: 0.85rem;" oninput="document.getElementById('preview-avatar').src = this.value || 'https://res.cloudinary.com/dsk6vsr0c/image/upload/v1782863989/noimagen.png'">
+            </div>
           </div>
         </div>
       </main>
     </div>
+    <footer class="footer-profesional">
+      <div class="footer-contenedor">
+        
+        <!-- Columna 1: Marca y Redes -->
+        <div class="footer-columna">
+          <h3>Turismo Ica</h3>
+          <p class="footer-texto">Descubre la magia del sur peruano. Somos especialistas en crear experiencias inolvidables llenas de aventura, cultura y gastronomía.</p>
+          <div class="footer-redes">
+            <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
 
+        <!-- Columna 2: Enlaces Rápidos -->
+        <div class="footer-columna">
+          <h4>Explora</h4>
+          <ul class="footer-enlaces">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Nosotros.html">Sobre Nosotros</a></li>
+            <li><a href="Destino.html">Catálogo de Tours</a></li>
+            <li><a href="Reseñas.html">Opiniones de Viajeros</a></li>
+            <li><a href="Preguntas.html">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: Contacto -->
+        <div class="footer-columna">
+          <h4>Contáctanos</h4>
+          <ul class="footer-contacto">
+            <li><i class="fa-solid fa-location-dot"></i> Plaza de Armas, Ica - Perú</li>
+            <li><i class="fa-solid fa-phone"></i> +51 987 654 321</li>
+            <li><i class="fa-solid fa-envelope"></i> reservas@turismoica.com</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Barra inferior (Copyright) -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 Turismo Ica. Todos los derechos reservados. | Desarrollado por <strong>Grupo 6</strong>.</p>
+      </div>
+    </footer>
     <script src="JavaScript/Prueba2.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -219,6 +270,9 @@
             }
             if (targetSeccion === "sec-viajes" && idUsuario) {
               cargarViajesUsuario(idUsuario);
+            }
+            if (targetSeccion === "sec-consultas" && idUsuario) {
+              cargarConsultasUsuario(idUsuario);
             }
           });
         });
