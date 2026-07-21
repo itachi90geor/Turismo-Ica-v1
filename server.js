@@ -373,7 +373,7 @@ app.get('/api/usuarios/:id', async (req, res) => {
     const { id } = req.params;
     const { data, error } = await supabase
         .from('usuarios')
-        .select('nombre, telefono, avatar_url')
+        .select('nombre, telefono, avatar_url, rol') // <--- Añadimos 'rol' aquí
         .eq('id', id)
         .single();
     if (error) return res.status(500).json({ error: error.message });

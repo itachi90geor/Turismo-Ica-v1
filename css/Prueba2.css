@@ -27,6 +27,7 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* El fondo de toda la página, el color de las letras y el interlineado */
@@ -3262,4 +3263,330 @@ nav#menuPrincipal::before {
     margin-top: 15px;
     border-top: 1px dashed #ccc;
     padding-top: 15px;
+}
+
+/*Boton flotante para cambiar de tema*/
+.boton-flotante-tema {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: var(--color-oscuro);
+    color: var(--color-fondo);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.boton-flotante-tema:hover {
+    transform: scale(1.1) rotate(-15deg);
+}
+/*Reglas del modo oscuro*/
+body.dark-mode {
+    /* Invertimos las variables principales y aclaramos el rojo */
+    --color-oscuro: #f8f9fa;
+    --color-fondo: #121212;
+    --color-gris: #aaaaaa;
+    --color-boton: #ff4d5a; /* Un rojo más claro y vibrante para la oscuridad */
+    background-color: var(--color-fondo);
+    color: var(--color-oscuro);
+}
+
+/* El botón flotante cambia a un amarillo cálido */
+body.dark-mode .boton-flotante-tema {
+    background-color: #f1c40f; 
+    color: #121212;
+    box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+}
+
+/* Menú Superior y Textos */
+body.dark-mode header {
+    background: rgba(18, 18, 18, 0.9);
+    border-bottom: 1px solid #2a2a2a;
+}
+body.dark-mode nav a, 
+body.dark-mode .logo-texto h1 { color: #f8f9fa !important; }
+
+/* FIX 1: Sección "Por qué elegirnos" en Nosotros */
+body.dark-mode .seccion-valores-agencia {
+    background-color: var(--color-fondo) !important;
+    border-color: #333 !important;
+}
+
+/*Modales de Login, Registro y Edición de Admin */
+body.dark-mode .cuadro-vidrio-borroso {
+    background-color: rgba(30, 30, 30, 0.98) !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
+}
+
+/* FIX 4: Botones de "Próximos / Pasados" en Perfil */
+body.dark-mode .filtros-viajes {
+    background-color: #1e1e1e !important;
+}
+body.dark-mode .tab-filtro {
+    color: #888; /* Color apagado cuando no está seleccionado */
+}
+body.dark-mode .tab-filtro.activo {
+    color: #fff; /* Blanco brillante cuando está activo */
+}
+
+/* Todas las tarjetas, cajas y formularios generales */
+body.dark-mode details.elemento-lista,
+body.dark-mode .cuadrito-viaje,
+body.dark-mode .caja-blanca-sobre-foto,
+body.dark-mode .cuadro-opinion-cliente,
+body.dark-mode .formulario-que-te-persigue,
+body.dark-mode .card-viaje-horizontal,
+body.dark-mode .card-favorito,
+body.dark-mode .kpi-card,
+body.dark-mode .chart-card,
+body.dark-mode .filtros-dashboard,
+body.dark-mode .card-consulta,
+body.dark-mode .sidebar-perfil,
+body.dark-mode .contenedor-configuracion,
+body.dark-mode .linea-rectangular-destino,
+body.dark-mode .cuadro-estilo-excel,
+body.dark-mode .card-valor,
+body.dark-mode .card-reseña-item,
+body.dark-mode form[style*="background: #fff"],
+body.dark-mode .seccion-contacto-fondo form {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+    color: #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+}
+
+/* FIX 2: Títulos y Números Estadísticos (Reseñas, Admin y Portadas) */
+body.dark-mode .textos-del-viaje h3,
+body.dark-mode .opcion-de-precio strong,
+body.dark-mode .kpi-card .kpi-info h3,
+body.dark-mode .chart-card h3,
+body.dark-mode .titulo-destino-card,
+body.dark-mode .card-valor h3,
+body.dark-mode .texto-titulo-grande,
+body.dark-mode .bloque-promedio h2,
+body.dark-mode .bloque-barras p,
+body.dark-mode .titulo-reseñas-principal,
+body.dark-mode .cuadro-vidrio-borroso h2,
+body.dark-mode .cuadro-vidrio-borroso h3 {
+    color: #f8f9fa !important;
+}
+
+/* Textos secundarios en estadísticas (el "/ 5" y los porcentajes) */
+body.dark-mode .bloque-promedio h2 span,
+body.dark-mode .fila-barra-progreso .porcentaje-texto {
+    color: #bbb !important;
+}
+
+/* Formularios, Inputs y Selects oscurecidos */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select,
+body.dark-mode .input-moderno {
+    background-color: #2a2a2a !important;
+    color: #f8f9fa !important;
+    border-color: #444 !important;
+}
+
+/* Tablas Admin y Consultas */
+body.dark-mode .cuadro-estilo-excel th { background-color: var(--color-boton); }
+body.dark-mode .cuadro-estilo-excel td { border-bottom: 1px solid #333; }
+body.dark-mode .cuadro-estilo-excel tbody tr:hover { background-color: #2a2a2a; }
+body.dark-mode .mensaje-cliente-caja { background: #2a2a2a; color: #ddd; }
+body.dark-mode .respuesta-admin-caja { background: #1a3320; border-color: #2e7d32; color: #81c784; }
+body.dark-mode .card-consulta.respondido { background: #18221a !important; }
+
+/*Itinerario de editor de admin*/
+
+/* 1. El cuadro contenedor general del itinerario */
+body.dark-mode #formEditor > div:nth-last-child(2) {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+}
+
+/* 2. Cada una de las filas individuales de horarios */
+body.dark-mode .fila-itinerario-admin {
+    background-color: #2a2a2a !important; /* Un gris un poco más claro para que resalte del fondo */
+    border-color: #444 !important;
+}
+
+/*Arreglo de botones en admin*/
+
+/* 1. Botones de acción (Editar, Desactivar, etc.) */
+body.dark-mode .btn-detalles {
+    background-color: #2a2a2a !important; /* Pasa de blanco a gris oscuro */
+}
+
+/* El botón "Hacer Admin / Quitar Admin" tiene color negro forzado, lo pasamos a blanco */
+body.dark-mode .btn-detalles[style*="color: #1a1a1a"] {
+    color: #e0e0e0 !important;
+    border-color: #555 !important;
+}
+
+/* 2. Etiquetas de Pago en Reservas (TARJETA / EFECTIVO) */
+body.dark-mode .cuadro-estilo-excel td span[style*="f0f0f0"] {
+    background-color: #2a2a2a !important;
+    color: #ccc !important;
+}
+
+/* 3. Pastillas de Estado en Reservas (Confirmado / Pendiente) */
+body.dark-mode .pastilla-verde-estado {
+    background-color: #16331c !important; /* Verde muy oscuro para el fondo */
+    color: #81c784 !important; /* Texto verde pastel para contraste */
+}
+
+body.dark-mode .pastilla-roja-estado {
+    background-color: #381616 !important; /* Rojo muy oscuro para el fondo */
+    color: #ff8a65 !important; /* Texto naranja/rojo claro para contraste */
+}
+
+/*Texto arreglo de favoritos perfil*/
+body.dark-mode .card-favorito h4 {
+    color: #f8f9fa !important; /* Fuerza el color blanco brillante */
+}
+
+/* Opcional: Para asegurar que los botones de corazón blancos no resalten tanto, 
+   les damos el fondo oscuro de las tarjetas */
+body.dark-mode .card-favorito .btn-corazon {
+    background-color: #2a2a2a !important;
+}
+
+/*Modo oscuro de pago y boleta*/
+/* Cajas principales (Resumen, Formulario y Voucher) */
+body.dark-mode .caja-resumen-compra,
+body.dark-mode .caja-opcion-efectivo,
+body.dark-mode .hoja-carta-horizontal,
+body.dark-mode .papel-del-ticket {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+}
+
+/* Pestañas superiores (Tarjeta / Efectivo) */
+body.dark-mode .tab-pago {
+    background-color: #121212 !important;
+    border-color: #333 !important;
+    color: #888 !important;
+}
+body.dark-mode .tab-pago.activo {
+    background-color: #2a2a2a !important;
+    border-color: var(--color-boton) !important;
+    color: #fff !important;
+}
+
+/* Textos grises en las listas de resumen y boleta */
+body.dark-mode .lista-datos-resumen p,
+body.dark-mode .fila-dato-cliente span:first-child {
+    color: #bbb !important;
+}
+
+/* Cuadro final del "Total a Pagar" */
+body.dark-mode .caja-total-pagar,
+body.dark-mode .cuadro-gris-total {
+    background-color: #2a2a2a !important;
+    border-color: var(--color-boton) !important;
+}
+
+/* Para que la franja derecha del voucher se vea bien */
+body.dark-mode .mitad-hoja-der {
+    background-color: transparent !important;
+}
+
+/*Arreglo para fondo y var de boleta.html*/
+
+/* 1. Forzar el fondo oscuro en todo el espacio alrededor de la boleta */
+body.dark-mode,
+body.dark-mode .contenedor-boleta-impresion {
+    background-color: var(--color-fondo) !important;
+}
+
+/* 2. La barra superior (Volver al Perfil / Imprimir) */
+/* Atrapamos la clase ocultar-impresion y cualquier contenedor blanco rebelde */
+body.dark-mode .ocultar-impresion,
+body.dark-mode div[style*="background: white"],
+body.dark-mode div[style*="background: #fff"] {
+    background-color: #1e1e1e !important;
+    border-bottom: 1px solid #333 !important;
+    color: #f8f9fa !important;
+}
+
+/* 3. Asegurar que el texto del enlace "<- Volver al Perfil" se vuelva blanco */
+body.dark-mode .ocultar-impresion a,
+body.dark-mode a[style*="color: black"],
+body.dark-mode a[style*="color: #000"] {
+    color: #f8f9fa !important;
+}
+
+/*Texto en itinerario*/
+
+/* 1. Títulos grandes como "Voucher de Viaje" y "Tu Itinerario" */
+body.dark-mode .hoja-carta-horizontal h1,
+body.dark-mode .hoja-carta-horizontal h2,
+body.dark-mode .hoja-carta-horizontal h3,
+body.dark-mode .caja-blanca-sobre-foto h1,
+body.dark-mode .caja-blanca-sobre-foto h2,
+body.dark-mode .caja-blanca-sobre-foto h3 {
+    color: #f8f9fa !important; /* Blanco brillante */
+}
+
+/* 2. Párrafos y descripciones debajo de los horarios */
+body.dark-mode .lista-de-horas-actividades p,
+body.dark-mode #lista-itinerario-dinamico p,
+body.dark-mode .caja-blanca-sobre-foto p,
+body.dark-mode .parrafo-explicativo {
+    color: #bbbbbb !important; /* Gris claro legible */
+}
+
+/* 3. Textos rebeldes con estilos en línea dentro de la Boleta */
+body.dark-mode #boleta-lista-itinerario span[style*="color: #444"] {
+    color: #bbbbbb !important; 
+}
+
+/* Pone blancos los títulos de las actividades en la boleta */
+body.dark-mode #boleta-lista-itinerario strong {
+    color: #f8f9fa !important;
+}
+
+/* Evita que las horas (Ej: 07:45 AM) pierdan el color rojo fresa */
+body.dark-mode #boleta-lista-itinerario strong[style*="color: #e51d2a"] {
+    color: var(--color-boton) !important;
+}
+
+/*Impresion*/
+@media print {
+    /* 1. Ocultar botones, menús y footer para ahorrar papel */
+    .ocultar-impresion, 
+    #btn-modo-oscuro, 
+    .boton-flotante-tema,
+    footer, 
+    .footer-profesional, 
+    .footer-bottom {
+        display: none !important;
+    }
+
+    /* 2. Permitir que la SEGUNDA hoja (Itinerario) crezca hacia abajo sin cortarse */
+    .contenedor-boleta-impresion .hoja-carta-horizontal:nth-child(2) {
+        height: auto !important;
+        min-height: 6.2in !important;
+        padding-bottom: 40px !important;
+    }
+    
+    /* 3. Evitar que las actividades o mapas se partan por la mitad entre 2 hojas */
+    .lista-de-horas-actividades li,
+    #boleta-lista-itinerario li,
+    .foto-mapa-final, 
+    #boleta-mapa-img {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
 }

@@ -135,7 +135,7 @@ function inicializarLógicaFiltros() {
 //Verificar si hay un usuario logueado y mostrar su nombre y foto en el menú
 document.addEventListener('DOMContentLoaded', async () => {
     const usuarioActivo = sessionStorage.getItem('usuarioLogueado');
-    const rolActivo = sessionStorage.getItem('rolUsuario');
+    let rolActivo = sessionStorage.getItem('rolUsuario'); 
     const idActivo = sessionStorage.getItem("idUsuario");
     let avatarActivo = sessionStorage.getItem('avatarUsuario'); 
     
@@ -143,19 +143,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     const menuPrincipalUl = document.querySelector('#menuPrincipal ul');
     const avatarSidebar = document.getElementById("sidebar-avatar-container");
     
-    // Si hay un usuario logueado pero por algún motivo la foto no está en memoria, la pedimos al servidor
-    if (idActivo && (!avatarActivo || avatarActivo === "")) {
+    // 1. Sincronización estricta con el servidor
+    if (idActivo) {
         try {
-            const res = await fetch(`http://localhost:3000/api/usuarios/${idActivo}`);
+            // Se añade { cache: 'no-store' } para obligar al navegador a pedir los datos frescos, ignorando su historial
+            const res = await fetch(`http://localhost:3000/api/usuarios/${idActivo}`, { cache: 'no-store' });
             if (res.ok) {
                 const data = await res.json();
+                
                 if (data.avatar_url && data.avatar_url !== "") {
                     avatarActivo = data.avatar_url;
-                    sessionStorage.setItem('avatarUsuario', avatarActivo); // Guardamos para la próxima vez
+                    sessionStorage.setItem('avatarUsuario', avatarActivo);
+                }
+                
+                // Si el backend envía el rol, lo actualizamos al instante en la memoria
+                if (data.rol !== undefined || data.role !== undefined) {
+                    rolActivo = data.rol || data.role;
+                    sessionStorage.setItem('rolUsuario', rolActivo);
+                } else {
+                    console.warn("⚠️ Atención Backend: La ruta /api/usuarios/:id no está devolviendo la columna 'rol'.");
                 }
             }
         } catch (e) {
-            console.error("No se pudo cargar la foto desde el servidor silenciosamente.");
+            console.error("No se pudo sincronizar el usuario con el servidor.");
         }
     }
 
@@ -178,12 +188,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 iconoPerfil.innerHTML = `<i class="fa-solid fa-user"></i> ${primerNombre}`;
             }
             
+            // 2. Lógica estricta de aparición y eliminación del botón Admin
+            const linkAdminExistente = document.getElementById('link-panel-admin');
+            
             if (rolActivo && rolActivo.trim().toLowerCase() === 'admin' && menuPrincipalUl) {
-                if (!document.getElementById('link-panel-admin')) {
+                if (!linkAdminExistente) {
                     const liAdmin = document.createElement('li');
                     liAdmin.id = 'link-panel-admin';
                     liAdmin.innerHTML = `<a href="${rutaAdmin}" style="color: #e63946; font-weight: 800;"><i class="fa-solid fa-shield-halved"></i> PANEL ADMIN</a>`;
                     menuPrincipalUl.appendChild(liAdmin);
+                }
+            } else {
+                // Si el usuario fue degradado a "usuario" normal, eliminamos el botón inmediatamente
+                if (linkAdminExistente) {
+                    linkAdminExistente.remove();
                 }
             }
         } else {
@@ -191,7 +209,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Inyectar la foto en la barra lateral grande de Perfil o Admin
     if (avatarSidebar && avatarActivo && avatarActivo !== "") {
         avatarSidebar.innerHTML = `<img src="${avatarActivo}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
     }
@@ -2195,3 +2212,46 @@ window.cargarConsultasUsuario = async function(idUsuario) {
         contenedor.innerHTML = '<p style="color: red;">Error al cargar tus consultas. Verifica tu conexión.</p>';
     }
 };
+
+// Función para alternar el modo oscuro y guardar la preferencia en localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    const btnTema = document.getElementById("btn-modo-oscuro");
+    const temaGuardado = localStorage.getItem("temaTurismoIca");
+    
+    // Si el usuario ya había elegido modo oscuro antes, lo activamos automáticamente
+    if (temaGuardado === "oscuro") {
+        document.body.classList.add("dark-mode");
+        if(btnTema) btnTema.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    }
+});
+
+// Función que se ejecuta al presionar el botón flotante
+window.toggleModoOscuro = function() {
+    const body = document.body;
+    const btnTema = document.getElementById("btn-modo-oscuro");
+    
+    // Alterna la clase dark-mode en el cuerpo de la página
+    body.classList.toggle("dark-mode");
+    
+    // Verifica si se activó o desactivó y guarda la preferencia en la memoria del navegador
+    if (body.classList.contains("dark-mode")) {
+        localStorage.setItem("temaTurismoIca", "oscuro");
+        if(btnTema) btnTema.innerHTML = '<i class="fa-solid fa-sun"></i>'; // Cambia ícono a sol
+    } else {
+        localStorage.setItem("temaTurismoIca", "claro");
+        if(btnTema) btnTema.innerHTML = '<i class="fa-solid fa-moon"></i>'; // Cambia ícono a luna
+    }
+};
+
+// Eventos para manejar el modo oscuro al imprimir
+window.addEventListener('beforeprint', () => {
+    // Justo antes de que el navegador abra la ventana de imprimir/PDF, quitamos el modo oscuro
+    document.body.classList.remove('dark-mode');
+});
+
+window.addEventListener('afterprint', () => {
+    // Al cerrar la ventana (ya sea que guardó o canceló), verificamos si usaba modo oscuro y lo devolvemos
+    if (localStorage.getItem("temaTurismoIca") === "oscuro") {
+        document.body.classList.add('dark-mode');
+    }
+});
