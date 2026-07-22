@@ -1,4 +1,6 @@
-/* Guardamos los colores aquí para no memorizar códigos raros */
+/* ==========================================
+   1. VARIABLES Y RESET GLOBAL
+========================================== */
 :root {
   --color-boton: #e51d2a;
   --color-oscuro: #1a1a1a;
@@ -7,8 +9,7 @@
   --color-fondo: #f8f9fa;
   --transicion-suave: all 0.3s ease;
 }
-/* Quitamos los márgenes feos que traen los navegadores por defecto 
-    ya que de por si el navegador tiene márgenes por defecto */
+
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +17,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-/* Hace que al bajar por la página se vea muy suave */
 html {
   scroll-behavior: smooth;
 }
@@ -28,9 +28,9 @@ body {
   padding: 0;
   position: relative;
   overflow-x: hidden;
+
 }
 
-/* El fondo de toda la página, el color de las letras y el interlineado */
 body {
   background: var(--color-fondo);
   color: var(--color-oscuro);
@@ -38,247 +38,10 @@ body {
   width: 100%;
 }
 
-/* Contenedor del logo y el texto */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
 
-/* Ajustes para el texto dentro del logo */
-.logo-texto h1 {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  text-transform: uppercase;
-  color: var(--color-oscuro);
-  margin: 0;
-  white-space: nowrap;
-}
-
-/* Ajuste adicional para la imagen (ya la tenías, asegúrate de que esté así) */
-.logo-imagen {
-  width: 60px;
-  height: auto;
-  display: block;
-}
-
-/* Contenedor de la lista */
-.lista {
-  list-style: none;
-  max-width: 1200px;
-  margin: 0 auto 60px;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: start;
-}
-
-/* El cuadro de cada pregunta */
-details.elemento-lista {
-  background: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-/* Efecto al pasar el mouse o cuando está abierto */
-details.elemento-lista:hover,
-details.elemento-lista[open] {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-  border-color: var(--color-boton);
-}
-
-/* Estilo de la pregunta (Summary) */
-.resumen-lista {
-  padding: 15px 20px;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--color-oscuro);
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  outline: none;
-}
-
-/* Crear una flecha personalizada con CSS */
-.resumen-lista::after {
-  content: "+";
-  font-size: 1.5rem;
-  color: var(--color-boton);
-  transition: transform 0.3s ease;
-}
-
-/* Girar la flecha cuando se abre */
-details[open] .resumen-lista::after {
-  transform: rotate(180deg);
-  content: "-";
-}
-
-/* Estilo del contenido de la respuesta */
-details.elemento-lista p {
-  padding: 0 25px 25px;
-  color: #666;
-  line-height: 1.7;
-  animation: slideDown 0.4s ease forwards;
-}
-
-/* Animación para que el texto aparezca suavemente */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Quitar el marcador por defecto en Safari/Chrome */
-details summary::-webkit-details-marker {
-  display: none;
-}
-
-@media (max-width: 1000px) {
-  .lista {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Ajuste para celulares (1 columna) */
-@media (max-width: 650px) {
-  .lista {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Truco para que el titulo aparezca desde abajo hacia su lugar */
-@keyframes aparecerDesdeAbajo {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Estilo para los títulos grandes de cada sección de la página */
-.texto-titulo-grande {
-  margin-bottom: 50px;
-  color: var(--color-oscuro);
-  font-size: 2.2rem;
-}
-
-/* El área principal donde se coloca el formulario como Contacto o Registro */
-#area-formulario-principal {
-  padding: 60px 20px 80px;
-  max-width: 600px;
-  margin: auto;
-  text-align: left;
-}
-
-/* Centrar específicamente el título cuando está dentro del área del formulario */
-#area-formulario-principal .texto-titulo-grande {
-  text-align: center;
-}
-
-/* Agrupa un título pequeño y su cajita para escribir, midiendo la separacion entre ellos */
-.contenedor-pregunta-respuesta {
-  margin-bottom: 20px;
-}
-
-/* Texto de las preguntas,pone en negrita con el weight y con el size el tamaño de letras
-    con el margin se determina la distancia entre la pregunta y la cajita de respuesta*/
-.contenedor-pregunta-respuesta label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-/* Diseño de TODAS las cajitas blancas donde el usuario escribe o elige opciones */
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-  outline: none;
-  font-family: "Montserrat", sans-serif;
-}
-
-/* Efecto visual cuando el usuario da clic dentro de una cajita de respuesta
-    para empezar a escribir */
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: var(--color-boton);
-  box-shadow: 0 0 0 3px rgba(229, 29, 42, 0.15);
-}
-
-/* Diseño de los botones donde se define el color, bordes, color de letra y transición */
-button[type="submit"] {
-  background: var(--color-boton);
-  color: #fff;
-  padding: 15px;
-  width: 100%;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  transition: var(--transicion-suave);
-}
-
-/* Efecto cuando pasas el mouse por encima del botón de inicio */
-button[type="submit"]:hover {
-  background-color: #c2131e;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(229, 29, 42, 0.2);
-}
-
-/* La banda oscura que va abajo de todas las páginas*/
-footer {
-  background: #111111;
-  color: #a0a0a0;
-  text-align: center;
-  padding: 35px 20px;
-  letter-spacing: 0.2px;
-}
-
-/* Primer párrafo del footer (Nombre del Grupo y Año) */
-footer p:first-child {
-  color: var(--color-claro);
-  font-weight: 700;
-  font-size: 1.05rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-}
-
-/* Segundo párrafo del footer (Eslogan u observaciones) */
-footer p:last-child {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: #777777;
-}
-
-/* El efecto de fondo blanco con transparencia, el efecto de desenfoque y mantener 
-    siempre el menu pegado arriba*/
+/* ==========================================
+   2. ENCABEZADO Y MENÚ DE NAVEGACIÓN
+========================================== */
 header {
   background: rgba(255, 255, 255, 0.85);
   width: 100%;
@@ -294,7 +57,35 @@ header {
   backdrop-filter: blur(10px);
 }
 
-/* Lista de elementos en el menú de encabezado */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-texto h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  color: var(--color-oscuro);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.logo-imagen {
+  width: 60px;
+  height: auto;
+  display: block;
+}
+
+.enlace-logo-header {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 nav ul {
   display: flex;
   gap: 30px;
@@ -302,7 +93,6 @@ nav ul {
   align-items: center;
 }
 
-/* Los enlaces de texto en el menú */
 nav a {
   text-decoration: none;
   color: var(--color-oscuro);
@@ -312,8 +102,6 @@ nav a {
   transition: var(--transicion-suave);
 }
 
-/* Efecto en el que la letra del encabezado se subraya al pasar el mouse por encima,
-    al igual que el aumento de tamaño yel color de la letra cambian*/
 nav a::after {
   content: "";
   position: absolute;
@@ -324,22 +112,20 @@ nav a::after {
   background-color: var(--color-boton);
   transition: width 0.3s ease;
 }
+
 nav a:hover::after {
   width: 100%;
 }
+
 nav a:hover {
   color: var(--color-boton);
 }
 
-/* La barrita de separacion en el encabezado */
 .separador {
   color: #ccc;
   cursor: default;
 }
 
-/* Botones de registro y login, el display quita la subraya, tambien el 
-    :hover da el efecto al pasar el cursor por el boton y como dato el 
-    !important es un selector de mayor prioridad, para que no se pinte como los otros enlaces*/
 .btn-registro {
   background-color: var(--color-boton);
   color: #fff !important;
@@ -347,14 +133,17 @@ nav a:hover {
   border-radius: 20px;
   transition: var(--transicion-suave);
 }
+
 .btn-registro::after {
   display: none;
 }
+
 .btn-registro:hover {
   background-color: #c2131e;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(229, 29, 42, 0.2);
 }
+
 .enlace-login {
   background-color: var(--color-gris);
   color: #fff !important;
@@ -362,77 +151,23 @@ nav a:hover {
   border-radius: 20px;
   transition: var(--transicion-suave);
 }
+
 .enlace-login::after {
   display: none;
 }
+
 .enlace-login:hover {
   background-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Se toma la imagen de fondo y se aplica un sombreado, tambien
-    se hace que el brillo y el contraste aumenten en las letras dentro del contenedor */
-#portada-principal-inicio {
-  height: 90vh;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
-      center/cover;
-  display: flex;
-  filter: brightness(1.1) contrast(1.1);
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--color-claro);
-}
-
-/* El título grande de la portada, con el efecto de aparecer desde abajo */
-#portada-principal-inicio h2 {
-  font-size: 4rem;
-  margin-bottom: 15px;
-  animation: aparecerDesdeAbajo 0.8s ease forwards;
-}
-
-#portada-principal-inicio p {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin-bottom: 25px;
-  opacity: 0;
-  animation: aparecerDesdeAbajo 0.8s ease 0.3s forwards;
-}
-
-/* Botón grande flotante sobre la portada */
-.boton-llamativo-portada {
-  background: var(--color-boton);
-  color: #fff;
-  padding: 15px 30px;
-  text-decoration: none;
-  border-radius: 30px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: var(--transicion-suave);
-  opacity: 0;
-  animation: aparecerDesdeAbajo 0.8s ease 0.6s forwards;
-  display: inline-block;
-}
-
-.boton-llamativo-portada:hover {
-  background-color: #c2131e;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(229, 29, 42, 0.3);
-}
-
-/* Contenedor para agrupar avatar y hamburguesa a la derecha */
 .contenedor-derecha-header {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* El enlace que envuelve la imagen y el texto del nombre */
 .enlace-perfil-usuario {
   display: flex;
   align-items: center;
@@ -447,7 +182,6 @@ nav a:hover {
   text-decoration: none !important;
 }
 
-/* Estilo específico para el icono de usuario */
 .enlace-perfil-usuario i {
   font-size: 1.2rem;
   color: var(--color-boton);
@@ -462,13 +196,11 @@ nav a:hover {
   transition: var(--transicion-suave);
 }
 
-/* Efecto al pasar el mouse */
 .enlace-perfil-usuario:hover i {
   background-color: var(--color-boton);
   color: #fff;
 }
 
-/* Ajuste del header para asegurar la alineación */
 header {
   padding: 10px 30px;
   display: flex;
@@ -476,420 +208,17 @@ header {
   align-items: center;
 }
 
-/* Asegurar que el botón hamburguesa no tenga margen extra */
 .menu-hamburguesa {
   margin: 0;
   display: flex !important;
 }
 
-/* Portadas más pequeñas para otras páginas */
-.portada-interna {
-  height: 40vh;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
-      center/cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-claro);
-  text-align: center;
-}
-.portada-interna h2 {
-  font-size: 3rem;
-  animation: aparecerDesdeAbajo 0.8s ease forwards;
+.no-scroll {
+  overflow: hidden !important;
+  height: 100vh;
 }
 
-/*El tamaño de las tarjetas */
-#seccion-catalogo-viajes {
-  padding: 80px 20px;
-  text-align: center;
-}
-
-/* Acomoda los cuadritos solitos dependiendo de si es compu o celular */
-.grilla-de-cuadritos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Cuadro blanco de cada viaje */
-.cuadrito-viaje {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  text-align: left;
-  transition: var(--transicion-suave);
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Salto del cuadro al pasar el mouse */
-.cuadrito-viaje:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* Recorta la foto arriba del cuadro */
-.cuadrito-viaje figure {
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
-  margin: 0;
-}
-.foto-del-viaje {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-/* Zoom a la foto al pasar el mouse */
-.cuadrito-viaje:hover .foto-del-viaje {
-  transform: scale(1.08);
-}
-
-.textos-del-viaje {
-  padding: 25px;
-}
-.textos-del-viaje h3 {
-  margin-bottom: 10px;
-  color: var(--color-oscuro);
-}
-.textos-del-viaje p {
-  color: #555;
-}
-
-/* La parte de abajo del cuadro con los precios */
-.caja-de-precios {
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 1px solid #eee;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 15px;
-  align-items: center;
-  text-align: center;
-}
-.linea-vertical-precios {
-  width: 1px;
-  height: 30px;
-  background-color: #ddd;
-}
-.opcion-de-precio span {
-  display: block;
-  font-size: 0.75rem;
-  color: #888;
-  text-transform: uppercase;
-  margin-bottom: 2px;
-}
-.opcion-de-precio strong {
-  font-size: 1.1rem;
-  color: var(--color-oscuro);
-  font-weight: 700;
-}
-.opcion-de-precio.privado strong {
-  color: var(--color-boton);
-}
-
-/* Corta la pantalla: espacio grande a la izquierda, espacio chico a la derecha */
-.pantalla-dividida-historia-reserva {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 40px;
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 20px;
-}
-.lado-izquierdo-historia {
-  animation: aparecerDesdeAbajo 0.8s ease forwards;
-}
-
-/* Acomoda las fotos pequeñas de la galería de 2 en 2 */
-.grilla-de-fotos-pequenas {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-.grilla-de-fotos-pequenas img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-}
-.grilla-de-fotos-pequenas img:hover {
-  transform: scale(1.02);
-}
-
-/* Cuadro blanco con borde rojo para opiniones */
-.cuadro-opinion-cliente {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  border-left: 4px solid var(--color-boton);
-  margin-bottom: 15px;
-}
-.cuadro-opinion-cliente h4 {
-  margin-bottom: 5px;
-  color: var(--color-oscuro);
-}
-
-/* El formulario de compra que persigue al usuario al bajar la pantalla */
-.lado-derecho-formulario {
-  position: relative;
-}
-.formulario-que-te-persigue {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 100px;
-  border-top: 5px solid var(--color-boton);
-}
-.formulario-que-te-persigue h3 {
-  text-align: center;
-  margin-bottom: 5px;
-  font-size: 1.5rem;
-}
-
-/* Lista de compras pasadas */
-.lista-compras-pasadas {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Cuadro alargado de lado a lado */
-.cuadro-alargado-reserva {
-  display: flex;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  transition: var(--transicion-suave);
-  text-decoration: none;
-  color: inherit;
-}
-.cuadro-alargado-reserva:hover {
-  transform: translateY(-5px);
-  border-left: 5px solid var(--color-boton);
-}
-.cuadro-alargado-reserva img {
-  width: 250px;
-  height: 100%;
-  object-fit: cover;
-}
-
-.textos-de-la-reserva {
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.textos-de-la-reserva h3 {
-  color: var(--color-oscuro);
-  margin-bottom: 10px;
-  font-size: 1.4rem;
-}
-.textos-de-la-reserva p {
-  color: #666;
-  margin-bottom: 5px;
-  font-size: 0.95rem;
-}
-
-/* Pastilla verde de estatus */
-.pastilla-verde-estado {
-  display: inline-block;
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  margin-top: 10px;
-  align-self: flex-start;
-}
-
-.pastilla-roja-estado {
-  display: inline-block;
-  background-color: #ffebee;
-  color: #fa782d;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  margin-top: 10px;
-  align-self: flex-start;
-}
-
-/* Botón redondo para agregar más viajes */
-.boton-redondo-agregar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 65px;
-  height: 65px;
-  background-color: var(--color-boton);
-  color: #fff;
-  font-size: 2.5rem;
-  border-radius: 50%;
-  margin: 40px auto;
-  transition: var(--transicion-suave);
-  text-decoration: none;
-}
-/* Al pasar el mouse, el botón gira */
-.boton-redondo-agregar:hover {
-  transform: scale(1.1) rotate(90deg);
-  background-color: #c2131e;
-}
-
-/* Itinerario y horarios */
-.portada-mediana-itinerario {
-  height: 50vh;
-}
-
-/* Asigna la foto oscura correcta a la portada de cada ciudad */
-.foto-fondo-huacachina {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/v1777565899/Huacachina_ychv1i.jpg");
-}
-.foto-fondo-cachiche {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565897/Cachiche_ldhawm.jpg");
-}
-.foto-fondo-canon {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Canon_qvffvb.jpg");
-}
-.foto-fondo-nazca {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565900/Nazca_x1bn1j.jpg");
-}
-.foto-fondo-paracas {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Paracas_u8jfq9.jpg");
-}
-.foto-fondo-pisco {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565908/Vino_dhb9g5.jpg");
-}
-.foto-fondo-cahuachi {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777604346/Cahuachi.png");
-}
-.foto-fondo-cantalloc {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777607270/Cantalloc.png");
-}
-.foto-fondo-moron {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659259/Moron.png");
-}
-.foto-fondo-museo {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659620/Museo.png");
-}
-.foto-fondo-ocucaje {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659846/Ocucaje.png");
-}
-
-.contenido-principal-itinerario {
-  padding: 0 20px;
-}
-
-/* Caja blanca que se sube un poquito para "morder" la foto de la portada */
-.caja-blanca-sobre-foto {
-  max-width: 800px;
-  margin: -50px auto 80px auto;
-  padding: 40px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  position: relative;
-  z-index: 10;
-}
-.caja-blanca-sobre-foto .texto-titulo-grande {
-  text-align: left;
-  margin-bottom: 10px;
-}
-.parrafo-explicativo {
-  color: #666;
-  font-size: 1.1rem;
-}
-
-/* Lista cronológica de actividades */
-.lista-de-horas-actividades {
-  list-style: none;
-  margin-top: 30px;
-  margin-bottom: 40px;
-}
-.lista-de-horas-actividades li {
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  gap: 20px;
-}
-.lista-de-horas-actividades li:last-child {
-  border-bottom: none;
-}
-.lista-de-horas-actividades h3 {
-  margin-bottom: 5px;
-}
-
-.texto-hora-resaltada {
-  color: var(--color-boton);
-  font-weight: 800;
-  font-size: 1.1rem;
-  min-width: 100px;
-}
-
-/* Separador horizontal y mapa */
-.raya-horizontal-divisora {
-  border: 0;
-  border-top: 1px solid #ddd;
-  margin: 40px 0;
-}
-.texto-titulo-mapa {
-  margin-bottom: 15px;
-  text-align: center;
-}
-.foto-mapa-final {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-top: 20px;
-}
-.contenedor-boton-al-medio {
-  text-align: center;
-  margin-top: 40px;
-}
-
-/*Menu de navegación*/
-
-/*Estado desktop*/
+/* Menú de navegación Hamburguesa (Responsive) */
 .menu-hamburguesa {
   display: none !important;
 }
@@ -938,10 +267,7 @@ nav#menuPrincipal::before {
   display: none;
 }
 
-
-/*Pantallas menores responsive*/
 @media screen and (max-width: 850px) {
-  
   .menu-hamburguesa {
     display: flex !important;
     flex-direction: column;
@@ -1021,48 +347,113 @@ nav#menuPrincipal::before {
   }
 }
 
-/**Ajuste del header para pantallas grandes */
 @media screen and (min-width: 851px) {
     header {
         justify-content: flex-end !important; 
     }
-    
     header .logo {
         margin-right: auto !important; 
     }
-    
     nav#menuPrincipal {
         order: 1; 
     }
-    
     .contenedor-derecha-header {
         order: 2; 
         margin-left: 40px;
     }
 }
 
-/* Foto oscura a pantalla completa detrás del formulario */
-.pantalla-completa-con-fondo {
-  min-height: calc(100vh - 80px);
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
-    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
-      center/cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
+
+/* ==========================================
+   3. TIPOGRAFÍA Y UTILIDADES GENERALES
+========================================== */
+@keyframes aparecerDesdeAbajo {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Cuadro semitransparente que empaña la foto trasera */
-.cuadro-vidrio-borroso {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 50px 40px;
-  border-radius: 16px;
+.texto-titulo-grande {
+  margin-bottom: 50px;
+  color: var(--color-oscuro);
+  font-size: 2.2rem;
+}
+
+.oculto {
+  display: none !important;
+}
+
+
+/* ==========================================
+   4. FORMULARIOS, BOTONES E INPUTS
+========================================== */
+#area-formulario-principal {
+  padding: 60px 20px 80px;
+  max-width: 600px;
+  margin: auto;
+  text-align: left;
+}
+
+#area-formulario-principal .texto-titulo-grande {
+  text-align: center;
+}
+
+.contenedor-pregunta-respuesta {
+  margin-bottom: 20px;
+}
+
+.contenedor-pregunta-respuesta label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+textarea,
+select {
   width: 100%;
-  max-width: 450px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  animation: aparecerDesdeAbajo 0.6s ease forwards;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-boton);
+  box-shadow: 0 0 0 3px rgba(229, 29, 42, 0.15);
+}
+
+button[type="submit"] {
+  background: var(--color-boton);
+  color: #fff;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  transition: var(--transicion-suave);
+}
+
+button[type="submit"]:hover {
+  background-color: #c2131e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(229, 29, 42, 0.2);
 }
 
 .boton-rojo-ingresar {
@@ -1075,13 +466,681 @@ nav#menuPrincipal::before {
   cursor: pointer;
   font-weight: bold;
   font-size: 1.1rem;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
+
 .boton-rojo-ingresar:hover {
   background-color: #c2131e;
   transform: translateY(-2px);
 }
 
-/* Diseño del comprobante de compra */
+.fila-formulario-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.enlace-intercambio {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.enlace-intercambio a {
+  color: var(--color-boton);
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 5px;
+  transition: var(--transicion-suave);
+}
+
+.enlace-intercambio a:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
+}
+
+.caja-con-icono {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.caja-con-icono i {
+  position: absolute;
+  left: 15px;
+  color: var(--color-gris);
+  font-size: 1rem;
+  transition: var(--transicion-suave);
+  pointer-events: none;
+}
+
+.caja-con-icono:focus-within i {
+  color: var(--color-boton);
+}
+
+.caja-con-icono input {
+  padding-left: 45px !important;
+}
+
+
+/* ==========================================
+   5. PORTADAS Y HERO SECTIONS
+========================================== */
+#portada-principal-inicio {
+  height: 90vh;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
+      center/cover;
+  display: flex;
+  filter: brightness(1.1) contrast(1.1);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-claro);
+}
+
+#portada-principal-inicio h2 {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  animation: aparecerDesdeAbajo 0.8s ease forwards;
+}
+
+#portada-principal-inicio p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-bottom: 25px;
+  opacity: 0;
+  animation: aparecerDesdeAbajo 0.8s ease 0.3s forwards;
+}
+
+.boton-llamativo-portada {
+  background: var(--color-boton);
+  color: #fff;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transicion-suave);
+  opacity: 0;
+  animation: aparecerDesdeAbajo 0.8s ease 0.6s forwards;
+  display: inline-block;
+}
+
+.boton-llamativo-portada:hover {
+  background-color: #c2131e;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(229, 29, 42, 0.3);
+}
+
+.portada-interna {
+  height: 40vh;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
+      center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-claro);
+  text-align: center;
+}
+
+.portada-interna h2 {
+  font-size: 3rem;
+  animation: aparecerDesdeAbajo 0.8s ease forwards;
+}
+
+.portada-mediana-itinerario {
+  height: 50vh;
+}
+
+
+/* ==========================================
+   6. CATÁLOGO DE VIAJES Y TARJETAS
+========================================== */
+#seccion-catalogo-viajes {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.grilla-de-cuadritos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cuadrito-viaje {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  transition: var(--transicion-suave);
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cuadrito-viaje:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.cuadrito-viaje figure {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.foto-del-viaje {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cuadrito-viaje:hover .foto-del-viaje {
+  transform: scale(1.08);
+}
+
+.textos-del-viaje {
+  padding: 25px;
+}
+
+.textos-del-viaje h3 {
+  margin-bottom: 10px;
+  color: var(--color-oscuro);
+}
+
+.textos-del-viaje p {
+  color: #555;
+}
+
+.caja-de-precios {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 15px;
+  align-items: center;
+  text-align: center;
+}
+
+.linea-vertical-precios {
+  width: 1px;
+  height: 30px;
+  background-color: #ddd;
+}
+
+.opcion-de-precio span {
+  display: block;
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.opcion-de-precio strong {
+  font-size: 1.1rem;
+  color: var(--color-oscuro);
+  font-weight: 700;
+}
+
+.opcion-de-precio.privado strong {
+  color: var(--color-boton);
+}
+
+.contenedor-buscador {
+    max-width: 600px;
+    margin: 0 auto 35px auto;
+    position: relative;
+    padding: 0 20px;
+}
+
+#buscador-destinos {
+    width: 100%;
+    padding: 16px 20px 16px 55px;
+    border-radius: 30px;
+    border: 2px solid #eee;
+    font-size: 1.05rem;
+    outline: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: var(--transicion-suave);
+    color: var(--color-oscuro);
+    font-family: 'Montserrat', sans-serif;
+}
+
+#buscador-destinos:focus {
+    border-color: var(--color-boton);
+    box-shadow: 0 5px 20px rgba(229, 29, 42, 0.15);
+}
+
+.icono-buscador {
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 1.2rem;
+    pointer-events: none;
+    transition: var(--transicion-suave);
+}
+
+.contenedor-buscador:focus-within .icono-buscador {
+    color: var(--color-boton);
+}
+
+.contenedor-filtros {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+
+.btn-filtro {
+  background-color: transparent;
+  color: var(--color-oscuro);
+  border: 2px solid var(--color-boton);
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transicion-suave);
+}
+
+.btn-filtro:hover,
+.btn-filtro.activo {
+  background-color: var(--color-boton);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(229, 29, 42, 0.2);
+}
+
+.cuadrito-viaje.oculto {
+  display: none;
+}
+
+.cuadrito-viaje-imagen-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.enlace-tarjeta-bloque {
+  text-decoration: none !important;
+  color: inherit;
+  display: block;
+}
+
+.btn-corazon-catalogo {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--color-gris);
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: var(--transicion-suave);
+}
+
+.btn-corazon-catalogo:hover {
+  transform: scale(1.1);
+  color: var(--color-boton);
+  background: #ffffff;
+}
+
+.btn-corazon-catalogo.activo {
+  color: var(--color-boton) !important;
+  animation: pulsoCorazon 0.3s ease-in-out;
+}
+
+@keyframes pulsoCorazon {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.etiqueta-descuento {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: var(--color-boton);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(229, 29, 42, 0.4);
+  animation: latidoDescuento 2s infinite;
+}
+
+@keyframes latidoDescuento {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.precio-antiguo {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: -2px;
+  font-weight: 600;
+}
+
+.contenedor-precio-descuento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ==========================================
+   7. DETALLE DE TOURS, ITINERARIOS Y FOTOS
+========================================== */
+.pantalla-dividida-historia-reserva {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.lado-izquierdo-historia {
+  animation: aparecerDesdeAbajo 0.8s ease forwards;
+}
+
+.lado-izquierdo-historia .texto-titulo-grande {
+  margin-bottom: 15px !important;
+}
+
+#descripcion-larga {
+  margin-bottom: 30px;
+  color: #444;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.lado-izquierdo-historia h3 {
+  margin-bottom: 15px;
+}
+
+.grilla-de-fotos-pequenas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.grilla-de-fotos-pequenas img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.grilla-de-fotos-pequenas img:hover {
+  transform: scale(1.02);
+}
+
+.cuadro-opinion-cliente {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--color-boton);
+  margin-bottom: 15px;
+}
+
+.cuadro-opinion-cliente h4 {
+  margin-bottom: 5px;
+  color: var(--color-oscuro);
+}
+
+.lado-derecho-formulario {
+  position: relative;
+}
+
+.formulario-que-te-persigue {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 100px;
+  border-top: 5px solid var(--color-boton);
+}
+
+.formulario-que-te-persigue h3 {
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 1.5rem;
+}
+
+.seccion-posteo-borde {
+  margin-top: 30px;
+  border-left: 4px solid var(--color-boton);
+}
+
+.label-precio-desde {
+  margin-bottom: 15px;
+}
+
+.contenedor-fecha-libre-oculto {
+  display: none;
+}
+
+.textarea-comentario {
+  margin-top: 10px;
+}
+
+.boton-comentario-publicar {
+  width: auto;
+  padding: 10px 20px;
+  margin-top: 10px;
+}
+
+.caja-comentario-visitante {
+  margin: 0;
+}
+
+.enlace-login-comentario {
+  color: var(--color-boton);
+  font-weight: bold;
+}
+
+/* Fondos de portadas de destinos específicos */
+.foto-fondo-huacachina {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/v1777565899/Huacachina_ychv1i.jpg");
+}
+.foto-fondo-cachiche {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565897/Cachiche_ldhawm.jpg");
+}
+.foto-fondo-canon {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Canon_qvffvb.jpg");
+}
+.foto-fondo-nazca {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565900/Nazca_x1bn1j.jpg");
+}
+.foto-fondo-paracas {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Paracas_u8jfq9.jpg");
+}
+.foto-fondo-pisco {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565908/Vino_dhb9g5.jpg");
+}
+.foto-fondo-cahuachi {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777604346/Cahuachi.png");
+}
+.foto-fondo-cantalloc {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777607270/Cantalloc.png");
+}
+.foto-fondo-moron {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659259/Moron.png");
+}
+.foto-fondo-museo {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659620/Museo.png");
+}
+.foto-fondo-ocucaje {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777659846/Ocucaje.png");
+}
+
+.contenido-principal-itinerario {
+  padding: 0 20px;
+}
+
+.caja-blanca-sobre-foto {
+  max-width: 800px;
+  margin: -50px auto 80px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.caja-blanca-sobre-foto .texto-titulo-grande {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.parrafo-explicativo {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.lista-de-horas-actividades {
+  list-style: none;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.lista-de-horas-actividades li {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 20px;
+}
+
+.lista-de-horas-actividades li:last-child {
+  border-bottom: none;
+}
+
+.lista-de-horas-actividades h3 {
+  margin-bottom: 5px;
+}
+
+.texto-hora-resaltada {
+  color: var(--color-boton);
+  font-weight: 800;
+  font-size: 1.1rem;
+  min-width: 100px;
+}
+
+.raya-horizontal-divisora {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 40px 0;
+}
+
+.texto-titulo-mapa {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.foto-mapa-final {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.contenedor-boton-al-medio {
+  text-align: center;
+  margin-top: 40px;
+}
+
+
+/* ==========================================
+   8. PAGINA DE PAGO Y VOUCHER / BOLETA
+========================================== */
+.pantalla-completa-con-fondo {
+  min-height: calc(100vh - 80px);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+    url("https://res.cloudinary.com/dsk6vsr0c/image/upload/q_auto/f_auto/v1777565899/Fondo_cncc7m.png")
+      center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.cuadro-vidrio-borroso {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  animation: aparecerDesdeAbajo 0.6s ease forwards;
+}
+
+.cuadro-vidrio-borroso .texto-titulo-grande {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
 .fondo-oscuro-para-ticket {
   display: flex;
   justify-content: center;
@@ -1092,7 +1151,6 @@ nav#menuPrincipal::before {
       center/cover;
 }
 
-/* El rectángulo blanco con forma de hoja de papel */
 .papel-del-ticket {
   background: #fff;
   width: 100%;
@@ -1107,11 +1165,11 @@ nav#menuPrincipal::before {
   padding: 30px;
   text-align: center;
 }
+
 .cuerpo-blanco-ticket {
   padding: 40px;
 }
 
-/* Las líneas punteadas de los datos del cliente */
 .fila-dato-cliente {
   display: flex;
   justify-content: space-between;
@@ -1119,17 +1177,18 @@ nav#menuPrincipal::before {
   border-bottom: 1px dashed #eee;
   padding-bottom: 10px;
 }
+
 .fila-dato-cliente span:first-child {
   color: #888;
   font-weight: 600;
   font-size: 0.8rem;
 }
+
 .fila-dato-cliente span:last-child {
   color: var(--color-oscuro);
   font-weight: 700;
 }
 
-/* El rectángulo gris al final con el precio total */
 .cuadro-gris-total {
   margin-top: 30px;
   padding: 20px;
@@ -1139,12 +1198,12 @@ nav#menuPrincipal::before {
   justify-content: space-between;
   align-items: center;
 }
+
 .cuadro-gris-total h3 {
   color: var(--color-boton);
   font-size: 1.5rem;
 }
 
-/* Caja de espacio reservado para poner un QR */
 .cuadro-falso-qr {
   width: 120px;
   height: 120px;
@@ -1157,7 +1216,6 @@ nav#menuPrincipal::before {
   border: 2px solid #ddd;
 }
 
-/*Diseño de Boleta*/
 .contenedor-boleta-impresion {
     display: flex;
     flex-direction: column;
@@ -1166,7 +1224,6 @@ nav#menuPrincipal::before {
     padding: 20px;
 }
 
-/* Redujimos la altura para quitar el espacio en blanco y emparejamos ambos */
 .hoja-carta-horizontal {
     width: 10in;
     height: 6.2in;
@@ -1208,168 +1265,103 @@ nav#menuPrincipal::before {
     height: 100%;
 }
 
-/* Reglas de impresion centrada */
-@media print {
-    @page { 
-        size: letter landscape; 
-        margin: 0; 
-    }
-
-    body, html { 
-        background: white !important; 
-        margin: 0 !important; 
-        padding: 0 !important; 
-    }
-
-    .contenedor-boleta-impresion { 
-        display: block !important; 
-        padding: 0 !important; 
-        margin: 0 !important; 
-        background: white !important; 
-    }
-
-    .hoja-carta-horizontal {
-        width: 10in !important;
-        height: 6.2in !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-      
-        margin: 1.1in auto !important; 
-        border: 1px solid #ccc !important;
-        
-        page-break-after: always !important; 
-        page-break-inside: avoid !important;
-    }
-
-    .hoja-carta-horizontal:last-child {
-        page-break-after: auto !important;
-    }
-
-    .mitad-hoja-der, .mitad-hoja-izq {
-        overflow: visible !important;
-    }
-
-    .ocultar-impresion, .btn-modo-oscuro { 
-        display: none !important; 
-    }
-
-    * { 
-        -webkit-print-color-adjust: exact !important; 
-        print-color-adjust: exact !important; 
-        color-adjust: exact !important; 
-    }
+.layout-pago-grid {
+  display: grid !important;
+  grid-template-columns: 350px 1fr;
+  gap: 40px;
+  align-items: start;
 }
 
-/* Cuadro de estilo Excel tabla */
-.cuadro-estilo-excel {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #fff;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 40px;
-}
-
-/* Pinta la barra superior de la tabla de rojo */
-.cuadro-estilo-excel thead {
-  background-color: var(--color-boton);
-  color: #fff;
-}
-
-/* Espacio interior para cada casilla */
-.cuadro-estilo-excel th,
-.cuadro-estilo-excel td {
-  padding: 15px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-}
-
-/* Efecto para resaltar de un color clarito la fila entera al pasar el mouse */
-.cuadro-estilo-excel tbody tr:hover {
-  background-color: #f9f9f9;
-}
-
-/* Pinta de rojo y en negrita la primera columna (Para resaltar nombres de viajes) */
-.cuadro-estilo-excel td:first-child {
-  color: var(--color-boton);
-  font-weight: 700;
-}
-
-/* Ajuste extra para pantallas muy pequeñas (iPhone SE, etc.) */
-@media (max-width: 480px) {
-  .grilla-de-fotos-pequenas {
-    grid-template-columns: 1fr;
-  }
-
-  .caja-blanca-sobre-foto {
-    padding: 20px;
-    margin-top: -30px;
+@media (max-width: 850px) {
+  .layout-pago-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
-.tabla-contenedor-movil {
-  width: 100%;
-  overflow-x: auto;
-  margin-bottom: 30px;
+.caja-resumen-compra {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
 }
 
-/* Bloquea el scroll cuando el menú lateral está abierto */
-.no-scroll {
-  overflow: hidden !important;
-  height: 100vh;
-}
-
-/* Estilo para el enlace de cambio entre Login y Registro */
-.enlace-intercambio {
-  margin-top: 25px;
+.caja-opcion-efectivo {
+  background: white;
+  border-radius: 16px;
+  padding: 40px 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
   text-align: center;
+}
+
+.foto-resumen {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 15px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.lista-datos-resumen p {
   font-size: 0.95rem;
-  color: #444;
-}
-
-.enlace-intercambio a {
-  color: var(--color-boton);
-  font-weight: bold;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 5px;
-  transition: var(--transicion-suave);
-}
-
-.enlace-intercambio a:hover {
-  text-decoration: underline;
-  transform: scale(1.05);
-}
-
-/* Contenedor principal */
-.caja-con-icono {
-  position: relative;
+  color: #555;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
-/* Icono en estado normal */
-.caja-con-icono i {
-  position: absolute;
-  left: 15px;
-  color: var(--color-gris);
-  font-size: 1rem;
-  transition: var(--transicion-suave);
-  pointer-events: none;
-}
-
-/* El truco: Cuando se hace focus en el input, el icono cambia de color */
-.caja-con-icono:focus-within i {
+.lista-datos-resumen i {
   color: var(--color-boton);
+  width: 20px;
+  text-align: center;
 }
 
-/* Input con espacio para el icono */
-.caja-con-icono input {
-  padding-left: 45px !important;
+.caja-total-pagar {
+  background: #fdf2f2;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: 1px dashed var(--color-boton);
 }
 
-/* Capa oscura que bloquea la pantalla al procesar el pago */
+.pestanas-metodo {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.tab-pago {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #eee;
+  border-radius: 12px;
+  background: #fafafa;
+  font-weight: 700;
+  color: #777;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tab-pago.activo {
+  background: #fff;
+  color: var(--color-oscuro);
+  border-color: var(--color-boton);
+  box-shadow: 0 4px 15px rgba(229, 29, 42, 0.1);
+}
+
 .overlay-pago {
   position: fixed;
   top: 0;
@@ -1383,7 +1375,6 @@ nav#menuPrincipal::before {
   z-index: 2000;
 }
 
-/* Cuadro blanco de confirmación de éxito */
 .contenido-exito {
   background: #fff;
   padding: 40px;
@@ -1406,7 +1397,6 @@ nav#menuPrincipal::before {
   margin-bottom: 25px;
 }
 
-/* Animación del checkmark */
 .checkmark-wrapper {
   width: 100px;
   height: 100px;
@@ -1418,33 +1408,34 @@ nav#menuPrincipal::before {
   height: 100px;
   border-radius: 50%;
   display: block;
-  stroke-width: 2;
-  stroke: #2e7d32;
+  stroke-width: 4; /* Hacemos el círculo un poco más grueso */
+  stroke: #00a81f; /* Verde vibrante similar al de tu imagen */
   stroke-miterlimit: 10;
-  box-shadow: inset 0px 0px 0px #2e7d32;
-  animation:
-    fill 0.4s ease-in-out 0.4s forwards,
-    scale 0.3s ease-in-out 0.9s both;
+  /* Se eliminó el box-shadow y la animación 'fill' para que quede sin fondo */
+  animation: scale 0.3s ease-in-out 0.9s both;
 }
 
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
-  stroke-width: 2;
+  stroke-width: 4;
   stroke-miterlimit: 10;
-  stroke: #2e7d32;
+  stroke: #00a81f;
   fill: none;
   animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
 
 .checkmark__check {
   transform-origin: 50% 50%;
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
+  stroke-dasharray: 75; /* Aumentado porque ahora la línea es más larga */
+  stroke-dashoffset: 75;
+  stroke-width: 8; /* Hace que la palomita sea gruesa */
+  stroke-linecap: round; /* Le da el borde redondeado a las puntas */
+  stroke-linejoin: round; /* Suaviza el codo del check */
+  stroke: #00a81f;
   animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
 }
 
-/* Loader de carga */
 .loader {
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
@@ -1457,46 +1448,6 @@ nav#menuPrincipal::before {
   vertical-align: middle;
 }
 
-/* KeyFrames */
-@keyframes stroke {
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes scale {
-  0%,
-  100% {
-    transform: none;
-  }
-  50% {
-    transform: scale3d(1.1, 1.1, 1);
-  }
-}
-
-@keyframes fill {
-  100% {
-    box-shadow: inset 0px 0px 0px 50px #e8f5e9;
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Agrega esto a Prueba2.css para manejar la fila de Fecha/CVV */
-.fila-formulario-doble {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-/* Para el botón de "Ver mis reservas" en el modal de éxito */
 .boton-centrado-chico {
   text-decoration: none;
   display: inline-block;
@@ -1504,57 +1455,10 @@ nav#menuPrincipal::before {
   padding: 10px 30px;
 }
 
-/* Asegurar que el título del pago se vea bien */
-.cuadro-vidrio-borroso .texto-titulo-grande {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-}
 
-.oculto {
-  display: none !important;
-}
-
-/* Quita el subrayado de los enlaces que se usan como botones */
-.boton-rojo-ingresar {
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-}
-
-.contenedor-filtros {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 40px;
-  padding: 0 20px;
-}
-
-.btn-filtro {
-  background-color: transparent;
-  color: var(--color-oscuro);
-  border: 2px solid var(--color-boton);
-  padding: 10px 25px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: var(--transicion-suave);
-}
-
-/* Efecto al pasar el mouse o cuando está seleccionado */
-.btn-filtro:hover,
-.btn-filtro.activo {
-  background-color: var(--color-boton);
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(229, 29, 42, 0.2);
-}
-
-/* Esta clase es la que hace la magia de ocultar los viajes que no son de la categoría */
-.cuadrito-viaje.oculto {
-  display: none;
-}
-
+/* ==========================================
+   9. PANEL DE PERFIL DE USUARIO
+========================================== */
 .cuerpo-perfil {
   background-color: #f0f2f5;
 }
@@ -1567,7 +1471,6 @@ nav#menuPrincipal::before {
   margin: 0 auto;
 }
 
-/* Sidebar */
 .sidebar-perfil {
   background: #fff;
   border-right: 1px solid #e0e0e0;
@@ -1622,7 +1525,6 @@ nav#menuPrincipal::before {
   color: #888 !important;
 }
 
-/* Contenido Principal */
 .contenido-perfil {
   padding: 40px;
 }
@@ -1656,7 +1558,6 @@ nav#menuPrincipal::before {
   color: #fff;
 }
 
-/* Cards de Viaje Horizontales */
 .card-viaje-horizontal {
   background: #fff;
   display: flex;
@@ -1735,7 +1636,6 @@ nav#menuPrincipal::before {
   color: #fff;
 }
 
-/* Mejoras para Perfil */
 .seccion-perfil.oculto {
   display: none !important;
 }
@@ -1757,6 +1657,7 @@ nav#menuPrincipal::before {
   position: relative;
   height: 160px;
 }
+
 .imagen-favorito img {
   width: 100%;
   height: 100%;
@@ -1805,425 +1706,6 @@ nav#menuPrincipal::before {
   background: #e51d2a;
 }
 
-.linea-rectangular-destino {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  border-left: 5px solid #e63946;
-}
-
-.info-basica {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.controles-admin {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-/* Estilo para el switch de descuento */
-.switch-descuento {
-  font-size: 0.9em;
-  font-weight: 600;
-}
-
-.enlace-logo-header {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.seccion-posteo-borde {
-  margin-top: 30px;
-  border-left: 4px solid var(--color-boton);
-}
-
-.label-precio-desde {
-  margin-bottom: 15px;
-}
-
-.contenedor-fecha-libre-oculto {
-  display: none;
-}
-
-.textarea-comentario {
-  margin-top: 10px;
-}
-
-.boton-comentario-publicar {
-  width: auto;
-  padding: 10px 20px;
-  margin-top: 10px;
-}
-
-.caja-comentario-visitante {
-  margin: 0;
-}
-
-.enlace-login-comentario {
-  color: var(--color-boton);
-  font-weight: bold;
-}
-
-.linea-rectangular-destino {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  border-left: 5px solid #e63946;
-}
-
-.info-basica {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.controles-admin {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.switch-descuento {
-  font-size: 0.9em;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* Alineación simétrica y centrada para los títulos de la cabecera de preguntas */
-.seccion-cabecera-faq {
-  text-align: center;
-  max-width: 900px;
-  margin: 60px auto 40px auto;
-  padding: 0 20px;
-}
-
-/* Fuerza el centrado absoluto del título H2 heredado */
-.seccion-cabecera-faq .texto-titulo-grande {
-  text-align: center;
-  margin-bottom: 15px;
-  font-weight: 800;
-}
-
-/* Configuración para el párrafo informativo superior */
-.parrafo-faq-sub {
-  color: var(--color-gris);
-  font-size: 1.05rem;
-  line-height: 1.6;
-}
-
-/* Contenedor final de contacto totalmente centrado con flexbox */
-.bloque-contacto-final {
-  text-align: center;
-  max-width: 600px;
-  margin: 40px auto 80px auto;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Título de la llamada a la acción inferior */
-.texto-dudas-final {
-  font-weight: 700;
-  font-size: 1.25rem;
-  margin-bottom: 18px;
-  color: var(--color-oscuro);
-}
-
-/* Modificación de comportamiento para centrar el botón inline-block sin deformaciones */
-.btn-llamada-contacto {
-  text-decoration: none !important;
-  font-weight: bold;
-  display: inline-block;
-  text-align: center;
-  width: auto;
-  padding: 12px 35px;
-}
-
-/* Contenedor relativo de la imagen para que el posicionamiento absoluto funcione */
-.cuadrito-viaje-imagen-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* Forzar que las tarjetas mantengan el diseño de bloque sin subrayados */
-.enlace-tarjeta-bloque {
-  text-decoration: none !important;
-  color: inherit;
-  display: block;
-}
-
-/* Estilo del botón del corazón (Inspirado en .btn-corazon de tu perfil) */
-.btn-corazon-catalogo {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  color: var(--color-gris);
-  font-size: 1.1rem;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  transition: var(--transicion-suave);
-}
-
-/* Efecto de escala al pasar el mouse por encima */
-.btn-corazon-catalogo:hover {
-  transform: scale(1.1);
-  color: var(--color-boton);
-  background: #ffffff;
-}
-
-/* Estado activo: Cuando el destino ya está guardado en favoritos */
-.btn-corazon-catalogo.activo {
-  color: var(--color-boton) !important;
-  animation: pulsoCorazon 0.3s ease-in-out;
-}
-
-/* Animación de latido al activarse */
-@keyframes pulsoCorazon {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Etiqueta flotante con el porcentaje ( -20% OFF) */
-.etiqueta-descuento {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background-color: var(--color-boton);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-weight: 800;
-  font-size: 0.85rem;
-  z-index: 10;
-  box-shadow: 0 4px 10px rgba(229, 29, 42, 0.4);
-  animation: latidoDescuento 2s infinite;
-}
-
-/* Animación sutil para atraer la mirada */
-@keyframes latidoDescuento {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Estilo para el precio antiguo (tachado y gris) */
-.precio-antiguo {
-  text-decoration: line-through;
-  color: #999;
-  font-size: 0.8rem;
-  display: block;
-  margin-bottom: -2px;
-  font-weight: 600;
-}
-
-/* Ajuste para que los precios encajen bien si hay descuento */
-.contenedor-precio-descuento {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Controla la separación exacta entre el título "Detalles del Tour" y su párrafo */
-.lado-izquierdo-historia .texto-titulo-grande {
-  margin-bottom: 15px !important;
-}
-
-/* Controla el espacio entre el párrafo y el título de la Galería de Imágenes */
-#descripcion-larga {
-  margin-bottom: 30px;
-  color: #444;
-  font-size: 1.05rem;
-  line-height: 1.7;
-}
-
-/* Espacio entre el titulo y el párrafo */
-.lado-izquierdo-historia h3 {
-  margin-bottom: 15px;
-}
-
-/* Forzamos las dos columnas en escritorio */
-.layout-pago-grid {
-  display: grid !important;
-  grid-template-columns: 350px 1fr;
-  gap: 40px;
-  align-items: start;
-}
-
-/* En celulares se pone uno debajo de otro */
-@media (max-width: 850px) {
-  .layout-pago-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* Cajas blancas principales */
-.caja-resumen-compra {
-  background: white;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-  border: 1px solid #f0f0f0;
-}
-
-.caja-opcion-efectivo {
-  background: white;
-  border-radius: 16px;
-  padding: 40px 25px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-  border: 1px solid #f0f0f0;
-  text-align: center;
-}
-
-/* La foto del resumen compacta */
-.foto-resumen {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin: 15px 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Textos de la lista debajo de la foto */
-.lista-datos-resumen p {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.lista-datos-resumen i {
-  color: var(--color-boton);
-  width: 20px;
-  text-align: center;
-}
-
-/* El recuadro inferior con el total */
-.caja-total-pagar {
-  background: #fdf2f2;
-  padding: 15px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  border: 1px dashed var(--color-boton);
-}
-
-/* Diseño de las pestañas (Tarjeta / Efectivo) */
-.pestanas-metodo {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.tab-pago {
-  flex: 1;
-  padding: 15px;
-  border: 2px solid #eee;
-  border-radius: 12px;
-  background: #fafafa;
-  font-weight: 700;
-  color: #777;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.tab-pago.activo {
-  background: #fff;
-  color: var(--color-oscuro);
-  border-color: var(--color-boton);
-  box-shadow: 0 4px 15px rgba(229, 29, 42, 0.1);
-}
-
-/**/
-.contenedor-buscador {
-    max-width: 600px;
-    margin: 0 auto 35px auto;
-    position: relative;
-    padding: 0 20px;
-}
-#buscador-destinos {
-    width: 100%;
-    padding: 16px 20px 16px 55px;
-    border-radius: 30px;
-    border: 2px solid #eee;
-    font-size: 1.05rem;
-    outline: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: var(--transicion-suave);
-    color: var(--color-oscuro);
-    font-family: 'Montserrat', sans-serif;
-}
-#buscador-destinos:focus {
-    border-color: var(--color-boton);
-    box-shadow: 0 5px 20px rgba(229, 29, 42, 0.15);
-}
-.icono-buscador {
-    position: absolute;
-    left: 45px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-    font-size: 1.2rem;
-    pointer-events: none;
-    transition: var(--transicion-suave);
-}
-.contenedor-buscador:focus-within .icono-buscador {
-    color: var(--color-boton);
-}
-
-/*Foto de perfil*/
 .layout-config-dos-columnas {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
@@ -2257,215 +1739,71 @@ nav#menuPrincipal::before {
     object-fit: cover;
 }
 
-/* En celular, pasamos la foto para abajo */
-@media screen and (max-width: 768px) {
-    .layout-config-dos-columnas { grid-template-columns: 1fr; gap: 20px; }
-    .seccion-avatar-config {
-        border-left: none;
-        border-top: 2px dashed #eee;
-        padding-left: 0;
-        padding-top: 30px;
-    }
+
+/* ==========================================
+   10. PANEL DE ADMINISTRACIÓN Y DASHBOARD
+========================================== */
+.linea-rectangular-destino {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #e63946;
 }
 
-/* Responsive */
-@media (max-width: 850px) {
-  .layout-perfil {
-    grid-template-columns: 1fr;
-  }
-  .sidebar-perfil {
-    display: none;
-  }
-  .card-viaje-horizontal {
-    flex-direction: column;
-  }
-  .imagen-card {
-    width: 100%;
-    height: 150px;
-  }
+.info-basica {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
-@media (max-width: 850px) {
-  .pantalla-dividida-historia-reserva {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    margin: 30px auto;
-  }
-  .formulario-que-te-persigue {
-    position: static;
-    width: 100%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  .grilla-de-fotos-pequenas img {
-    height: 180px;
-  }
-  .portada-interna h2 {
-    font-size: 2rem;
-    padding: 0 15px;
-  }
-  .cuadro-alargado-reserva {
-    flex-direction: column;
-  }
-  .cuadro-alargado-reserva img {
-    width: 100%;
-    height: 200px;
-  }
+.controles-admin {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
-@media screen and (max-width: 768px) {
-    .layout-perfil {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-    .sidebar-perfil {
-        width: 100% !important;
-        height: auto !important;
-        min-height: auto !important;
-        position: static !important;
-        border-right: none !important;
-        border-bottom: 1px solid #ddd !important;
-        padding: 15px 15px 5px 15px !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .perfil-resumen {
-        margin-bottom: 15px !important;
-        text-align: center;
-    }
-    .nav-sidebar {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 12px !important;
-        width: 100% !important;
-        padding: 0 15px 15px 15px !important;
-        box-sizing: border-box;
-    }
-    .nav-sidebar a {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-        padding: 15px 10px !important;
-        border-radius: 12px !important;
-        font-size: 0.85rem !important;
-        background: #f0f0f0;
-        color: #333;
-        gap: 8px !important; 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
-        margin: 0 !important;
-        width: 100% !important;
-        box-sizing: border-box;
-    }
-    .nav-sidebar ul {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 10px !important;
-        width: 100% !important;
-        padding: 0 10px 10px 10px !important;
-    }
-    
-    .nav-sidebar ul::-webkit-scrollbar {
-        display: none;
-    }
-
-    .nav-sidebar li {
-        width: 100% !important;
-        margin-bottom: 0 !important;
-    }
-
-    .nav-sidebar a {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-        padding: 15px 10px !important;
-        border-radius: 12px !important;
-        font-size: 0.85rem !important;
-        background: #f0f0f0;
-        color: #333;
-        gap: 8px !important;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
-    }
-
-    .nav-sidebar a.activo {
-        background: var(--color-boton) !important;
-        color: white !important;
-        box-shadow: 0 4px 10px rgba(229, 29, 42, 0.3) !important;
-    }
-    body.dark-mode .nav-sidebar a {
-        background: #2c2c2c;
-        color: #fff;
-    }
-    body.dark-mode .nav-sidebar a.activo {
-        background: var(--color-boton) !important;
-    }
-    .contenido-perfil {
-        padding: 15px !important;
-        width: 100% !important;
-    }
-    .card-viaje-horizontal {
-        display: flex !important;
-        flex-direction: column !important;
-        height: auto !important;
-    }
-    .card-viaje-horizontal .imagen-card,
-    .card-viaje-horizontal .imagen-card img {
-        width: 100% !important;
-        height: 200px !important;
-        border-radius: 12px 12px 0 0 !important;
-    }
-    .card-viaje-horizontal .info-card {
-        width: 100% !important;
-        padding: 15px !important;
-    }
-    .pie-card {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 15px !important;
-    }
-    .pie-card div {
-        width: 100%;
-        justify-content: space-between;
-    }
-    .filtros-viajes {
-        justify-content: center !important;
-        width: 100% !important;
-        margin-bottom: 20px !important;
-    }
-    .modal-contenido-editor {
-        width: 95% !important;
-        margin: 20px auto !important;
-        padding: 20px !important;
-        max-height: 90vh !important;
-        overflow-y: auto !important;
-    }
-    .fila-itinerario-admin {
-        flex-direction: column !important;
-        position: relative;
-        padding-top: 40px !important;
-    }
-    .fila-itinerario-admin > div {
-        width: 100% !important;
-    }
-    .fila-itinerario-admin button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
-    .formulario-config input, 
-    .formulario-config button,
-    #formEditor input,
-    #formEditor textarea,
-    #formEditor select,
-    .contenedor-pregunta-respuesta {
-        width: 100% !important;
-    }
+.switch-descuento {
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-/*Responsive para tablas*/
+.cuadro-estilo-excel {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.cuadro-estilo-excel thead {
+  background-color: var(--color-boton);
+  color: #fff;
+}
+
+.cuadro-estilo-excel th,
+.cuadro-estilo-excel td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.cuadro-estilo-excel tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.cuadro-estilo-excel td:first-child {
+  color: var(--color-boton);
+  font-weight: 700;
+}
+
 .tabla-contenedor-movil {
   width: 100%;
   overflow-x: auto;
@@ -2474,12 +1812,10 @@ nav#menuPrincipal::before {
   padding-bottom: 10px;
 }
 
-/* Le damos un ancho mínimo para que las columnas nunca se aplasten */
 .tabla-contenedor-movil .cuadro-estilo-excel {
   min-width: 800px; 
 }
 
-/* Diseño moderno para la barrita de scroll (Chrome/Safari/Edge) */
 .tabla-contenedor-movil::-webkit-scrollbar {
   height: 6px;
 }
@@ -2495,55 +1831,20 @@ nav#menuPrincipal::before {
   background: var(--color-boton);
 }
 
-/*Responsive para móviles destinos*/
-@media screen and (max-width: 768px) {
-    #contenedor-principal > div[style*="justify-content: space-between"] {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 15px;
-    }
-    .linea-rectangular-destino {
-        flex-direction: column;
-        align-items: flex-start !important;
-        gap: 15px;
-        padding: 20px !important;
-    }
-    .info-basica {
-        width: 100%;
-        align-items: flex-start;
-    }
-    .controles-admin {
-        width: 100%;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 10px !important;
-        border-top: 1px solid #eee;
-        padding-top: 15px;
-    }
-    .controles-admin .btn-detalles {
-        flex-grow: 1;
-        text-align: center;
-        justify-content: center;
-    }
+.texto-activo-bold {
+    color: #2e7d32;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
 }
 
-/*Ajuste responsive movil*/
-@media screen and (max-width: 768px) {
-    .cabecera-seccion {
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 15px;
-        text-align: center;
-    }
-    .filtros-viajes {
-        width: auto !important; 
-        display: inline-flex !important;
-        justify-content: center !important;
-        margin-bottom: 10px !important;
-    }
+.texto-inactivo-bold {
+    color: #e51d2a;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
 }
 
-/*Estilos para el grid de KPIs*/
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
@@ -2603,84 +1904,6 @@ nav#menuPrincipal::before {
     text-overflow: ellipsis;
 }
 
-
-/*Barra de filtros para el dashboard de admin*/
-.filtros-dashboard {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 10px;
-    align-items: center;
-    background: #fff;
-    padding: 15px 20px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid #f0f0f0;
-    overflow-x: auto;
-}
-
-.filtros-dashboard select, 
-.filtros-dashboard input {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    outline: none;
-    color: var(--color-oscuro);
-    background: #fafafa;
-    width: auto !important; 
-    flex: 1; 
-    min-width: 130px; 
-}
-
-.filtros-dashboard select:focus, 
-.filtros-dashboard input:focus {
-    border-color: var(--color-boton);
-    background: #fff;
-}
-
-.btn-filtrar, .btn-reset {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    width: auto !important; 
-    white-space: nowrap; 
-}
-
-.btn-filtrar { 
-    background: var(--color-boton); 
-    color: white; 
-}
-
-.btn-filtrar:hover { 
-    background: #c2131e; 
-    transform: translateY(-2px);
-}
-
-.btn-reset { 
-    background: #eee; 
-    color: #555; 
-}
-
-.btn-reset:hover { 
-    background: #ddd; 
-}
-
-/* Reglas de salvavidas por si entran desde un celular pequeño */
-@media screen and (max-width: 1024px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .filtros-dashboard { flex-wrap: wrap; }
-}
-@media screen and (max-width: 600px) {
-    .kpi-grid { grid-template-columns: 1fr; }
-}
-
-
-/*Barra de filtros para el dashboard de reseñas*/
 .filtros-dashboard {
     display: flex;
     flex-wrap: wrap;
@@ -2740,7 +1963,6 @@ nav#menuPrincipal::before {
     background: #ddd; 
 }
 
-/*Graficas*/
 .charts-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
@@ -2776,17 +1998,10 @@ nav#menuPrincipal::before {
     min-height: 0; 
 }
 
-/* En tablets y celulares pasa a 1 sola columna de forma fluida */
-@media screen and (max-width: 950px) {
-    .charts-grid { 
-        grid-template-columns: 1fr; 
-    }
-    .chart-card {
-        height: 380px; 
-    }
-}
 
-/*Pagina de Reseñas*/
+/* ==========================================
+   11. PÁGINA DE RESEÑAS Y OPINIONES
+========================================== */
 .contenedor-pagina-reseñas {
     max-width: 1200px;
     margin: 60px auto;
@@ -2805,7 +2020,6 @@ nav#menuPrincipal::before {
     margin-bottom: 50px;
 }
 
-/* Panel Estadístico Central */
 .resumen-estadistico-reseñas {
     display: flex;
     align-items: center;
@@ -2839,7 +2053,6 @@ nav#menuPrincipal::before {
     margin-bottom: 10px;
 }
 
-/* Barras de Progreso */
 .bloque-barras {
     min-width: 350px;
 }
@@ -2879,7 +2092,6 @@ nav#menuPrincipal::before {
     color: #666;
 }
 
-/* Grilla Masonry para Tarjetas (CSS Columns) */
 .grilla-masonry-reseñas {
     column-count: 4;
     column-gap: 20px;
@@ -2936,186 +2148,10 @@ nav#menuPrincipal::before {
     padding-top: 15px;
 }
 
-/* Responsivo para la Grilla */
-@media (max-width: 1024px) {
-    .grilla-masonry-reseñas { column-count: 3; }
-}
-@media (max-width: 768px) {
-    .resumen-estadistico-reseñas { flex-direction: column; gap: 30px; }
-    .grilla-masonry-reseñas { column-count: 2; }
-}
-@media (max-width: 500px) {
-    .grilla-masonry-reseñas { column-count: 1; }
-}
 
-/*Color de estado de usuario*/
-.texto-activo-bold {
-    color: #2e7d32;
-    font-weight: 800;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-}
-
-.texto-inactivo-bold {
-    color: #e51d2a;
-    font-weight: 800;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-}
-/**Footer Profesional*/
-.footer-profesional {
-    background-color: #11141a; 
-    color: #e0e0e0;
-    padding: 60px 20px 0; 
-    font-family: 'Montserrat', sans-serif;
-}
-
-.footer-contenedor {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr;
-    gap: 50px;
-    padding-bottom: 40px;
-    text-align: center;
-}
-
-/* Ajustes compartidos para TODOS los títulos (h3 y h4) */
-.footer-columna h3,
-.footer-columna h4 {
-    color: #ffffff;
-    position: relative;
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-}
-
-.footer-columna h3 {
-    font-size: 1.5rem;
-    font-weight: 800;
-}
-
-.footer-columna h4 {
-    font-size: 1.1rem;
-}
-
-/* La rayita roja centrada debajo de los 3 títulos */
-.footer-columna h3::after,
-.footer-columna h4::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    width: 40px;
-    height: 3px;
-    background-color: var(--color-boton);
-    border-radius: 2px;
-}
-
-.footer-texto {
-    color: #a0aabf;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-}
-
-/* Redes Sociales Centradas */
-.footer-redes {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.footer-redes a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    border-radius: 50%;
-    text-decoration: none;
-    transition: var(--transicion-suave);
-    font-size: 1.1rem;
-}
-
-.footer-redes a:hover {
-    background-color: var(--color-boton);
-    transform: translateY(-3px);
-}
-
-/* Listas de Enlaces */
-.footer-enlaces {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-enlaces li {
-    margin-bottom: 12px;
-}
-
-.footer-enlaces a {
-    color: #a0aabf;
-    text-decoration: none;
-    transition: var(--transicion-suave);
-    display: inline-block;
-}
-
-.footer-enlaces a:hover {
-    color: var(--color-boton);
-    transform: translateY(-2px); 
-}
-
-/* Lista de Contacto Centrada */
-.footer-contacto {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-contacto li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 15px;
-    color: #a0aabf;
-    font-size: 0.95rem;
-}
-
-.footer-contacto i {
-    color: var(--color-boton);
-}
-
-/* Barra inferior del copyright */
-.footer-bottom {
-    background-color: #0b0d11; 
-    text-align: center;
-    padding: 20px;
-    font-size: 0.85rem;
-    color: #777;
-    border-top: 1px solid rgba(255,255,255,0.05);
-}
-
-.footer-bottom strong {
-    color: #ffffff;
-}
-
-/* Responsivo para móviles y tablets */
-@media (max-width: 900px) {
-    .footer-contenedor {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-    .footer-contenedor {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-}
-
-/*Nosotros*/
+/* ==========================================
+   12. PÁGINA "NOSOTROS" Y PREGUNTAS FRECUENTES
+========================================== */
 .seccion-nosotros-intro {
     max-width: 1200px;
     margin: 80px auto;
@@ -3146,7 +2182,6 @@ nav#menuPrincipal::before {
     transform: scale(1.02);
 }
 
-/* Grilla de Valores (Tarjetas) */
 .seccion-valores-agencia {
     background: #ffffff;
     padding: 80px 20px;
@@ -3196,28 +2231,134 @@ nav#menuPrincipal::before {
     font-size: 0.95rem;
 }
 
-/* Fondo para el formulario */
 .seccion-contacto-fondo {
     background-color: var(--color-fondo);
     padding-bottom: 80px;
 }
 
-/* Responsivo para celulares */
-@media (max-width: 850px) {
-    .seccion-nosotros-intro {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        margin: 50px auto;
-    }
-    .nosotros-imagen img {
-        height: 300px;
-    }
-    .grilla-valores {
-        grid-template-columns: 1fr;
-    }
+.seccion-cabecera-faq {
+  text-align: center;
+  max-width: 900px;
+  margin: 60px auto 40px auto;
+  padding: 0 20px;
 }
 
-/*Sistema de Consultas*/
+.seccion-cabecera-faq .texto-titulo-grande {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+
+.parrafo-faq-sub {
+  color: var(--color-gris);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.bloque-contacto-final {
+  text-align: center;
+  max-width: 600px;
+  margin: 40px auto 80px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.texto-dudas-final {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 18px;
+  color: var(--color-oscuro);
+}
+
+.btn-llamada-contacto {
+  text-decoration: none !important;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  width: auto;
+  padding: 12px 35px;
+}
+
+.lista {
+  list-style: none;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+details.elemento-lista {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+details.elemento-lista:hover,
+details.elemento-lista[open] {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-boton);
+}
+
+.resumen-lista {
+  padding: 15px 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-oscuro);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.resumen-lista::after {
+  content: "+";
+  font-size: 1.5rem;
+  color: var(--color-boton);
+  transition: transform 0.3s ease;
+}
+
+details[open] .resumen-lista::after {
+  transform: rotate(180deg);
+  content: "-";
+}
+
+details.elemento-lista p {
+  padding: 0 25px 25px;
+  color: #666;
+  line-height: 1.7;
+  animation: slideDown 0.4s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+
+/* ==========================================
+   13. SISTEMA DE CONSULTAS Y SOPORTE
+========================================== */
 .card-consulta {
     background: #fff;
     padding: 20px 25px;
@@ -3265,7 +2406,169 @@ nav#menuPrincipal::before {
     padding-top: 15px;
 }
 
-/*Boton flotante para cambiar de tema*/
+
+/* ==========================================
+   14. PIE DE PÁGINA (FOOTER)
+========================================== */
+footer {
+  background: #111111;
+  color: #a0a0a0;
+  text-align: center;
+  padding: 35px 20px;
+  letter-spacing: 0.2px;
+}
+
+footer p:first-child {
+  color: var(--color-claro);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+footer p:last-child {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #777777;
+}
+
+.footer-profesional {
+    background-color: #11141a; 
+    color: #e0e0e0;
+    padding: 60px 20px 0; 
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer-contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 50px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+.footer-columna h3,
+.footer-columna h4 {
+    color: #ffffff;
+    position: relative;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.footer-columna h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.footer-columna h4 {
+    font-size: 1.1rem;
+}
+
+.footer-columna h3::after,
+.footer-columna h4::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+    background-color: var(--color-boton);
+    border-radius: 2px;
+}
+
+.footer-texto {
+    color: #a0aabf;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.footer-redes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-redes a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: var(--transicion-suave);
+    font-size: 1.1rem;
+}
+
+.footer-redes a:hover {
+    background-color: var(--color-boton);
+    transform: translateY(-3px);
+}
+
+.footer-enlaces {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-enlaces li {
+    margin-bottom: 12px;
+}
+
+.footer-enlaces a {
+    color: #a0aabf;
+    text-decoration: none;
+    transition: var(--transicion-suave);
+    display: inline-block;
+}
+
+.footer-enlaces a:hover {
+    color: var(--color-boton);
+    transform: translateY(-2px); 
+}
+
+.footer-contacto {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contacto li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    color: #a0aabf;
+    font-size: 0.95rem;
+}
+
+.footer-contacto i {
+    color: var(--color-boton);
+}
+
+.footer-bottom {
+    background-color: #0b0d11; 
+    text-align: center;
+    padding: 20px;
+    font-size: 0.85rem;
+    color: #777;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-bottom strong {
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   15. MODO OSCURO (DARK MODE)
+========================================== */
 .boton-flotante-tema {
     position: fixed;
     bottom: 30px;
@@ -3289,25 +2592,22 @@ nav#menuPrincipal::before {
 .boton-flotante-tema:hover {
     transform: scale(1.1) rotate(-15deg);
 }
-/*Reglas del modo oscuro*/
+
 body.dark-mode {
-    /* Invertimos las variables principales y aclaramos el rojo */
     --color-oscuro: #f8f9fa;
     --color-fondo: #121212;
     --color-gris: #aaaaaa;
-    --color-boton: #ff4d5a; /* Un rojo más claro y vibrante para la oscuridad */
+    --color-boton: #ff4d5a;
     background-color: var(--color-fondo);
     color: var(--color-oscuro);
 }
 
-/* El botón flotante cambia a un amarillo cálido */
 body.dark-mode .boton-flotante-tema {
     background-color: #f1c40f; 
     color: #121212;
     box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
 }
 
-/* Menú Superior y Textos */
 body.dark-mode header {
     background: rgba(18, 18, 18, 0.9);
     border-bottom: 1px solid #2a2a2a;
@@ -3315,31 +2615,27 @@ body.dark-mode header {
 body.dark-mode nav a, 
 body.dark-mode .logo-texto h1 { color: #f8f9fa !important; }
 
-/* FIX 1: Sección "Por qué elegirnos" en Nosotros */
 body.dark-mode .seccion-valores-agencia {
     background-color: var(--color-fondo) !important;
     border-color: #333 !important;
 }
 
-/*Modales de Login, Registro y Edición de Admin */
 body.dark-mode .cuadro-vidrio-borroso {
     background-color: rgba(30, 30, 30, 0.98) !important;
     color: #e0e0e0 !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
 }
 
-/* FIX 4: Botones de "Próximos / Pasados" en Perfil */
 body.dark-mode .filtros-viajes {
     background-color: #1e1e1e !important;
 }
 body.dark-mode .tab-filtro {
-    color: #888; /* Color apagado cuando no está seleccionado */
+    color: #888;
 }
 body.dark-mode .tab-filtro.activo {
-    color: #fff; /* Blanco brillante cuando está activo */
+    color: #fff;
 }
 
-/* Todas las tarjetas, cajas y formularios generales */
 body.dark-mode details.elemento-lista,
 body.dark-mode .cuadrito-viaje,
 body.dark-mode .caja-blanca-sobre-foto,
@@ -3357,6 +2653,7 @@ body.dark-mode .linea-rectangular-destino,
 body.dark-mode .cuadro-estilo-excel,
 body.dark-mode .card-valor,
 body.dark-mode .card-reseña-item,
+body.dark-mode .contenido-exito,
 body.dark-mode form[style*="background: #fff"],
 body.dark-mode .seccion-contacto-fondo form {
     background-color: #1e1e1e !important;
@@ -3365,7 +2662,6 @@ body.dark-mode .seccion-contacto-fondo form {
     box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
 }
 
-/* FIX 2: Títulos y Números Estadísticos (Reseñas, Admin y Portadas) */
 body.dark-mode .textos-del-viaje h3,
 body.dark-mode .opcion-de-precio strong,
 body.dark-mode .kpi-card .kpi-info h3,
@@ -3381,13 +2677,11 @@ body.dark-mode .cuadro-vidrio-borroso h3 {
     color: #f8f9fa !important;
 }
 
-/* Textos secundarios en estadísticas (el "/ 5" y los porcentajes) */
 body.dark-mode .bloque-promedio h2 span,
 body.dark-mode .fila-barra-progreso .porcentaje-texto {
     color: #bbb !important;
 }
 
-/* Formularios, Inputs y Selects oscurecidos */
 body.dark-mode input,
 body.dark-mode textarea,
 body.dark-mode select,
@@ -3397,7 +2691,6 @@ body.dark-mode .input-moderno {
     border-color: #444 !important;
 }
 
-/* Tablas Admin y Consultas */
 body.dark-mode .cuadro-estilo-excel th { background-color: var(--color-boton); }
 body.dark-mode .cuadro-estilo-excel td { border-bottom: 1px solid #333; }
 body.dark-mode .cuadro-estilo-excel tbody tr:hover { background-color: #2a2a2a; }
@@ -3405,63 +2698,48 @@ body.dark-mode .mensaje-cliente-caja { background: #2a2a2a; color: #ddd; }
 body.dark-mode .respuesta-admin-caja { background: #1a3320; border-color: #2e7d32; color: #81c784; }
 body.dark-mode .card-consulta.respondido { background: #18221a !important; }
 
-/*Itinerario de editor de admin*/
-
-/* 1. El cuadro contenedor general del itinerario */
 body.dark-mode #formEditor > div:nth-last-child(2) {
     background-color: #1e1e1e !important;
     border-color: #333 !important;
 }
 
-/* 2. Cada una de las filas individuales de horarios */
 body.dark-mode .fila-itinerario-admin {
-    background-color: #2a2a2a !important; /* Un gris un poco más claro para que resalte del fondo */
+    background-color: #2a2a2a !important;
     border-color: #444 !important;
 }
 
-/*Arreglo de botones en admin*/
-
-/* 1. Botones de acción (Editar, Desactivar, etc.) */
 body.dark-mode .btn-detalles {
-    background-color: #2a2a2a !important; /* Pasa de blanco a gris oscuro */
+    background-color: #2a2a2a !important;
 }
 
-/* El botón "Hacer Admin / Quitar Admin" tiene color negro forzado, lo pasamos a blanco */
 body.dark-mode .btn-detalles[style*="color: #1a1a1a"] {
     color: #e0e0e0 !important;
     border-color: #555 !important;
 }
 
-/* 2. Etiquetas de Pago en Reservas (TARJETA / EFECTIVO) */
 body.dark-mode .cuadro-estilo-excel td span[style*="f0f0f0"] {
     background-color: #2a2a2a !important;
     color: #ccc !important;
 }
 
-/* 3. Pastillas de Estado en Reservas (Confirmado / Pendiente) */
 body.dark-mode .pastilla-verde-estado {
-    background-color: #16331c !important; /* Verde muy oscuro para el fondo */
-    color: #81c784 !important; /* Texto verde pastel para contraste */
+    background-color: #16331c !important;
+    color: #81c784 !important;
 }
 
 body.dark-mode .pastilla-roja-estado {
-    background-color: #381616 !important; /* Rojo muy oscuro para el fondo */
-    color: #ff8a65 !important; /* Texto naranja/rojo claro para contraste */
+    background-color: #381616 !important;
+    color: #ff8a65 !important;
 }
 
-/*Texto arreglo de favoritos perfil*/
 body.dark-mode .card-favorito h4 {
-    color: #f8f9fa !important; /* Fuerza el color blanco brillante */
+    color: #f8f9fa !important;
 }
 
-/* Opcional: Para asegurar que los botones de corazón blancos no resalten tanto, 
-   les damos el fondo oscuro de las tarjetas */
 body.dark-mode .card-favorito .btn-corazon {
     background-color: #2a2a2a !important;
 }
 
-/*Modo oscuro de pago y boleta*/
-/* Cajas principales (Resumen, Formulario y Voucher) */
 body.dark-mode .caja-resumen-compra,
 body.dark-mode .caja-opcion-efectivo,
 body.dark-mode .hoja-carta-horizontal,
@@ -3472,7 +2750,6 @@ body.dark-mode .papel-del-ticket {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
 }
 
-/* Pestañas superiores (Tarjeta / Efectivo) */
 body.dark-mode .tab-pago {
     background-color: #121212 !important;
     border-color: #333 !important;
@@ -3484,34 +2761,26 @@ body.dark-mode .tab-pago.activo {
     color: #fff !important;
 }
 
-/* Textos grises en las listas de resumen y boleta */
 body.dark-mode .lista-datos-resumen p,
 body.dark-mode .fila-dato-cliente span:first-child {
     color: #bbb !important;
 }
 
-/* Cuadro final del "Total a Pagar" */
 body.dark-mode .caja-total-pagar,
 body.dark-mode .cuadro-gris-total {
     background-color: #2a2a2a !important;
     border-color: var(--color-boton) !important;
 }
 
-/* Para que la franja derecha del voucher se vea bien */
 body.dark-mode .mitad-hoja-der {
     background-color: transparent !important;
 }
 
-/*Arreglo para fondo y var de boleta.html*/
-
-/* 1. Forzar el fondo oscuro en todo el espacio alrededor de la boleta */
 body.dark-mode,
 body.dark-mode .contenedor-boleta-impresion {
     background-color: var(--color-fondo) !important;
 }
 
-/* 2. La barra superior (Volver al Perfil / Imprimir) */
-/* Atrapamos la clase ocultar-impresion y cualquier contenedor blanco rebelde */
 body.dark-mode .ocultar-impresion,
 body.dark-mode div[style*="background: white"],
 body.dark-mode div[style*="background: #fff"] {
@@ -3520,51 +2789,112 @@ body.dark-mode div[style*="background: #fff"] {
     color: #f8f9fa !important;
 }
 
-/* 3. Asegurar que el texto del enlace "<- Volver al Perfil" se vuelva blanco */
 body.dark-mode .ocultar-impresion a,
 body.dark-mode a[style*="color: black"],
 body.dark-mode a[style*="color: #000"] {
     color: #f8f9fa !important;
 }
 
-/*Texto en itinerario*/
-
-/* 1. Títulos grandes como "Voucher de Viaje" y "Tu Itinerario" */
 body.dark-mode .hoja-carta-horizontal h1,
 body.dark-mode .hoja-carta-horizontal h2,
 body.dark-mode .hoja-carta-horizontal h3,
 body.dark-mode .caja-blanca-sobre-foto h1,
 body.dark-mode .caja-blanca-sobre-foto h2,
 body.dark-mode .caja-blanca-sobre-foto h3 {
-    color: #f8f9fa !important; /* Blanco brillante */
+    color: #f8f9fa !important;
 }
 
-/* 2. Párrafos y descripciones debajo de los horarios */
 body.dark-mode .lista-de-horas-actividades p,
 body.dark-mode #lista-itinerario-dinamico p,
 body.dark-mode .caja-blanca-sobre-foto p,
 body.dark-mode .parrafo-explicativo {
-    color: #bbbbbb !important; /* Gris claro legible */
+    color: #bbbbbb !important;
 }
 
-/* 3. Textos rebeldes con estilos en línea dentro de la Boleta */
 body.dark-mode #boleta-lista-itinerario span[style*="color: #444"] {
     color: #bbbbbb !important; 
 }
 
-/* Pone blancos los títulos de las actividades en la boleta */
 body.dark-mode #boleta-lista-itinerario strong {
     color: #f8f9fa !important;
 }
 
-/* Evita que las horas (Ej: 07:45 AM) pierdan el color rojo fresa */
 body.dark-mode #boleta-lista-itinerario strong[style*="color: #e51d2a"] {
     color: var(--color-boton) !important;
 }
 
-/*Impresion*/
+body.dark-mode nav#menuPrincipal {
+    background-color: transparent !important;
+}
+
+@media screen and (max-width: 850px) {
+    body.dark-mode nav#menuPrincipal.activo {
+        background-color: #1e1e1e !important;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.8) !important;
+    }
+    body.dark-mode nav#menuPrincipal.activo ul li {
+        border-bottom: 1px solid #333 !important;
+    }
+}
+
+body.dark-mode nav#menuPrincipal ul li a {
+    color: #f8f9fa !important;
+}
+
+
+/* ==========================================
+   16. REGLAS DE IMPRESIÓN (@MEDIA PRINT)
+========================================== */
 @media print {
-    /* 1. Ocultar botones, menús y footer para ahorrar papel */
+    @page { 
+        size: letter landscape; 
+        margin: 0; 
+    }
+
+    body, html { 
+        background: white !important; 
+        margin: 0 !important; 
+        padding: 0 !important; 
+    }
+
+    .contenedor-boleta-impresion { 
+        display: block !important; 
+        padding: 0 !important; 
+        margin: 0 !important; 
+        background: white !important; 
+    }
+
+    .hoja-carta-horizontal {
+        width: 10in !important;
+        height: 6.2in !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        margin: 1.1in auto !important; 
+        border: 1px solid #ccc !important;
+        page-break-after: always !important; 
+        page-break-inside: avoid !important;
+    }
+
+    .hoja-carta-horizontal:last-child {
+        page-break-after: auto !important;
+    }
+
+    .mitad-hoja-der, .mitad-hoja-izq {
+        overflow: visible !important;
+    }
+
+    .ocultar-impresion, .btn-modo-oscuro { 
+        display: none !important; 
+    }
+
+    * { 
+        -webkit-print-color-adjust: exact !important; 
+        print-color-adjust: exact !important; 
+        color-adjust: exact !important; 
+    }
+}
+
+@media print {
     .ocultar-impresion, 
     #btn-modo-oscuro, 
     .boton-flotante-tema,
@@ -3574,14 +2904,12 @@ body.dark-mode #boleta-lista-itinerario strong[style*="color: #e51d2a"] {
         display: none !important;
     }
 
-    /* 2. Permitir que la SEGUNDA hoja (Itinerario) crezca hacia abajo sin cortarse */
     .contenedor-boleta-impresion .hoja-carta-horizontal:nth-child(2) {
         height: auto !important;
         min-height: 6.2in !important;
         padding-bottom: 40px !important;
     }
     
-    /* 3. Evitar que las actividades o mapas se partan por la mitad entre 2 hojas */
     .lista-de-horas-actividades li,
     #boleta-lista-itinerario li,
     .foto-mapa-final, 
@@ -3589,4 +2917,379 @@ body.dark-mode #boleta-lista-itinerario strong[style*="color: #e51d2a"] {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
+}
+
+/* ==========================================
+   3. MENÚ HAMBURGUESA Y RESPONSIVE HEADER
+========================================== */
+.menu-hamburguesa {
+  margin: 0;
+  display: none !important;
+}
+
+nav#menuPrincipal {
+  position: static;
+  width: auto;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  transform: none;
+  visibility: visible;
+}
+
+nav#menuPrincipal ul {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  list-style: none;
+  align-items: center;
+  opacity: 1;
+}
+
+nav#menuPrincipal ul li {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+nav#menuPrincipal ul li a {
+  text-decoration: none !important;
+  color: var(--color-oscuro);
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  padding-bottom: 5px;
+  transition: var(--transicion-suave);
+  text-transform: capitalize;
+}
+
+nav#menuPrincipal ul li a:hover {
+  color: var(--color-boton);
+}
+
+nav#menuPrincipal::before {
+  display: none;
+}
+
+/* Pantallas móviles (Hasta 850px) */
+@media screen and (max-width: 850px) {
+  .menu-hamburguesa {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1200;
+  }
+
+  .linea-menu {
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-boton);
+    border-radius: 2px;
+  }
+
+  nav#menuPrincipal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    background-color: white;
+    z-index: 1100;
+    padding: 80px 40px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out, visibility 0s linear 0.4s;
+    visibility: hidden;
+    overflow: hidden;
+  }
+
+  nav#menuPrincipal.activo {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.4s ease-in-out, visibility 0s;
+  }
+
+  nav#menuPrincipal ul {
+    flex-direction: column;
+    gap: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  nav#menuPrincipal.activo ul {
+    opacity: 1;
+    transition: opacity 0.3s ease 0.2s;
+  }
+
+  nav#menuPrincipal ul li {
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+  }
+
+  nav#menuPrincipal::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    display: block;
+  }
+
+  nav#menuPrincipal.activo::before {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media screen and (min-width: 851px) {
+    header {
+        justify-content: flex-end !important; 
+    }
+    header .logo {
+        margin-right: auto !important; 
+    }
+    nav#menuPrincipal {
+        order: 1; 
+    }
+    .contenedor-derecha-header {
+        order: 2; 
+        margin-left: 40px;
+    }
+}
+
+
+/* ==========================================
+   BOTÓN REDONDO DE AÑADIR VIAJE (PERFIL)
+========================================== */
+.boton-redondo-agregar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  background-color: var(--color-boton);
+  color: #fff;
+  font-size: 2.5rem;
+  border-radius: 50%;
+  margin: 40px auto;
+  transition: var(--transicion-suave);
+  text-decoration: none;
+}
+
+/* Al pasar el mouse, el botón gira y cambia de tono */
+.boton-redondo-agregar:hover {
+  transform: scale(1.1) rotate(90deg);
+  background-color: #c2131e;
+}
+
+/* ==========================================
+   14. COMPORTAMIENTOS RESPONSIVE GENERALES
+========================================== */
+@media (max-width: 1024px) {
+    .lista { grid-template-columns: repeat(2, 1fr); }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .filtros-dashboard { flex-wrap: wrap; }
+    .grilla-masonry-reseñas { column-count: 3; }
+}
+
+@media (max-width: 950px) {
+    .charts-grid { grid-template-columns: 1fr; }
+    .chart-card { height: 380px; }
+}
+
+@media (max-width: 900px) {
+    .footer-contenedor { grid-template-columns: 1fr 1fr; }
+}
+
+@media screen and (max-width: 850px) {
+  .pantalla-dividida-historia-reserva {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin: 30px auto;
+  }
+  .formulario-que-te-persigue {
+    position: static;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  .grilla-de-fotos-pequenas img { height: 180px; }
+  .portada-interna h2 { font-size: 2rem; padding: 0 15px; }
+  .cuadro-alargado-reserva { flex-direction: column; }
+  .cuadro-alargado-reserva img { width: 100%; height: 200px; }
+  .seccion-nosotros-intro { grid-template-columns: 1fr; gap: 40px; margin: 50px auto; }
+  .nosotros-imagen img { height: 300px; }
+  .grilla-valores { grid-template-columns: 1fr; }
+  .layout-perfil { grid-template-columns: 1fr; }
+  .sidebar-perfil { display: none; }
+  .card-viaje-horizontal { flex-direction: column; }
+  .imagen-card { width: 100%; height: 150px; }
+}
+
+/* Adaptación completa para móviles y Perfil (< 768px) */
+@media screen and (max-width: 768px) {
+    .layout-perfil {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .sidebar-perfil {
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        position: static !important;
+        border-right: none !important;
+        border-bottom: 1px solid #ddd !important;
+        padding: 15px 15px 5px 15px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .perfil-resumen {
+        margin-bottom: 15px !important;
+        text-align: center;
+    }
+    .nav-sidebar {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+        width: 100% !important;
+        padding: 0 15px 15px 15px !important;
+        box-sizing: border-box;
+    }
+    .nav-sidebar a {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 15px 10px !important;
+        border-radius: 12px !important;
+        font-size: 0.85rem !important;
+        background: #f0f0f0;
+        color: #333;
+        gap: 8px !important; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    .nav-sidebar ul {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        width: 100% !important;
+        padding: 0 10px 10px 10px !important;
+    }
+    .nav-sidebar ul::-webkit-scrollbar { display: none; }
+    .nav-sidebar li { width: 100% !important; margin-bottom: 0 !important; }
+    .nav-sidebar a.activo {
+        background: var(--color-boton) !important;
+        color: white !important;
+        box-shadow: 0 4px 10px rgba(229, 29, 42, 0.3) !important;
+    }
+    body.dark-mode .nav-sidebar a { background: #2c2c2c; color: #fff; }
+    body.dark-mode .nav-sidebar a.activo { background: var(--color-boton) !important; }
+    
+    .contenido-perfil { padding: 15px !important; width: 100% !important; }
+    .card-viaje-horizontal { display: flex !important; flex-direction: column !important; height: auto !important; }
+    .card-viaje-horizontal .imagen-card,
+    .card-viaje-horizontal .imagen-card img {
+        width: 100% !important;
+        height: 200px !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+    .card-viaje-horizontal .info-card { width: 100% !important; padding: 15px !important; }
+    .pie-card { flex-direction: column !important; align-items: flex-start !important; gap: 15px !important; }
+    .pie-card div { width: 100%; justify-content: space-between; }
+    .filtros-viajes { justify-content: center !important; width: 100% !important; margin-bottom: 20px !important; }
+    
+    .modal-contenido-editor {
+        width: 95% !important;
+        margin: 20px auto !important;
+        padding: 20px !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+    }
+    .fila-itinerario-admin {
+        flex-direction: column !important;
+        position: relative;
+        padding-top: 40px !important;
+    }
+    .fila-itinerario-admin > div { width: 100% !important; }
+    .fila-itinerario-admin button { position: absolute; top: 10px; right: 10px; }
+    .formulario-config input, 
+    .formulario-config button,
+    #formEditor input,
+    #formEditor textarea,
+    #formEditor select,
+    .contenedor-pregunta-respuesta { width: 100% !important; }
+
+    .layout-config-dos-columnas { grid-template-columns: 1fr; gap: 20px; }
+    .seccion-avatar-config { border-left: none; border-top: 2px dashed #eee; padding-left: 0; padding-top: 30px; }
+
+    #contenedor-principal > div[style*="justify-content: space-between"] {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px;
+    }
+    .linea-rectangular-destino { flex-direction: column; align-items: flex-start !important; gap: 15px; padding: 20px !important; }
+    .info-basica { width: 100%; align-items: flex-start; }
+    .controles-admin {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 10px !important;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+    .controles-admin .btn-detalles { flex-grow: 1; text-align: center; justify-content: center; }
+    .cabecera-seccion { flex-direction: column !important; align-items: center !important; gap: 15px; text-align: center; }
+    .filtros-viajes { width: auto !important; display: inline-flex !important; justify-content: center !important; margin-bottom: 10px !important; }
+    .resumen-estadistico-reseñas { flex-direction: column; gap: 30px; }
+    .grilla-masonry-reseñas { column-count: 2; }
+}
+
+@media (max-width: 650px) { .lista { grid-template-columns: 1fr; } }
+@media (max-width: 600px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .footer-contenedor { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 500px) { .grilla-masonry-reseñas { column-count: 1; } }
+@media (max-width: 480px) {
+  .grilla-de-fotos-pequenas { grid-template-columns: 1fr; }
+  .caja-blanca-sobre-foto { padding: 20px; margin-top: -30px; }
+}
+
+/* ==========================================
+   Animaciones del Checkmark de Éxito
+========================================== */
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 50px #2e7d32;
+  }
 }
